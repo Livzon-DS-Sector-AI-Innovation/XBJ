@@ -102,9 +102,18 @@ export const moduleMenus: ModuleMenu[] = [
     icon: "building",
     path: "/admin",
     children: [
-      { key: "notice", label: "公告通知", path: "/admin/notice" },
-      { key: "meeting", label: "会议管理", path: "/admin/meeting" },
-      { key: "approval", label: "文件审批", path: "/admin/approval" },
+      { key: "notice", label: "企业规章制度", path: "/admin/notice" },
+      { key: "approval", label: "寄件申请", path: "/admin/approval" },
+      {
+        key: "meeting",
+        label: "物品领用",
+        path: "/admin/meeting",
+        children: [
+          { key: "meeting-ledger", label: "物品台账", path: "/admin/meeting/ledger" },
+          { key: "meeting-requisitions", label: "领用记录", path: "/admin/meeting/requisitions" },
+          { key: "meeting-requests", label: "领用申请", path: "/admin/meeting/requests" },
+        ],
+      },
       {
         key: "vehicle",
         label: "车队管理",

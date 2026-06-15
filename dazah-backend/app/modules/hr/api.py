@@ -30,6 +30,21 @@ from app.modules.hr.schemas import (
     TeamCreate,
     TeamResponse,
     TeamUpdate,
+    TrainingApprovalCreate,
+    TrainingApprovalResponse,
+    TrainingApprovalUpdate,
+    TrainingAssessmentCreate,
+    TrainingAssessmentResponse,
+    TrainingAssessmentUpdate,
+    TrainingPlanCreate,
+    TrainingPlanResponse,
+    TrainingPlanSopCreate,
+    TrainingPlanSopResponse,
+    TrainingPlanSopUpdate,
+    TrainingPlanUpdate,
+    TrainingRecordCreate,
+    TrainingRecordResponse,
+    TrainingRecordUpdate,
 )
 from app.modules.hr.analysis_api import router as analysis_router
 from app.modules.hr.service import (
@@ -40,6 +55,11 @@ from app.modules.hr.service import (
     OffboardingRecordService,
     OnboardingRecordService,
     TeamService,
+    TrainingApprovalService,
+    TrainingAssessmentService,
+    TrainingPlanService,
+    TrainingPlanSopService,
+    TrainingRecordService,
 )
 from app.platform.integrations.feishu.candidate_datasource import CandidateBitableDataSource
 from app.shared.module_api import create_module_router

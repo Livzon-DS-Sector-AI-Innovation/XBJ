@@ -25,7 +25,7 @@ export const useVehicleChatStore = create<VehicleChatState>((set, get) => ({
     {
       role: 'assistant',
       content:
-        '你好！我是车队智能助手「小V」。\n你可以上传用车单据、车辆照片等图片，或问我关于用车申请、车辆信息查询的问题。',
+        '你好！我是智能助手。\n你可以上传用车单据、车辆照片等图片，或问我关于用车申请、车辆信息查询的问题。',
     },
   ],
   isOpen: false,
@@ -110,7 +110,7 @@ export const useVehicleChatStore = create<VehicleChatState>((set, get) => ({
         {
           role: 'assistant',
           content:
-            '对话已清空。我是车队智能助手「小V」，可以帮你查询用车申请、车辆信息，或分析上传的图片。',
+            '对话已清空。我是智能助手，可以帮你查询用车申请、车辆信息，或分析上传的图片。',
         },
       ],
       inputValue: '',

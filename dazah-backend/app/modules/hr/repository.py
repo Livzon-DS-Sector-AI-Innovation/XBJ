@@ -16,6 +16,11 @@ from app.modules.hr.models import (
     OffboardingRecord,
     OnboardingRecord,
     Team,
+    TrainingApproval,
+    TrainingAssessment,
+    TrainingPlan,
+    TrainingPlanSop,
+    TrainingRecord,
 )
 
 
@@ -732,6 +737,16 @@ class CandidateRepository:
         page_size: int = 20,
         sort_by: str = "created_at",
         sort_order: str = "desc",
+    ) -> tuple[list[TrainingPlanSop], int]:
+        stmt = select(TrainingPlanSop).where(TrainingPlanSop.is_deleted.is_(False))
+
+        if plan_id:
+            stmt = stmt.where(TrainingPlanSop.plan_id == plan_id)
+        if keyword:
+            stmt = stmt.where(TrainingPlanSop.sop_name.ilike(f"%{keyword}%"))
+
+        count_stmt = select(func.count()).select_from(stmt.subquery())
+        sort_column = getattr(TrainingPlanSop, sort_by, TrainingPlanSop.created_at)
     ) -> tuple[list[Candidate], int]:
         stmt = select(Candidate).where(Candidate.is_deleted.is_(False))
 

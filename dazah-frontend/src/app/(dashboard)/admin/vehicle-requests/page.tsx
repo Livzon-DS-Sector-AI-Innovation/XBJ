@@ -1,36 +1,61 @@
 'use client'
 
-import { Card } from 'antd'
-import { VehicleChatbot } from '@/components/admin'
+import { useEffect } from 'react'
+import { SmartAssistant } from '@/components/admin'
+import { useVehicleChatStore } from '@/stores/vehicleChat'
 
 export default function VehicleRequestPage() {
-  return (
-    <div className="p-6 max-w-7xl mx-auto">
-      <h1 className="text-xl font-bold mb-4">用车申请</h1>
+  const store = useVehicleChatStore()
+  const { setPageContext } = store
 
+  useEffect(() => {
+    setPageContext({ page: 'vehicle-requests（用车申请）' })
+  }, [setPageContext])
+
+  return (
+    <div className="flex flex-col min-h-screen">
       {/* 飞书表单嵌入 */}
-      <Card title="📝 飞书用车申请表单" className="mb-6">
+      <div className="flex-1 px-6 py-4">
         <iframe
           src="https://j0eukrlohu.feishu.cn/share/base/form/shrcnFLV3uTwGYB2t6kDEbxJfre"
-          style={{ width: '100%', height: '800px', border: 'none' }}
+          className="w-full border-none rounded-lg"
+          style={{ height: '85vh' }}
           title="飞书用车申请表单"
         />
-      </Card>
+      </div>
 
-      {/* 分隔标题 + AI 助手 */}
-      <div className="flex items-center justify-between my-4 border-t border-gray-200 pt-4">
+      {/* 分隔符 */}
+      <div className="flex items-center gap-3 px-6 py-6">
+        <div className="flex-1 border-t border-gray-400" />
+        <div className="w-1.5 h-1.5 rounded-full bg-gray-400" />
+        <div className="flex-1 border-t border-gray-400" />
+      </div>
+
+      {/* 用车数据标题 */}
+      <div className="flex items-center justify-between px-6 py-4 bg-white">
         <h2 className="text-lg font-semibold">用车数据</h2>
-        <VehicleChatbot />
       </div>
 
       {/* 飞书数据视图嵌入 */}
-      <Card title="📊 飞书用车申请数据视图" className="mb-6">
+      <div className="px-6 pb-6 bg-white">
         <iframe
           src="https://j0eukrlohu.feishu.cn/share/base/view/shrcnNq9B8CXiLibG96wRLqVdrg"
-          style={{ width: '100%', height: '600px', border: 'none' }}
+          className="w-full border-none rounded-lg"
+          style={{ height: '600px' }}
           title="飞书用车申请数据视图"
         />
-      </Card>
+      </div>
+
+      <SmartAssistant
+        store={store}
+        moduleName="智能助手"
+        quickQuestions={[
+          '统计待审批的用车申请',
+          '查询所有可用车辆',
+          '本月用车申请总数是多少？',
+          '帮我分析这张用车单据',
+        ]}
+      />
     </div>
   )
 }

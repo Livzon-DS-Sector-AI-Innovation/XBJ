@@ -9,6 +9,7 @@ export interface ChatAttachment {
 export interface ChatMessage {
   role: 'user' | 'assistant' | 'system'
   content: string
+  reasoning_content?: string
   attachments?: ChatAttachment[]
 }
 
@@ -22,7 +23,7 @@ export interface HrPageContext {
 export async function streamChat(
   messages: ChatMessage[],
   pageContext: HrPageContext | null,
-  onChunk: (chunk: string) => void,
+  onChunk: (type: string, text: string) => void,
   onDone: () => void,
   onError: (err: Error) => void,
 ) {
@@ -61,7 +62,8 @@ export async function streamChat(
         if (line.startsWith('data: ')) {
           try {
             const data = JSON.parse(line.slice(6))
-            if (data.content) onChunk(data.content)
+            if (data.content) onChunk('content', data.content)
+            if (data.reasoning_content) onChunk('reasoning', data.reasoning_content)
             if (data.done) onDone()
           } catch {
             // ignore malformed lines

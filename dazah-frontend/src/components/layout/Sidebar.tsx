@@ -86,6 +86,7 @@ export function Sidebar() {
 
       <Menu
         mode="inline"
+        inlineIndent={0}
         selectedKeys={selectedKey ? [selectedKey] : []}
         defaultOpenKeys={defaultOpenKeys}
         items={menuItems}

@@ -57,3 +57,4 @@ dazah-frontend/pgpass.txt
 dazah-frontend/postgresql.zip
 dazah-frontend/redis.zip
 dazah-backend/seed_data.sql
+dazah-frontend/_backup/

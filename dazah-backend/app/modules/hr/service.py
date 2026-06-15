@@ -17,6 +17,11 @@ from app.modules.hr.models import (
     OffboardingRecord,
     OnboardingRecord,
     Team,
+    TrainingApproval,
+    TrainingAssessment,
+    TrainingPlan,
+    TrainingPlanSop,
+    TrainingRecord,
 )
 from app.modules.hr.repository import (
     CandidateRepository,
@@ -26,6 +31,11 @@ from app.modules.hr.repository import (
     OffboardingRecordRepository,
     OnboardingRecordRepository,
     TeamRepository,
+    TrainingApprovalRepository,
+    TrainingAssessmentRepository,
+    TrainingPlanRepository,
+    TrainingPlanSopRepository,
+    TrainingRecordRepository,
 )
 from app.modules.hr.schemas import (
     CandidateCreate,
@@ -43,6 +53,16 @@ from app.modules.hr.schemas import (
     SyncStatusResponse,
     TeamCreate,
     TeamUpdate,
+    TrainingApprovalCreate,
+    TrainingApprovalUpdate,
+    TrainingAssessmentCreate,
+    TrainingAssessmentUpdate,
+    TrainingPlanCreate,
+    TrainingPlanUpdate,
+    TrainingPlanSopCreate,
+    TrainingPlanSopUpdate,
+    TrainingRecordCreate,
+    TrainingRecordUpdate,
 )
 from app.platform.ai.service import AiChatService
 from app.platform.integrations.feishu import FeishuBitableSync

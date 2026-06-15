@@ -22,7 +22,8 @@ import {
   BulbOutlined,
   PictureOutlined,
   CloseCircleOutlined,
-  CarOutlined,
+  AudioOutlined,
+  AudioMutedOutlined,
 } from '@ant-design/icons'
 import { useVehicleChatStore } from '@/stores/vehicleChat'
 import { ChatAttachment } from '@/lib/api/ai'
@@ -61,6 +62,7 @@ function parseThinking(content: string): {
 export default function VehicleChatbot() {
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<any>(null)
+  const recognitionRef = useRef<any>(null)
 
   const {
     messages,
@@ -79,6 +81,64 @@ export default function VehicleChatbot() {
   } = useVehicleChatStore()
 
   const [previewImages, setPreviewImages] = useState<UploadFile[]>([])
+  const [isRecording, setIsRecording] = useState(false)
+  const [speechSupported, setSpeechSupported] = useState(false)
+
+  // Check browser support for SpeechRecognition
+  useEffect(() => {
+    const SpeechRecognition =
+      (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition
+    setSpeechSupported(!!SpeechRecognition)
+  }, [])
+
+  // Initialize SpeechRecognition
+  useEffect(() => {
+    const SpeechRecognition =
+      (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition
+    if (!SpeechRecognition) return
+
+    const recognition = new SpeechRecognition()
+    recognition.lang = 'zh-CN'
+    recognition.continuous = false
+    recognition.interimResults = false
+
+    recognition.onstart = () => {
+      setIsRecording(true)
+    }
+
+    recognition.onend = () => {
+      setIsRecording(false)
+    }
+
+    recognition.onresult = (event: any) => {
+      const transcript = event.results[0][0].transcript
+      setInputValue((prev: string) => {
+        const separator = prev && !prev.endsWith(' ') ? ' ' : ''
+        return prev + separator + transcript
+      })
+      setTimeout(() => inputRef.current?.focus(), 100)
+    }
+
+    recognition.onerror = (event: any) => {
+      console.error('Speech recognition error:', event.error)
+      setIsRecording(false)
+    }
+
+    recognitionRef.current = recognition
+
+    return () => {
+      recognition.abort()
+    }
+  }, [setInputValue])
+
+  const toggleRecording = useCallback(() => {
+    if (!recognitionRef.current) return
+    if (isRecording) {
+      recognitionRef.current.stop()
+    } else {
+      recognitionRef.current.start()
+    }
+  }, [isRecording])
 
   useEffect(() => {
     setPageContext({ page: 'vehicle-requests（用车申请）' })
@@ -154,7 +214,7 @@ export default function VehicleChatbot() {
         onClick={toggleOpen}
         className="shadow-lg"
       >
-        AI智能助手
+        智能助手
       </Button>
 
       <Drawer
@@ -164,8 +224,8 @@ export default function VehicleChatbot() {
         onClose={() => setOpen(false)}
         title={
           <div className="flex items-center gap-2">
-            <CarOutlined className="text-blue-500" />
-            <span className="font-semibold">车队智能助手 · 小V</span>
+            <RobotOutlined className="text-blue-500" />
+            <span className="font-semibold">智能助手</span>
           </div>
         }
         extra={
@@ -333,6 +393,16 @@ export default function VehicleChatbot() {
                 />
               </Upload>
             </Tooltip>
+            {speechSupported && (
+              <Tooltip title={isRecording ? '点击停止录音' : '点击语音输入'}>
+                <Button
+                  icon={isRecording ? <AudioMutedOutlined /> : <AudioOutlined />}
+                  onClick={toggleRecording}
+                  danger={isRecording}
+                  className="self-end"
+                />
+              </Tooltip>
+            )}
             <Button
               type="primary"
               icon={<SendOutlined />}
@@ -344,6 +414,7 @@ export default function VehicleChatbot() {
           </div>
           <div className="text-xs text-gray-400 mt-1 text-right">
             由 Moonshot AI 提供支持 · 支持图片上传
+            {speechSupported && ' · 支持语音输入'}
           </div>
         </div>
       </Drawer>

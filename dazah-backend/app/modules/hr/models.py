@@ -1,6 +1,6 @@
 """HR business ORM models live here."""
 
-from datetime import date
+from datetime import date, datetime
 from uuid import UUID
 
 from sqlalchemy import JSON, Date, ForeignKey, Index, Integer, String, Text
