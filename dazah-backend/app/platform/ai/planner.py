@@ -1,7 +1,7 @@
 """AI query planner — Layer 1: generates an execution plan from user intent.
 
-Uses a lightweight LLM (kimi-k2.5) to analyse natural-language questions and
-produce a structured QueryPlan with up to 5 steps.  Each step can be static
+Uses a lightweight LLM (moonshot-v1-8k) to analyse natural-language questions
+and produce a structured QueryPlan with up to 5 steps. Each step can be static
 (pre-defined parallel queries) or dynamic (queries generated at run-time based
 on previous results).
 """
@@ -18,7 +18,7 @@ from app.platform.ai.schemas import PlanStep, QueryPlan, SubQuery
 
 logger = logging.getLogger(__name__)
 
-_PLANNER_MODEL = "kimi-k2.5"
+_PLANNER_MODEL = "moonshot-v1-8k"
 
 _PLANNER_SYSTEM_PROMPT = """你是工厂人事管理系统的「查询规划助手」。
 
@@ -35,6 +35,7 @@ _PLANNER_SYSTEM_PROMPT = """你是工厂人事管理系统的「查询规划助�
 department（部门）, team（班组）, position（职位）, status（状态）, gender（性别）,
 education（学历）, political_status（政治面貌）, marital_status（婚姻状况）,
 status_category（统计类别）,
+keyword（姓名或工号关键字，按姓名/工号搜索时用）,
 age_min（最小年龄）, age_max（最大年龄）,
 birth_year_min（出生年份下限）, birth_year_max（出生年份上限）,
 hire_date_after（入职日期下限）, hire_date_before（入职日期上限）,
@@ -50,6 +51,7 @@ work_start_date_after（参加工作日期下限）, work_start_date_before（�
 6. 如果问题不需要查数据（如"你好"、"系统怎么用"），返回 needs_data=false
 7. 默认排除待审批员工：如果用户没有明确提到"待审批"，不要添加 status="待审批"
 8. position 字段使用模糊匹配，提取最核心的职位关键词即可
+9. **查询策略：先精确后模糊**。涉及人名或关键字查询时，第一步先用精确条件（如 keyword=完整姓名）；如果预计精确查询可能无结果，可以在后续 dynamic 步骤中使用模糊条件重新查询
 
 ## 日期处理规则
 - "2020年后入职" → hire_date_after="2020-01-01"

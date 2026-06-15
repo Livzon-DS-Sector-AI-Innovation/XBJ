@@ -4,7 +4,6 @@ import { useEffect, useRef, useCallback, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import {
   Drawer,
-  FloatButton,
   Input,
   Button,
   Spin,
@@ -27,7 +26,6 @@ import { useHrChatStore } from '@/stores/hrChat'
 const { TextArea } = Input
 
 function getPageFromPath(path: string): { page: string; name: string } {
-  if (path.includes('/hr/roster')) return { page: 'roster', name: '员工花名册' }
   if (path.includes('/hr/profile')) return { page: 'profile', name: '员工档案' }
   if (path.includes('/hr/departments')) return { page: 'departments', name: '部门管理' }
   if (path.includes('/hr/offboarding')) return { page: 'offboarding', name: '离职管理' }
@@ -50,6 +48,7 @@ export default function HrChatbot() {
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<any>(null)
   const recognitionRef = useRef<any>(null)
+  const buttonRef = useRef<HTMLDivElement>(null)
 
   const {
     messages,
@@ -63,6 +62,154 @@ export default function HrChatbot() {
     sendMessage,
     clearMessages,
   } = useHrChatStore()
+
+  const [position, setPosition] = useState({ x: 0, y: 0 })
+  const [isDragging, setIsDragging] = useState(false)
+  const dragState = useRef({
+    isDragging: false,
+    hasMoved: false,
+    startX: 0,
+    startY: 0,
+    initialLeft: 0,
+    initialTop: 0,
+  })
+
+  // Load saved position
+  useEffect(() => {
+    const saved = localStorage.getItem('hr-chatbot-position')
+    if (saved) {
+      try {
+        const pos = JSON.parse(saved)
+        setPosition(pos)
+      } catch {
+        setPosition({ x: window.innerWidth - 80, y: window.innerHeight - 80 })
+      }
+    } else {
+      setPosition({ x: window.innerWidth - 80, y: window.innerHeight - 80 })
+    }
+  }, [])
+
+  // Save position
+  const savePosition = useCallback((pos: { x: number; y: number }) => {
+    localStorage.setItem('hr-chatbot-position', JSON.stringify(pos))
+  }, [])
+
+  // Snap to nearest edge
+  const snapToEdge = useCallback(
+    (x: number, y: number) => {
+      const buttonSize = 56
+      const margin = 24
+      const maxX = window.innerWidth - buttonSize - margin
+      const maxY = window.innerHeight - buttonSize - margin
+
+      const clampedX = Math.max(margin, Math.min(x, maxX))
+      const clampedY = Math.max(margin, Math.min(y, maxY))
+
+      const centerX = clampedX + buttonSize / 2
+      const centerY = clampedY + buttonSize / 2
+
+      const distToLeft = centerX - margin
+      const distToRight = window.innerWidth - centerX - margin
+      const distToTop = centerY - margin
+      const distToBottom = window.innerHeight - centerY - margin
+
+      const minDist = Math.min(distToLeft, distToRight, distToTop, distToBottom)
+
+      let snappedX = clampedX
+      let snappedY = clampedY
+
+      if (minDist === distToLeft) {
+        snappedX = margin
+      } else if (minDist === distToRight) {
+        snappedX = window.innerWidth - buttonSize - margin
+      } else if (minDist === distToTop) {
+        snappedY = margin
+      } else if (minDist === distToBottom) {
+        snappedY = window.innerHeight - buttonSize - margin
+      }
+
+      const newPos = { x: snappedX, y: snappedY }
+      setPosition(newPos)
+      savePosition(newPos)
+    },
+    [savePosition]
+  )
+
+  const handlePointerDown = useCallback(
+    (e: React.PointerEvent) => {
+      const state = dragState.current
+      state.isDragging = true
+      state.hasMoved = false
+      state.startX = e.clientX
+      state.startY = e.clientY
+      state.initialLeft = position.x
+      state.initialTop = position.y
+      ;(e.target as Element).setPointerCapture(e.pointerId)
+      setIsDragging(true)
+    },
+    [position]
+  )
+
+  const handlePointerMove = useCallback(
+    (e: React.PointerEvent) => {
+      const state = dragState.current
+      if (!state.isDragging) return
+
+      const dx = e.clientX - state.startX
+      const dy = e.clientY - state.startY
+
+      if (Math.abs(dx) > 3 || Math.abs(dy) > 3) {
+        state.hasMoved = true
+      }
+
+      if (state.hasMoved) {
+        const buttonSize = 56
+        const margin = 24
+        const newX = Math.max(
+          margin,
+          Math.min(state.initialLeft + dx, window.innerWidth - buttonSize - margin)
+        )
+        const newY = Math.max(
+          margin,
+          Math.min(state.initialTop + dy, window.innerHeight - buttonSize - margin)
+        )
+        setPosition({ x: newX, y: newY })
+      }
+    },
+    []
+  )
+
+  const handlePointerUp = useCallback(
+    (e: React.PointerEvent) => {
+      const state = dragState.current
+      if (!state.isDragging) return
+      state.isDragging = false
+      setIsDragging(false)
+      ;(e.target as Element).releasePointerCapture(e.pointerId)
+
+      if (state.hasMoved) {
+        snapToEdge(position.x, position.y)
+      } else {
+        // Treat as click
+        toggleOpen()
+      }
+    },
+    [position, snapToEdge, toggleOpen]
+  )
+
+  // Handle window resize
+  useEffect(() => {
+    const handleResize = () => {
+      const buttonSize = 56
+      const margin = 24
+      setPosition((prev) => ({
+        x: Math.max(margin, Math.min(prev.x, window.innerWidth - buttonSize - margin)),
+        y: Math.max(margin, Math.min(prev.y, window.innerHeight - buttonSize - margin)),
+      }))
+    }
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   const [isRecording, setIsRecording] = useState(false)
   const [speechSupported, setSpeechSupported] = useState(false)
@@ -155,13 +302,29 @@ export default function HrChatbot() {
 
   return (
     <>
-      <FloatButton
-        icon={<RobotOutlined />}
-        tooltip="HR 智能助手"
-        onClick={toggleOpen}
-        style={{ right: 24, bottom: 24, zIndex: 9999 }}
-        className="shadow-lg"
-      />
+      <div
+        ref={buttonRef}
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={handlePointerUp}
+        style={{
+          position: 'fixed',
+          left: position.x,
+          top: position.y,
+          zIndex: 9999,
+          touchAction: 'none',
+          userSelect: 'none',
+          cursor: isDragging ? 'grabbing' : 'grab',
+        }}
+        className="transition-shadow"
+      >
+        <div
+          className={`w-10 h-10 rounded-full bg-transparent text-blue-500 flex items-center justify-center text-lg drop-shadow-md hover:text-blue-600 ${isDragging ? 'scale-110' : 'scale-100'} transition-transform`}
+          title="HR 智能助手"
+        >
+          <RobotOutlined />
+        </div>
+      </div>
 
       <Drawer
         placement="right"

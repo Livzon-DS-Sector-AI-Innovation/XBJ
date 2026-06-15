@@ -16,6 +16,7 @@ import TurnoverAnalysisPanel from './TurnoverAnalysisPanel'
 interface EmployeeProfileClientProps {
   initialEmployees: Employee[]
   initialTotal: number
+  fetchAction?: typeof fetchEmployeesAction
 }
 
 function useDebounce<T>(value: T, delay: number): T {
@@ -32,6 +33,7 @@ function useDebounce<T>(value: T, delay: number): T {
 export default function EmployeeProfileClient({
   initialEmployees,
   initialTotal,
+  fetchAction,
 }: EmployeeProfileClientProps) {
   const [employees, setEmployees] = useState<Employee[]>(initialEmployees)
   const [total, setTotal] = useState(initialTotal)
@@ -50,9 +52,11 @@ export default function EmployeeProfileClient({
       ? ''
       : departments.find((d) => d.id === activeTab)?.name || ''
 
+  const doFetch = fetchAction || fetchEmployeesAction
+
   const loadData = useCallback(async () => {
     try {
-      const res = await fetchEmployeesAction({
+      const res = await doFetch({
         keyword: debouncedSearchKeyword || undefined,
         department: activeDepartment || undefined,
         status: filterStatus || undefined,
@@ -64,7 +68,7 @@ export default function EmployeeProfileClient({
     } catch (err: any) {
       message.error(err.message || '加载数据失败')
     }
-  }, [debouncedSearchKeyword, activeDepartment, filterStatus, page, pageSize])
+  }, [debouncedSearchKeyword, activeDepartment, filterStatus, page, pageSize, doFetch])
 
   const loadDepartments = useCallback(async () => {
     try {
@@ -124,7 +128,7 @@ export default function EmployeeProfileClient({
     <div className="space-y-4">
       <div className="flex justify-between items-center">
         <h1 className="text-[22px] font-semibold text-[var(--color-charcoal)]">
-          员工档案
+          老厂员工档案
         </h1>
         <Button type="primary" icon={<PlusOutlined />} onClick={handleAdd}>
           新增员工

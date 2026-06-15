@@ -26,7 +26,7 @@ from app.platform.ai.schemas import PlanStep, QueryPlan, SubQuery
 
 logger = logging.getLogger(__name__)
 
-_DYNAMIC_MODEL = "kimi-k2.5"
+_DYNAMIC_MODEL = "moonshot-v1-8k"
 
 _DYNAMIC_SYSTEM_PROMPT = """你是工厂人事系统的「动态查询生成助手」。
 

@@ -12,11 +12,13 @@ import HrChatbot from './HrChatbot'
 interface DepartmentClientProps {
   initialDepartments: Department[]
   initialTotal: number
+  fetchAction?: typeof fetchDepartmentsAction
 }
 
 export default function DepartmentClient({
   initialDepartments,
   initialTotal,
+  fetchAction,
 }: DepartmentClientProps) {
   const [departments, setDepartments] = useState<Department[]>(initialDepartments)
   const [total, setTotal] = useState(initialTotal)
@@ -29,10 +31,12 @@ export default function DepartmentClient({
   const [teamModalOpen, setTeamModalOpen] = useState(false)
   const [selectedDepartment, setSelectedDepartment] = useState<Department | null>(null)
 
+  const doFetch = fetchAction || fetchDepartmentsAction
+
   const loadData = useCallback(async () => {
     setLoading(true)
     try {
-      const res = await fetchDepartmentsAction({
+      const res = await doFetch({
         keyword: searchKeyword || undefined,
         page,
         page_size: pageSize,
@@ -44,7 +48,7 @@ export default function DepartmentClient({
     } finally {
       setLoading(false)
     }
-  }, [searchKeyword, page, pageSize])
+  }, [searchKeyword, page, pageSize, doFetch])
 
   const handlePageChange = (newPage: number, newPageSize: number) => {
     setPage(newPage)
@@ -154,7 +158,7 @@ export default function DepartmentClient({
     <div className="space-y-4">
       <div className="flex justify-between items-center">
         <h1 className="text-[22px] font-semibold text-[var(--color-charcoal)]">
-          部门管理
+          老厂部门管理
         </h1>
         <Button type="primary" icon={<PlusOutlined />} onClick={handleAdd}>
           新增部门

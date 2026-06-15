@@ -1,1 +1,1 @@
-// production module components
+export { default as MaterialBomClient } from './MaterialBomClient'

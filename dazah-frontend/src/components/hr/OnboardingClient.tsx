@@ -19,11 +19,13 @@ import HrChatbot from './HrChatbot'
 interface OnboardingClientProps {
   initialRecords: OnboardingRecord[]
   initialTotal: number
+  fetchAction?: typeof fetchOnboardingRecords
 }
 
 export default function OnboardingClient({
   initialRecords,
   initialTotal,
+  fetchAction,
 }: OnboardingClientProps) {
   const [records, setRecords] = useState<OnboardingRecord[]>(initialRecords)
   const [total, setTotal] = useState(initialTotal)
@@ -38,10 +40,12 @@ export default function OnboardingClient({
   const [detailOpen, setDetailOpen] = useState(false)
   const [detailRecord, setDetailRecord] = useState<OnboardingRecord | null>(null)
 
+  const doFetch = fetchAction || fetchOnboardingRecords
+
   const loadData = useCallback(async () => {
     setLoading(true)
     try {
-      const res = await fetchOnboardingRecords({
+      const res = await doFetch({
         department: filterDepartment || undefined,
         position: filterPosition || undefined,
         is_employed: filterIsEmployed || undefined,
@@ -56,7 +60,7 @@ export default function OnboardingClient({
     } finally {
       setLoading(false)
     }
-  }, [filterDepartment, filterPosition, filterIsEmployed, searchKeyword, page, pageSize])
+  }, [filterDepartment, filterPosition, filterIsEmployed, searchKeyword, page, pageSize, doFetch])
 
   const handlePageChange = (newPage: number, newPageSize: number) => {
     setPage(newPage)

@@ -94,22 +94,6 @@ export const useHrChatStore = create<HrChatState>((set, get) => ({
           }
         })
       },
-      (errMsg) => {
-        set((state) => {
-          const last = state.messages[state.messages.length - 1]
-          const hasEmptyAssistant = last?.role === 'assistant' && last?.content === ''
-          const msgs = hasEmptyAssistant
-            ? state.messages.slice(0, -1)
-            : [...state.messages]
-          return {
-            messages: [
-              ...msgs,
-              { role: 'assistant', content: `[服务错误] ${errMsg}` },
-            ],
-            isLoading: false,
-          }
-        })
-      },
     )
   },
 

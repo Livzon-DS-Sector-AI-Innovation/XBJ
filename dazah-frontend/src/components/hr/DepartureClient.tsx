@@ -18,11 +18,13 @@ import HrChatbot from './HrChatbot'
 interface DepartureClientProps {
   initialRecords: DepartureRecord[]
   initialTotal: number
+  fetchAction?: typeof fetchDepartureRecords
 }
 
 export default function DepartureClient({
   initialRecords,
   initialTotal,
+  fetchAction,
 }: DepartureClientProps) {
   const [records, setRecords] = useState<DepartureRecord[]>(initialRecords)
   const [total, setTotal] = useState(initialTotal)
@@ -34,10 +36,12 @@ export default function DepartureClient({
   const [filterDepartment, setFilterDepartment] = useState('')
   const [filterOffboardingType, setFilterOffboardingType] = useState('')
 
+  const doFetch = fetchAction || fetchDepartureRecords
+
   const loadData = useCallback(async () => {
     setLoading(true)
     try {
-      const res = await fetchDepartureRecords({
+      const res = await doFetch({
         department: filterDepartment || undefined,
         offboarding_type: filterOffboardingType || undefined,
         keyword: searchKeyword || undefined,
@@ -51,7 +55,7 @@ export default function DepartureClient({
     } finally {
       setLoading(false)
     }
-  }, [filterDepartment, filterOffboardingType, searchKeyword, page, pageSize])
+  }, [filterDepartment, filterOffboardingType, searchKeyword, page, pageSize, doFetch])
 
   const handlePageChange = (newPage: number, newPageSize: number) => {
     setPage(newPage)

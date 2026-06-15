@@ -1,9 +1,20 @@
-const API_BASE = 'http://127.0.0.1:8000'
+import { ExamGenerateResponse, ExamExportData } from '@/types/hr'
+
+const API_BASE = typeof window !== 'undefined'
+  ? '' // 浏览器端使用相对路径（走 Next.js rewrite 代理）
+  : (process.env.API_BASE_URL || 'http://127.0.0.1:8000')
+
+export interface ChatAttachment {
+  type: 'image'
+  mime_type: string
+  data: string
+}
 
 export interface ChatMessage {
   role: 'user' | 'assistant' | 'system'
   content: string
   reasoning_content?: string
+  attachments?: ChatAttachment[]
 }
 
 export interface HrPageContext {
@@ -19,7 +30,6 @@ export async function streamChat(
   onChunk: (type: 'reasoning' | 'content', text: string) => void,
   onDone: () => void,
   onError: (err: Error) => void,
-  onStreamError?: (errMsg: string) => void,
 ) {
   try {
     const res = await fetch(`${API_BASE}/api/v1/ai/chat/stream`, {
@@ -44,8 +54,6 @@ export async function streamChat(
       throw new Error('无法读取响应流')
     }
 
-    let streamError: string | null = null
-
     while (true) {
       const { done, value } = await reader.read()
       if (done) break
@@ -64,17 +72,7 @@ export async function streamChat(
             if (data.content) {
               onChunk('content', data.content)
             }
-            if (data.error) {
-              streamError = data.message || 'AI 服务发生错误'
-            }
-            if (data.done) {
-              if (streamError) {
-                onStreamError?.(streamError)
-              } else {
-                onDone()
-              }
-              return
-            }
+            if (data.done) onDone()
           } catch {
             // ignore malformed lines
           }
@@ -82,13 +80,44 @@ export async function streamChat(
       }
     }
 
-    if (streamError) {
-      onStreamError?.(streamError)
-    } else {
-      onDone()
-    }
+    onDone()
   } catch (err: any) {
     onError(err instanceof Error ? err : new Error(String(err)))
   }
 }
 
+// ─── AI 出题 API ───
+
+const BACKEND_BASE = process.env.API_BASE_URL || 'http://127.0.0.1:8000'
+
+export async function generateExamQuestions(file: File): Promise<ExamGenerateResponse> {
+  const formData = new FormData()
+  formData.append('file', file)
+
+  const res = await fetch(`${BACKEND_BASE}/api/v1/ai/exam/generate`, {
+    method: 'POST',
+    body: formData,
+  })
+
+  if (!res.ok) {
+    const text = await res.text()
+    throw new Error(`出题失败: ${res.status} ${text}`)
+  }
+
+  return res.json()
+}
+
+export async function exportExam(data: ExamExportData): Promise<Blob> {
+  const res = await fetch(`${BACKEND_BASE}/api/v1/ai/exam/export`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  })
+
+  if (!res.ok) {
+    const text = await res.text()
+    throw new Error(`导出失败: ${res.status} ${text}`)
+  }
+
+  return res.blob()
+}

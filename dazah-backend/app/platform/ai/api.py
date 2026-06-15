@@ -6,11 +6,12 @@ import uuid
 from collections.abc import AsyncGenerator
 
 import openai
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from fastapi.responses import StreamingResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
+from app.core.response import success_response
 from app.modules.hr.public_api import (
     count_employees,
     query_employees,
@@ -121,21 +122,23 @@ async def _build_db_context(
 ) -> str:
     """Query HR database based on natural language and return formatted context.
 
-    Three-layer architecture:
-        1. Planner: generate execution plan from user intent
-        2. Executor: execute plan step by step (parallel within each step)
-        3. Context Builder: format results into natural-language context
-
-    Falls back to legacy parsing if the planner fails.
+    Execution flow:
+        1. Planner: analyse user intent and generate an execution plan
+        2. Executor: execute exact queries against the database
+        3. If exact queries return empty -> fuzzy search (name / keyword)
+        4. If Planner fails entirely -> legacy parsing as fallback
+        5. Feishu Bitable context as supplementary data
     """
     parts: list[str] = []
-
-    # Layer 1 + 2: Try the new planner/executor architecture first
+    found_employees = False
     plan_executed = False
+
+    # ── Phase 1: Planner + Executor (exact queries) ──
     if client is not None:
         try:
             plan = await generate_plan(client, text)
             if plan and plan.needs_data and plan.steps:
+                plan_executed = True
                 logger.info(
                     "Planner generated %d-step plan for: %s",
                     len(plan.steps),
@@ -148,17 +151,80 @@ async def _build_db_context(
                 if formatted:
                     parts.append("【数据库查询结果】")
                     parts.append(formatted)
-                    plan_executed = True
+                    # Determine whether any concrete employee records were found
+                    for sr in step_results:
+                        for res in sr.results:
+                            if "error" in res:
+                                continue
+                            action = res.get("action")
+                            if action == "query" and res.get("total", 0) > 0:
+                                found_employees = True
+                            elif action == "count" and res.get("count", 0) > 0:
+                                found_employees = True
+                            elif action == "group_count" and res.get("groups"):
+                                found_employees = True
+                            elif action == "get_distinct" and res.get("values"):
+                                found_employees = True
             elif plan and not plan.needs_data:
                 logger.info("Planner decided no data needed for: %s", text)
+                return ""
         except Exception as exc:
-            logger.warning("Three-layer plan execution failed: %s", exc)
+            logger.warning("Planner/Executor failed: %s", exc)
 
-    # Fallback: legacy parsing if planner did not produce results
+    # ── Phase 2: Exact queries returned empty -> fuzzy search ──
+    if plan_executed and not found_employees:
+        names = _extract_names(text)
+        if names:
+            seen: set[str] = set()
+            fuzzy_hit = False
+            for name in names[:3]:
+                if name in seen:
+                    continue
+                seen.add(name)
+
+                employees = await search_employees_by_name(session, name)
+                if employees:
+                    fuzzy_hit = True
+                    parts.append(
+                        f"【模糊查询结果】未找到精确匹配'{name}'的员工，"
+                        f"但找到姓名包含'{name}'的员工："
+                    )
+                    for emp in employees:
+                        parts.append(
+                            f"- {emp['name']}（工号:{emp['employee_number']}）"
+                            f"，部门:{emp['department']}"
+                            f"，职位:{emp['position']}"
+                            f"，状态:{emp['status']}"
+                        )
+                    break
+
+                fuzzy = await search_employees_fuzzy(session, name)
+                if fuzzy:
+                    fuzzy_hit = True
+                    parts.append(
+                        f"【模糊查询结果】未找到姓名包含'{name}'的员工。"
+                        f"以下是名字中包含'{name}'中某个字的员工（可能为相似姓名）："
+                    )
+                    for emp in fuzzy[:10]:
+                        parts.append(
+                            f"- {emp['name']}（工号:{emp['employee_number']}）"
+                            f"，部门:{emp['department']}"
+                            f"，职位:{emp['position']}"
+                            f"，状态:{emp['status']}"
+                        )
+                    break
+
+            if not fuzzy_hit:
+                parts.append(
+                    f"【数据库查询结果】未找到姓名包含'{names[0]}'或相关字的员工。"
+                )
+        else:
+            parts.append("【数据库查询结果】未找到符合条件的记录。")
+
+    # ── Phase 3: Planner failed -> legacy parsing fallback ──
     if not plan_executed:
         logger.info("Falling back to legacy parsing for: %s", text)
 
-        # 1. Try LLM-based parsing first
         criteria = None
         if client is not None:
             try:
@@ -172,7 +238,6 @@ async def _build_db_context(
                 logger.warning("LLM intent parsing failed: %s", exc)
                 criteria = None
 
-        # 2. Fallback to hardcoded regex parser
         if criteria is None:
             criteria = parse_employee_query(text)
             logger.info(
@@ -180,17 +245,18 @@ async def _build_db_context(
                 criteria.filters if criteria else None,
             )
 
-        # 3. Execute query if we have criteria
         if criteria and criteria.filters:
             desc = describe_filters(criteria.filters)
             if criteria.query_type == "count":
                 total = await count_employees(session, filters=criteria.filters)
                 parts.append(f"【数据库查询结果】{desc}共有{total}名员工。")
+                found_employees = total > 0
             else:
                 employees, total = await query_employees(
                     session, filters=criteria.filters, page=1, page_size=200
                 )
                 if employees:
+                    found_employees = True
                     parts.append(
                         f"【数据库查询结果】{desc}共有{total}名员工，以下是部分信息："
                     )
@@ -215,29 +281,37 @@ async def _build_db_context(
                 else:
                     parts.append(f"【数据库查询结果】未找到{desc}的员工记录。")
 
-        # 4. Fallback: name-based search if no structured criteria matched
-        if not criteria or (not criteria.filters and criteria.name_keyword):
+        # Legacy parsing also returned empty -> fuzzy search
+        if not found_employees:
             names = _extract_names(text)
-            seen: set[str] = set()
-            for name in names[:3]:
-                if name in seen:
-                    continue
-                seen.add(name)
-                employees = await search_employees_by_name(session, name)
-                if employees:
-                    parts.append(f"【数据库查询结果】姓名包含'{name}'的员工：")
-                    for emp in employees:
+            if names:
+                seen: set[str] = set()
+                fuzzy_hit = False
+                for name in names[:3]:
+                    if name in seen:
+                        continue
+                    seen.add(name)
+
+                    employees = await search_employees_by_name(session, name)
+                    if employees:
+                        fuzzy_hit = True
                         parts.append(
-                            f"- {emp['name']}（工号:{emp['employee_number']}）"
-                            f"，部门:{emp['department']}"
-                            f"，职位:{emp['position']}"
-                            f"，状态:{emp['status']}"
+                            f"【模糊查询结果】姓名包含'{name}'的员工："
                         )
-                else:
+                        for emp in employees:
+                            parts.append(
+                                f"- {emp['name']}（工号:{emp['employee_number']}）"
+                                f"，部门:{emp['department']}"
+                                f"，职位:{emp['position']}"
+                                f"，状态:{emp['status']}"
+                            )
+                        break
+
                     fuzzy = await search_employees_fuzzy(session, name)
                     if fuzzy:
+                        fuzzy_hit = True
                         parts.append(
-                            f"【数据库查询结果】未找到姓名包含'{name}'的员工。"
+                            f"【模糊查询结果】未找到姓名完全匹配'{name}'的员工。"
                             f"以下是名字中包含'{name}'中某个字的员工（可能为相似姓名）："
                         )
                         for emp in fuzzy[:10]:
@@ -247,12 +321,14 @@ async def _build_db_context(
                                 f"，职位:{emp['position']}"
                                 f"，状态:{emp['status']}"
                             )
-                    else:
-                        parts.append(
-                            f"【数据库查询结果】未找到姓名包含'{name}'或相关字的员工。"
-                        )
+                        break
 
-    # 5. Feishu Bitable query (server-side filtered)
+                if not fuzzy_hit:
+                    parts.append(
+                        f"【数据库查询结果】未找到姓名包含'{names[0]}'或相关字的员工。"
+                    )
+
+    # ── Phase 4: Feishu Bitable supplementary context ──
     feishu_context = await build_feishu_context(text)
     if feishu_context:
         parts.append(feishu_context)
@@ -288,9 +364,8 @@ async def chat_stream(
     if db_context and messages and messages[-1]["role"] == "user":
         original = messages[-1]["content"]
         messages[-1]["content"] = (
-            f"【数据库查询结果，请严格基于以下事实回答，禁止编造】\n"
             f"{db_context}\n\n"
-            f"【用户原始问题】\n{original}"
+            f"用户问题：{original}"
         )
 
     # 4. Append page context as the last user message hint if provided
@@ -333,6 +408,206 @@ async def chat_stream(
     return StreamingResponse(
         event_generator(),
         media_type="text/event-stream",
+    )
+
+
+# ─── AI 出题相关接口 ───
+
+import re
+from io import BytesIO
+from urllib.parse import quote
+
+from docx import Document as DocxDocument
+from fastapi import File, UploadFile
+from fastapi.responses import StreamingResponse
+
+from app.platform.ai.exam_generator import (
+    build_generate_prompt,
+    generate_exam_docx,
+)
+from app.platform.ai.schemas import (
+    ChoiceOption,
+    ChoiceQuestion,
+    ExamExportRequest,
+    ExamGenerateResponse,
+    TrueFalseQuestion,
+)
+
+
+_SUPPORTED_MIME_TYPES = {
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document": "docx",
+    "text/plain": "txt",
+}
+
+
+def _extract_text_from_file(file_bytes: bytes, file_type: str) -> str:
+    """从上传文件中提取纯文本内容."""
+    if file_type == "docx":
+        buffer = BytesIO(file_bytes)
+        doc = DocxDocument(buffer)
+        paragraphs = [p.text.strip() for p in doc.paragraphs if p.text.strip()]
+        return "\n".join(paragraphs)
+    if file_type == "txt":
+        # 尝试多种编码
+        for encoding in ("utf-8", "utf-8-sig", "gbk", "gb2312", "gb18030"):
+            try:
+                return file_bytes.decode(encoding)
+            except UnicodeDecodeError:
+                continue
+        raise ValueError("无法识别文本文件编码")
+    raise ValueError(f"不支持的文件类型: {file_type}")
+
+
+async def _call_moonshot_for_exam(
+    client: openai.AsyncOpenAI,
+    file_content: str,
+) -> ExamGenerateResponse:
+    """调用 Moonshot API 根据文件内容生成题目."""
+    prompt = build_generate_prompt(file_content)
+
+    response = await client.chat.completions.create(
+        model="kimi-k2.5",
+        messages=[
+            {"role": "system", "content": "你是一个专业的培训考核出题专家，只输出JSON格式内容。"},
+            {"role": "user", "content": prompt},
+        ],
+        temperature=1,
+        max_tokens=4096,
+    )
+
+    content = response.choices[0].message.content or ""
+    logger.info("Moonshot raw response length: %d", len(content))
+
+    # 尝试从响应中提取 JSON
+    json_str = ""
+
+    # 1. 尝试提取 markdown json 代码块
+    json_match = re.search(r"```json\s*(.*?)\s*```", content, re.DOTALL)
+    if json_match:
+        json_str = json_match.group(1)
+    else:
+        # 2. 尝试提取普通代码块
+        json_match = re.search(r"```\s*(.*?)\s*```", content, re.DOTALL)
+        if json_match:
+            json_str = json_match.group(1)
+        else:
+            # 3. 尝试找第一个 { 到最后一个 }
+            start = content.find("{")
+            end = content.rfind("}")
+            if start != -1 and end != -1 and end > start:
+                json_str = content[start : end + 1]
+            else:
+                json_str = content
+
+    # 清理可能的 BOM 和非法字符
+    json_str = json_str.strip().lstrip("﻿")
+
+    logger.info("Extracted JSON string length: %d", len(json_str))
+
+    try:
+        data = json.loads(json_str)
+    except json.JSONDecodeError as exc:
+        logger.error("JSON parse failed: %s", exc)
+        logger.error("Raw content preview: %s", content[:500])
+        logger.error("Extracted JSON preview: %s", json_str[:500])
+        raise
+
+    choice_questions = [
+        ChoiceQuestion(
+            number=q["number"],
+            question=q["question"],
+            options=[
+                ChoiceOption(label=o["label"], text=o["text"])
+                for o in q.get("options", [])
+            ],
+            answer=q.get("answer"),
+        )
+        for q in data.get("choice_questions", [])
+    ]
+
+    true_false_questions = [
+        TrueFalseQuestion(
+            number=q["number"],
+            question=q["question"],
+            answer=q.get("answer"),
+        )
+        for q in data.get("true_false_questions", [])
+    ]
+
+    return ExamGenerateResponse(
+        choice_questions=choice_questions,
+        true_false_questions=true_false_questions,
+    )
+
+
+@router.post("/exam/generate", summary="AI 出题：上传文件生成试卷题目")
+async def generate_exam_questions(
+    file: UploadFile = File(..., description="上传的文件（支持 .docx, .txt）"),
+    service: AiChatService = Depends(get_ai_chat_service),
+):
+    """上传培训文件，AI 自动识别内容并生成选择题和判断题."""
+    if not file.content_type or file.content_type not in _SUPPORTED_MIME_TYPES:
+        raise HTTPException(
+            status_code=400,
+            detail=f"不支持的文件类型: {file.content_type}，仅支持 docx 和 txt",
+        )
+
+    file_type = _SUPPORTED_MIME_TYPES[file.content_type]
+    file_bytes = await file.read()
+
+    if len(file_bytes) > 10 * 1024 * 1024:
+        raise HTTPException(status_code=400, detail="文件大小不能超过 10MB")
+
+    try:
+        file_content = _extract_text_from_file(file_bytes, file_type)
+    except Exception as exc:
+        raise HTTPException(status_code=400, detail=f"文件解析失败: {exc}") from exc
+
+    if len(file_content.strip()) < 50:
+        raise HTTPException(status_code=400, detail="文件内容过短，无法生成题目")
+
+    try:
+        result = await _call_moonshot_for_exam(service.client, file_content)
+    except json.JSONDecodeError as exc:
+        raise HTTPException(
+            status_code=500, detail=f"AI 返回格式解析失败: {exc}"
+        ) from exc
+    except Exception as exc:
+        logger.exception("AI 出题失败")
+        raise HTTPException(status_code=500, detail=f"AI 出题失败: {exc}") from exc
+
+    return success_response(
+        data=result.model_dump(mode="json"),
+        message="试卷题目生成成功",
+    )
+
+
+@router.post("/exam/export", summary="导出试卷 Word 文档")
+async def export_exam(
+    request: ExamExportRequest,
+):
+    """根据试卷数据生成并下载 Word 文档."""
+    try:
+        buffer = generate_exam_docx(request)
+    except Exception as exc:
+        logger.exception("试卷导出失败")
+        raise HTTPException(status_code=500, detail=f"试卷导出失败: {exc}") from exc
+
+    def _iterfile():
+        buffer.seek(0)
+        yield buffer.read()
+
+    safe_title = re.sub(r'[\\/:*?"<>|]', "_", request.title) or "试卷"
+    filename = f"{safe_title}.docx"
+    # RFC 5987 encoding for non-ASCII filenames in Content-Disposition
+    encoded_filename = quote(filename, safe="")
+
+    return StreamingResponse(
+        _iterfile(),
+        media_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        headers={
+            "Content-Disposition": f"attachment; filename*=utf-8''{encoded_filename}"
+        },
     )
 
 
