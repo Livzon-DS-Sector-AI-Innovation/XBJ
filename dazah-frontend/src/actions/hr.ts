@@ -14,21 +14,7 @@ import {
   OffboardingRecordCreateInput,
   OffboardingRecordUpdateInput,
   OffboardingRecordListResponse,
-  TrainingPlanCreateInput,
-  TrainingPlanUpdateInput,
-  TrainingPlanListResponse,
-  TrainingPlanSopCreateInput,
-  TrainingPlanSopUpdateInput,
-  TrainingPlanSopListResponse,
-  TrainingRecordCreateInput,
-  TrainingRecordUpdateInput,
-  TrainingRecordListResponse,
-  TrainingAssessmentCreateInput,
-  TrainingAssessmentUpdateInput,
-  TrainingAssessmentListResponse,
-  TrainingApprovalCreateInput,
-  TrainingApprovalUpdateInput,
-  TrainingApprovalListResponse,
+  Candidate,
 } from '@/types/hr'
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8002'
@@ -312,317 +298,130 @@ export async function deleteOffboardingRecord(id: string) {
   return res.json()
 }
 
-// ─── TrainingPlan Actions ───
+// ─── Candidate Actions ───
 
-export async function fetchTrainingPlansAction(
-  params?: {
-    keyword?: string
-    page?: number
-    page_size?: number
+export async function parseResumePreviewAction(formData: FormData): Promise<{
+  code: number
+  message: string
+  data: {
+    gender: string
+    school: string
+    education: string
+    major: string
+    match_report: string
+    recommendation_level: string
   }
-): Promise<TrainingPlanListResponse> {
-  const searchParams = new URLSearchParams()
-  if (params?.keyword) searchParams.set('keyword', params.keyword)
-  searchParams.set('page', String(params?.page || 1))
-  searchParams.set('page_size', String(params?.page_size || 20))
-
-  const res = await fetch(`${API_BASE}/api/v1/hr/training-plans?${searchParams.toString()}`, {
-    cache: 'no-store',
-  })
-  if (!res.ok) throw new Error('获取培训计划列表失败')
-  return res.json()
-}
-
-export async function createTrainingPlan(data: TrainingPlanCreateInput) {
-  const res = await fetch(`${API_BASE}/api/v1/hr/training-plans`, {
+}> {
+  const res = await fetch(`${API_BASE}/api/v1/hr/candidates/parse-preview`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data),
+    body: formData,
   })
   if (!res.ok) {
     const err = await res.json().catch(() => ({}))
-    throw new Error(err.message || '创建培训计划失败')
+    throw new Error(err.message || '解析简历失败')
   }
-  revalidatePath('/hr/training')
   return res.json()
 }
 
-export async function updateTrainingPlan(id: string, data: TrainingPlanUpdateInput) {
-  const res = await fetch(`${API_BASE}/api/v1/hr/training-plans/${id}`, {
+export async function createCandidateAction(formData: FormData): Promise<{
+  code: number
+  message: string
+  data: Candidate
+}> {
+  const res = await fetch(`${API_BASE}/api/v1/hr/candidates`, {
+    method: 'POST',
+    body: formData,
+  })
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}))
+    throw new Error(err.message || '创建候选人失败')
+  }
+  revalidatePath('/hr/recruitment')
+  return res.json()
+}
+
+export async function updateCandidateAction(
+  id: string,
+  payload: {
+    position?: string
+    gender?: string
+    school?: string
+    education?: string
+    major?: string
+  }
+) {
+  const res = await fetch(`${API_BASE}/api/v1/hr/candidates/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data),
+    body: JSON.stringify(payload),
   })
   if (!res.ok) {
     const err = await res.json().catch(() => ({}))
-    throw new Error(err.message || '更新培训计划失败')
+    throw new Error(err.message || '更新候选人信息失败')
   }
-  revalidatePath('/hr/training')
+  revalidatePath('/hr/recruitment')
   return res.json()
 }
 
-export async function deleteTrainingPlan(id: string) {
-  const res = await fetch(`${API_BASE}/api/v1/hr/training-plans/${id}`, {
+export async function updateCandidateRecommendationLevelAction(
+  id: string,
+  recommendation_level: string
+) {
+  const res = await fetch(`${API_BASE}/api/v1/hr/candidates/${id}/recommendation-level`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ recommendation_level }),
+  })
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}))
+    throw new Error(err.message || '更新推荐等级失败')
+  }
+  revalidatePath('/hr/recruitment')
+  return res.json()
+}
+
+export async function deleteCandidateAction(id: string) {
+  const res = await fetch(`${API_BASE}/api/v1/hr/candidates/${id}`, {
     method: 'DELETE',
   })
   if (!res.ok) {
     const err = await res.json().catch(() => ({}))
-    throw new Error(err.message || '删除培训计划失败')
+    throw new Error(err.message || '删除候选人失败')
   }
-  revalidatePath('/hr/training')
+  revalidatePath('/hr/recruitment')
   return res.json()
 }
 
-// ─── TrainingPlanSop Actions ───
-
-export async function fetchTrainingPlanSopsAction(
-  params?: {
-    plan_id?: string
-    keyword?: string
-    page?: number
-    page_size?: number
-  }
-): Promise<TrainingPlanSopListResponse> {
-  const searchParams = new URLSearchParams()
-  if (params?.plan_id) searchParams.set('plan_id', params.plan_id)
-  if (params?.keyword) searchParams.set('keyword', params.keyword)
-  searchParams.set('page', String(params?.page || 1))
-  searchParams.set('page_size', String(params?.page_size || 20))
-
-  const res = await fetch(`${API_BASE}/api/v1/hr/training-plan-sops?${searchParams.toString()}`, {
+export async function syncCandidatesFromFeishuAction(): Promise<{
+  code: number
+  message: string
+  data: { created: number; updated: number; failed: number; total: number }
+}> {
+  const res = await fetch(`${API_BASE}/api/v1/hr/candidates/sync-from-feishu`, {
+    method: 'POST',
     cache: 'no-store',
   })
-  if (!res.ok) throw new Error('获取培训计划SOP列表失败')
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}))
+    throw new Error(err.message || '从飞书同步候选人失败')
+  }
+  revalidatePath('/hr/recruitment')
   return res.json()
 }
 
-export async function createTrainingPlanSop(data: TrainingPlanSopCreateInput) {
-  const res = await fetch(`${API_BASE}/api/v1/hr/training-plan-sops`, {
+export async function syncCandidateToFeishuAction(id: string): Promise<{
+  code: number
+  message: string
+  data: Candidate
+}> {
+  const res = await fetch(`${API_BASE}/api/v1/hr/candidates/${id}/sync-to-feishu`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data),
-  })
-  if (!res.ok) {
-    const err = await res.json().catch(() => ({}))
-    throw new Error(err.message || '创建培训计划SOP失败')
-  }
-  revalidatePath('/hr/training')
-  return res.json()
-}
-
-export async function updateTrainingPlanSop(id: string, data: TrainingPlanSopUpdateInput) {
-  const res = await fetch(`${API_BASE}/api/v1/hr/training-plan-sops/${id}`, {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data),
-  })
-  if (!res.ok) {
-    const err = await res.json().catch(() => ({}))
-    throw new Error(err.message || '更新培训计划SOP失败')
-  }
-  revalidatePath('/hr/training')
-  return res.json()
-}
-
-export async function deleteTrainingPlanSop(id: string) {
-  const res = await fetch(`${API_BASE}/api/v1/hr/training-plan-sops/${id}`, {
-    method: 'DELETE',
-  })
-  if (!res.ok) {
-    const err = await res.json().catch(() => ({}))
-    throw new Error(err.message || '删除培训计划SOP失败')
-  }
-  revalidatePath('/hr/training')
-  return res.json()
-}
-
-// ─── TrainingRecord Actions ───
-
-export async function fetchTrainingRecordsAction(
-  params?: {
-    plan_id?: string
-    employee_id?: string
-    keyword?: string
-    page?: number
-    page_size?: number
-  }
-): Promise<TrainingRecordListResponse> {
-  const searchParams = new URLSearchParams()
-  if (params?.plan_id) searchParams.set('plan_id', params.plan_id)
-  if (params?.employee_id) searchParams.set('employee_id', params.employee_id)
-  if (params?.keyword) searchParams.set('keyword', params.keyword)
-  searchParams.set('page', String(params?.page || 1))
-  searchParams.set('page_size', String(params?.page_size || 20))
-
-  const res = await fetch(`${API_BASE}/api/v1/hr/training-records?${searchParams.toString()}`, {
     cache: 'no-store',
   })
-  if (!res.ok) throw new Error('获取培训记录列表失败')
-  return res.json()
-}
-
-export async function createTrainingRecord(data: TrainingRecordCreateInput) {
-  const res = await fetch(`${API_BASE}/api/v1/hr/training-records`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data),
-  })
   if (!res.ok) {
     const err = await res.json().catch(() => ({}))
-    throw new Error(err.message || '创建培训记录失败')
+    throw new Error(err.message || '同步候选人到飞书失败')
   }
-  revalidatePath('/hr/training')
-  return res.json()
-}
-
-export async function updateTrainingRecord(id: string, data: TrainingRecordUpdateInput) {
-  const res = await fetch(`${API_BASE}/api/v1/hr/training-records/${id}`, {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data),
-  })
-  if (!res.ok) {
-    const err = await res.json().catch(() => ({}))
-    throw new Error(err.message || '更新培训记录失败')
-  }
-  revalidatePath('/hr/training')
-  return res.json()
-}
-
-export async function deleteTrainingRecord(id: string) {
-  const res = await fetch(`${API_BASE}/api/v1/hr/training-records/${id}`, {
-    method: 'DELETE',
-  })
-  if (!res.ok) {
-    const err = await res.json().catch(() => ({}))
-    throw new Error(err.message || '删除培训记录失败')
-  }
-  revalidatePath('/hr/training')
-  return res.json()
-}
-
-// ─── TrainingAssessment Actions ───
-
-export async function fetchTrainingAssessmentsAction(
-  params?: {
-    record_id?: string
-    keyword?: string
-    page?: number
-    page_size?: number
-  }
-): Promise<TrainingAssessmentListResponse> {
-  const searchParams = new URLSearchParams()
-  if (params?.record_id) searchParams.set('record_id', params.record_id)
-  if (params?.keyword) searchParams.set('keyword', params.keyword)
-  searchParams.set('page', String(params?.page || 1))
-  searchParams.set('page_size', String(params?.page_size || 20))
-
-  const res = await fetch(`${API_BASE}/api/v1/hr/training-assessments?${searchParams.toString()}`, {
-    cache: 'no-store',
-  })
-  if (!res.ok) throw new Error('获取培训考核列表失败')
-  return res.json()
-}
-
-export async function createTrainingAssessment(data: TrainingAssessmentCreateInput) {
-  const res = await fetch(`${API_BASE}/api/v1/hr/training-assessments`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data),
-  })
-  if (!res.ok) {
-    const err = await res.json().catch(() => ({}))
-    throw new Error(err.message || '创建培训考核失败')
-  }
-  revalidatePath('/hr/training')
-  return res.json()
-}
-
-export async function updateTrainingAssessment(id: string, data: TrainingAssessmentUpdateInput) {
-  const res = await fetch(`${API_BASE}/api/v1/hr/training-assessments/${id}`, {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data),
-  })
-  if (!res.ok) {
-    const err = await res.json().catch(() => ({}))
-    throw new Error(err.message || '更新培训考核失败')
-  }
-  revalidatePath('/hr/training')
-  return res.json()
-}
-
-export async function deleteTrainingAssessment(id: string) {
-  const res = await fetch(`${API_BASE}/api/v1/hr/training-assessments/${id}`, {
-    method: 'DELETE',
-  })
-  if (!res.ok) {
-    const err = await res.json().catch(() => ({}))
-    throw new Error(err.message || '删除培训考核失败')
-  }
-  revalidatePath('/hr/training')
-  return res.json()
-}
-
-// ─── TrainingApproval Actions ───
-
-export async function fetchTrainingApprovalsAction(
-  params?: {
-    record_id?: string
-    keyword?: string
-    page?: number
-    page_size?: number
-  }
-): Promise<TrainingApprovalListResponse> {
-  const searchParams = new URLSearchParams()
-  if (params?.record_id) searchParams.set('record_id', params.record_id)
-  if (params?.keyword) searchParams.set('keyword', params.keyword)
-  searchParams.set('page', String(params?.page || 1))
-  searchParams.set('page_size', String(params?.page_size || 20))
-
-  const res = await fetch(`${API_BASE}/api/v1/hr/training-approvals?${searchParams.toString()}`, {
-    cache: 'no-store',
-  })
-  if (!res.ok) throw new Error('获取培训审批列表失败')
-  return res.json()
-}
-
-export async function createTrainingApproval(data: TrainingApprovalCreateInput) {
-  const res = await fetch(`${API_BASE}/api/v1/hr/training-approvals`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data),
-  })
-  if (!res.ok) {
-    const err = await res.json().catch(() => ({}))
-    throw new Error(err.message || '创建培训审批失败')
-  }
-  revalidatePath('/hr/training')
-  return res.json()
-}
-
-export async function updateTrainingApproval(id: string, data: TrainingApprovalUpdateInput) {
-  const res = await fetch(`${API_BASE}/api/v1/hr/training-approvals/${id}`, {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data),
-  })
-  if (!res.ok) {
-    const err = await res.json().catch(() => ({}))
-    throw new Error(err.message || '更新培训审批失败')
-  }
-  revalidatePath('/hr/training')
-  return res.json()
-}
-
-export async function deleteTrainingApproval(id: string) {
-  const res = await fetch(`${API_BASE}/api/v1/hr/training-approvals/${id}`, {
-    method: 'DELETE',
-  })
-  if (!res.ok) {
-    const err = await res.json().catch(() => ({}))
-    throw new Error(err.message || '删除培训审批失败')
-  }
-  revalidatePath('/hr/training')
+  revalidatePath('/hr/recruitment')
   return res.json()
 }

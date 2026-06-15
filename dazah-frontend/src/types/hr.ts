@@ -478,46 +478,34 @@ export interface TurnoverAnalysisResponse {
   }
 }
 
-export interface TrainingPlan {
+export interface Candidate {
   id: string
-  title: string
-  description?: string
-  department?: string
-  target_audience?: string
-  start_date?: string
-  end_date?: string
-  status?: string
-  created_by?: string
+  name: string
+  position: string
+  gender?: string
+  school?: string
+  education?: string
+  major?: string
+  match_report?: string
+  recommendation_level?: string
+  resume_attachments?: Array<{
+    file_token: string
+    name: string
+    type: string
+    size: number
+  }>
+  feishu_record_id?: string
+  feishu_synced_at?: string
+  feishu_sync_status?: 'synced' | 'failed' | null
+  feishu_sync_error?: string | null
   created_at?: string
   updated_at?: string
 }
 
-export interface TrainingPlanCreateInput {
-  title: string
-  description?: string
-  department?: string
-  target_audience?: string
-  start_date?: string
-  end_date?: string
-  status?: string
-  created_by?: string
-}
-
-export interface TrainingPlanUpdateInput {
-  title?: string
-  description?: string
-  department?: string
-  target_audience?: string
-  start_date?: string
-  end_date?: string
-  status?: string
-  created_by?: string
-}
-
-export interface TrainingPlanListResponse {
+export interface CandidateListResponse {
   code: number
   message: string
-  data: TrainingPlan[]
+  data: Candidate[]
   meta?: {
     page: number
     page_size: number
@@ -525,197 +513,8 @@ export interface TrainingPlanListResponse {
   }
 }
 
-export interface TrainingPlanResponse {
+export interface CandidateResponse {
   code: number
   message: string
-  data: TrainingPlan
-}
-
-export interface TrainingPlanSop {
-  id: string
-  plan_id: string
-  sop_id: string
-  sop_name?: string
-  order?: number
-  created_at?: string
-  updated_at?: string
-}
-
-export interface TrainingPlanSopCreateInput {
-  plan_id: string
-  sop_id: string
-  sop_name?: string
-  order?: number
-}
-
-export interface TrainingPlanSopUpdateInput {
-  plan_id?: string
-  sop_id?: string
-  sop_name?: string
-  order?: number
-}
-
-export interface TrainingPlanSopListResponse {
-  code: number
-  message: string
-  data: TrainingPlanSop[]
-  meta?: {
-    page: number
-    page_size: number
-    total: number
-  }
-}
-
-export interface TrainingPlanSopResponse {
-  code: number
-  message: string
-  data: TrainingPlanSop
-}
-
-export interface TrainingRecord {
-  id: string
-  plan_id: string
-  employee_id: string
-  employee?: Employee
-  status?: string
-  started_at?: string
-  completed_at?: string
-  score?: number
-  notes?: string
-  created_at?: string
-  updated_at?: string
-}
-
-export interface TrainingRecordCreateInput {
-  plan_id: string
-  employee_id: string
-  status?: string
-  started_at?: string
-  completed_at?: string
-  score?: number
-  notes?: string
-}
-
-export interface TrainingRecordUpdateInput {
-  plan_id?: string
-  employee_id?: string
-  status?: string
-  started_at?: string
-  completed_at?: string
-  score?: number
-  notes?: string
-}
-
-export interface TrainingRecordListResponse {
-  code: number
-  message: string
-  data: TrainingRecord[]
-  meta?: {
-    page: number
-    page_size: number
-    total: number
-  }
-}
-
-export interface TrainingRecordResponse {
-  code: number
-  message: string
-  data: TrainingRecord
-}
-
-export interface TrainingAssessment {
-  id: string
-  record_id: string
-  assessor_id?: string
-  assessment_type?: string
-  score?: number
-  result?: string
-  comments?: string
-  assessed_at?: string
-  created_at?: string
-  updated_at?: string
-}
-
-export interface TrainingAssessmentCreateInput {
-  record_id: string
-  assessor_id?: string
-  assessment_type?: string
-  score?: number
-  result?: string
-  comments?: string
-  assessed_at?: string
-}
-
-export interface TrainingAssessmentUpdateInput {
-  record_id?: string
-  assessor_id?: string
-  assessment_type?: string
-  score?: number
-  result?: string
-  comments?: string
-  assessed_at?: string
-}
-
-export interface TrainingAssessmentListResponse {
-  code: number
-  message: string
-  data: TrainingAssessment[]
-  meta?: {
-    page: number
-    page_size: number
-    total: number
-  }
-}
-
-export interface TrainingAssessmentResponse {
-  code: number
-  message: string
-  data: TrainingAssessment
-}
-
-export interface TrainingApproval {
-  id: string
-  record_id: string
-  approver_id?: string
-  approval_type?: string
-  status?: string
-  comments?: string
-  approved_at?: string
-  created_at?: string
-  updated_at?: string
-}
-
-export interface TrainingApprovalCreateInput {
-  record_id: string
-  approver_id?: string
-  approval_type?: string
-  status?: string
-  comments?: string
-  approved_at?: string
-}
-
-export interface TrainingApprovalUpdateInput {
-  record_id?: string
-  approver_id?: string
-  approval_type?: string
-  status?: string
-  comments?: string
-  approved_at?: string
-}
-
-export interface TrainingApprovalListResponse {
-  code: number
-  message: string
-  data: TrainingApproval[]
-  meta?: {
-    page: number
-    page_size: number
-    total: number
-  }
-}
-
-export interface TrainingApprovalResponse {
-  code: number
-  message: string
-  data: TrainingApproval
+  data: Candidate
 }

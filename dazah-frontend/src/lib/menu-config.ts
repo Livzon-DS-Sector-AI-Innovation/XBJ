@@ -145,6 +145,8 @@ export const moduleMenus: ModuleMenu[] = [
       { key: "onboarding", label: "老厂入职台账", path: "/hr/onboarding" },
       { key: "departure", label: "老厂离职台账", path: "/hr/departure" },
       { key: "offboarding", label: "离职管理", path: "/hr/offboarding" },
+      { key: "recruitment", label: "招聘管理", path: "/hr/recruitment" },
+      { key: "training", label: "培训管理", path: "/hr/training" },
     ],
   },
   {
