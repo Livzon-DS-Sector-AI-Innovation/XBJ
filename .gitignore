@@ -1,0 +1,60 @@
+# Dependencies
+node_modules
+
+# Python
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.venv
+venv
+env
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Build outputs
+.next
+dist
+build
+out
+
+# IDE
+.idea
+.vscode
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Database
+pgdata
+pglog.txt
+
+# Redis
+redis
+
+# PostgreSQL
+postgresql
+
+# Temporary files
+*.tmp
+*.temp
+dazah-frontend/pgpass.txt
+dazah-frontend/postgresql.zip
+dazah-frontend/redis.zip
+dazah-backend/seed_data.sql
+dazah-frontend/pgpass.txt
+dazah-frontend/postgresql.zip
+dazah-frontend/redis.zip
+dazah-backend/seed_data.sql
+dazah-frontend/_backup/

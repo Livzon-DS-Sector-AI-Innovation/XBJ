@@ -58,7 +58,7 @@ export const useHrChatStore = create<HrChatState>((set, get) => ({
     await streamChat(
       allMessages,
       pageContext,
-      (type, text) => {
+      (type: string, text: string) => {
         set((state) => {
           const msgs = state.messages.map((msg, idx) => {
             if (idx === state.messages.length - 1 && msg.role === 'assistant') {

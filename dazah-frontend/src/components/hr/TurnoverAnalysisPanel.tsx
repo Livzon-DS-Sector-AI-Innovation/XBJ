@@ -1,24 +1,33 @@
 'use client'
 
 import { useState, useEffect, useCallback, useMemo } from 'react'
-import { Button, Spin, Alert, Divider } from 'antd'
-import { BulbOutlined, ReloadOutlined, LoadingOutlined } from '@ant-design/icons'
+import { Button, Alert, Divider } from 'antd'
+import { BulbOutlined, ReloadOutlined } from '@ant-design/icons'
 import ReactMarkdown from 'react-markdown'
 import { fetchTurnoverAnalysis } from '@/lib/api/hr'
 import type { TurnoverAnalysisResponse } from '@/types/hr'
 
 type Stage = 'idle' | 'extracting' | 'thinking' | 'streaming' | 'done' | 'error'
 
+const THINKING_STEPS = [
+  '智能检索数据中',
+  '阿米巴经营智能体分析中',
+  '精益生产智能体分析中',
+  '质量管理智能体分析中',
+]
+
 export default function TurnoverAnalysisPanel() {
   const [stage, setStage] = useState<Stage>('idle')
   const [errorMsg, setErrorMsg] = useState('')
   const [result, setResult] = useState<TurnoverAnalysisResponse | null>(null)
   const [displayedText, setDisplayedText] = useState('')
+  const [stepIndex, setStepIndex] = useState(0)
+  const [noTransition, setNoTransition] = useState(false)
 
   const fullMarkdown = useMemo(() => {
     if (!result) return ''
     const lines = [
-      `## 现状分析`,
+      `## AI分析`,
       '',
       result.data.ai_summary,
       '',
@@ -48,6 +57,32 @@ export default function TurnoverAnalysisPanel() {
 
     return () => clearInterval(timer)
   }, [stage, fullMarkdown])
+
+  useEffect(() => {
+    if (stage !== 'extracting' && stage !== 'thinking') {
+      setStepIndex(0)
+      setNoTransition(false)
+      return
+    }
+    const timer = setInterval(() => {
+      setStepIndex((prev) => {
+        const next = prev + 1
+        if (next >= THINKING_STEPS.length) {
+          setTimeout(() => {
+            setNoTransition(true)
+            setStepIndex(0)
+            requestAnimationFrame(() => {
+              requestAnimationFrame(() => {
+                setNoTransition(false)
+              })
+            })
+          }, 500)
+        }
+        return next
+      })
+    }, 3000)
+    return () => clearInterval(timer)
+  }, [stage])
 
   const handleAnalyze = useCallback(async () => {
     setStage('extracting')
@@ -87,7 +122,7 @@ export default function TurnoverAnalysisPanel() {
             人员流动智能分析
           </h3>
           <p className="text-sm text-[var(--color-slate)] mt-1">
-            基于最近6个月入职/离职数据，AI生成管理建议
+            基于最近6个月人事数据，AI生成管理建议
           </p>
         </div>
         <Button
@@ -104,19 +139,7 @@ export default function TurnoverAnalysisPanel() {
       {/* Content area */}
       {stage !== 'idle' && (
         <div className="mt-4 pt-4 border-t border-[var(--color-hairline-soft)]">
-          {stage === 'extracting' && (
-            <div className="flex flex-col items-center justify-center py-12 gap-3">
-              <Spin indicator={<LoadingOutlined spin className="text-2xl text-[var(--color-primary)]" />} />
-              <div className="text-base font-medium text-[var(--color-charcoal)]">
-                智能提取
-              </div>
-              <div className="text-sm text-[var(--color-slate)]">
-                正在拉取入职/离职数据...
-              </div>
-            </div>
-          )}
-
-          {stage === 'thinking' && (
+          {(stage === 'extracting' || stage === 'thinking') && (
             <div className="flex flex-col items-center justify-center py-12 gap-3">
               <div
                 className="w-10 h-10 rounded-full animate-spin"
@@ -129,8 +152,16 @@ export default function TurnoverAnalysisPanel() {
               <div className="text-base font-medium text-[var(--color-charcoal)]">
                 DeepThinking
               </div>
-              <div className="text-sm text-[var(--color-slate)]">
-                AI正在分析数据...
+              <div className="relative h-6 w-full overflow-hidden">
+                {[...THINKING_STEPS, ...THINKING_STEPS].map((step, i) => (
+                  <div
+                    key={i}
+                    className={`absolute inset-x-0 h-6 flex items-center justify-center text-sm text-[var(--color-slate)] ${noTransition ? '' : 'transition-transform duration-500 ease-in-out'}`}
+                    style={{ transform: `translateY(${(i - stepIndex) * 100}%)` }}
+                  >
+                    {step}
+                  </div>
+                ))}
               </div>
             </div>
           )}
@@ -163,6 +194,16 @@ export default function TurnoverAnalysisPanel() {
                     {result.data.metrics.turnover_rate}%
                   </span>
                 </div>
+                {Object.keys(result.data.raw_data.departure_by_reason).length > 0 && (
+                  <div className="flex justify-between text-sm">
+                    <span className="text-[var(--color-slate)]">离职原因分布</span>
+                    <span className="font-medium text-right max-w-[70%]">
+                      {Object.entries(result.data.raw_data.departure_by_reason)
+                        .map(([k, v]) => `${k}(${v})`)
+                        .join('、')}
+                    </span>
+                  </div>
+                )}
               </div>
 
               <Divider />

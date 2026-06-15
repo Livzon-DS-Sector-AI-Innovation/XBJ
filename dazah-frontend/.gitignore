@@ -47,3 +47,7 @@ prompt.md
 CLAUDE.local.md
 
 docs/superpowers
+
+# local cache / logs
+.npm-cache/
+frontend.log
