@@ -8,6 +8,7 @@ import {
   Form,
   Input,
   Modal,
+  Radio,
   Select,
   Space,
   TimePicker,
@@ -23,7 +24,9 @@ import {
 import dayjs from 'dayjs'
 import {
   fetchDepartments,
+  fetchNewDepartments,
   fetchEmployees,
+  fetchNewEmployees,
   fetchTrainingLedgerPages,
   generateTrainingNotification,
   generateTrainingSignInSheet,
@@ -82,13 +85,26 @@ export default function TrainingNotificationClient() {
   const [submittingEval, setSubmittingEval] = useState(false)
   const [addingToLedger, setAddingToLedger] = useState(false)
   const [sendingNotify, setSendingNotify] = useState(false)
+  const [factory, setFactory] = useState<'old' | 'new'>('old')
 
   useEffect(() => {
-    fetchDepartments({ page_size: 100 }).then((res) => {
+    const fetchFn = factory === 'new' ? fetchNewDepartments : fetchDepartments
+    fetchFn({ page_size: 100 }).then((res) => {
       const list = (res.data || []).map((d: any) => ({ value: d.name, label: d.name }))
       setDepartments(list)
     })
-  }, [])
+  }, [factory])
+
+  useEffect(() => {
+    // 切换厂区时清空已选部门和人员
+    setEmployees([])
+    setNameToNumberMap({})
+    form.setFieldsValue({
+      department: undefined,
+      trainee_departments: [],
+      employee_names: [],
+    })
+  }, [factory, form])
 
   const loadEmployees = async (depts: string[]) => {
     if (!depts || depts.length === 0) {
@@ -97,11 +113,12 @@ export default function TrainingNotificationClient() {
       form.setFieldsValue({ employee_names: [] })
       return
     }
+    const fetchFn = factory === 'new' ? fetchNewEmployees : fetchEmployees
     const all: { value: string; label: string }[] = []
     const numberMap: Record<string, string> = {}
     for (const dept of depts) {
       try {
-        const res = await fetchEmployees({ department: dept, page_size: 100 })
+        const res = await fetchFn({ department: dept, page_size: 100 })
         const list = (res.data || []).map((e: any) => ({
           value: e.name,
           label: `${e.name} (${e.employee_number || ''})`,
@@ -180,7 +197,7 @@ export default function TrainingNotificationClient() {
         training_method: values.training_method,
         employee_names: values.employee_names || [],
       }
-      await generateTrainingSignInSheet(payload)
+      await generateTrainingSignInSheet(payload, factory)
       message.success('培训签到表已生成')
     } catch (err: any) {
       message.error(err.message || '生成失败')
@@ -211,7 +228,7 @@ export default function TrainingNotificationClient() {
         textbook: `${values.department || ''} / ${(values.trainee_departments || []).join('、')} / ${(values.employee_names || []).length}人`,
         expected_count: (values.employee_names || []).length,
       }
-      await generateTrainingEvaluation(payload)
+      await generateTrainingEvaluation(payload, factory)
       message.success('培训效果评估表已生成')
     } catch (err: any) {
       message.error(err.message || '生成失败')
@@ -390,6 +407,7 @@ export default function TrainingNotificationClient() {
             issue_date: values.issue_date
               ? values.issue_date.format('YYYY-MM-DD')
               : values.training_date.format('YYYY-MM-DD'),
+            factory,
           }
           const res = await sendTrainingNotification(payload)
           message.success(res.message)
@@ -446,6 +464,18 @@ export default function TrainingNotificationClient() {
     <div className="space-y-6">
       <Card title="填写培训通知">
         <Form form={form} layout="vertical" className="max-w-4xl">
+          <Form.Item label="选择厂区">
+            <Radio.Group
+              value={factory}
+              onChange={(e) => setFactory(e.target.value)}
+              options={[
+                { label: '旧厂', value: 'old' },
+                { label: '新厂', value: 'new' },
+              ]}
+              optionType="button"
+            />
+          </Form.Item>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6">
             <Form.Item
               name="department"

@@ -14,7 +14,7 @@ export default async function NewOnboardingPage() {
       <OnboardingClient
         initialRecords={res.data}
         initialTotal={res.meta?.total || 0}
-        fetchAction={fetchNewOnboardingRecords}
+        factory="new"
       />
     </div>
   )

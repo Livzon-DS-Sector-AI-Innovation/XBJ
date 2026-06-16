@@ -1,0 +1,1129 @@
+[
+  {
+    "fields": {
+      "BOM关联": {
+        "link_record_ids": [
+          "recvfvUJYNOIsV",
+          "recvfvUJYNk43a",
+          "recvfvUJYNl3Yc",
+          "recvfvUJYNNOiM",
+          "recvfvUJYNJZNN",
+          "recvfvULJkXV91",
+          "recvfvULJkA8cA",
+          "recvfvULJkYApw",
+          "recvfvULJkOn1C",
+          "recvfvULJkFAJQ",
+          "recvfvULJkWnai",
+          "recvfvULJk1qrx",
+          "recvfvULJknpD3",
+          "recvfvULJknGoE",
+          "recvfvULJkhs2s",
+          "recvfvULJkz3sO",
+          "recvfvULJkaH1z",
+          "recvfvULJkX1P0",
+          "recvfvULJkpRVS",
+          "recvfvULJkvRjA",
+          "recvfvULJkJp1s",
+          "recvfvULJkeOqh"
+        ]
+      },
+      "产品": {
+        "type": 1,
+        "value": [
+          {
+            "text": "司美格鲁肽-SM1",
+            "type": "text"
+          }
+        ]
+      },
+      "产品代码": "SM",
+      "产品剂型": "API",
+      "产品名称": "司美格鲁肽",
+      "产品工艺路线": {
+        "link_record_ids": [
+          "recvfyl7izKjCX",
+          "recvfysRFz7NkC",
+          "recvfytkf8oZI3",
+          "recvfysRFzs1GL"
+        ]
+      },
+      "产品状态": "临床阶段",
+      "单位": "批",
+      "市场": "国内/国际",
+      "生产批量": [
+        "1"
+      ],
+      "生产规格": "SM1",
+      "生产车间": "101车间（发酵）",
+      "适应症": "降糖/体重",
+      "销售单价不含税": {
+        "type": 2,
+        "value": [
+          0
+        ]
+      }
+    },
+    "record_id": "recvfmjUPJMPgs"
+  },
+  {
+    "fields": {
+      "BOM关联": {
+        "link_record_ids": [
+          "recvfwzSlHAqaU",
+          "recvfwzT5zbjE0",
+          "recvfwzT5zv2NP",
+          "recvfwzT5zLAxY",
+          "recvfwzT5z0uCg",
+          "recvfwzT5zco2C",
+          "recvfwzT5z8pDu",
+          "recvfwzT5zsUao",
+          "recvfwzT5zbcjT",
+          "recvfwzT5zOPaj",
+          "recvfwzT5zm3Va",
+          "recvfwzT5zBRKw",
+          "recvfwzT5zwUzQ"
+        ]
+      },
+      "产品": {
+        "type": 1,
+        "value": [
+          {
+            "text": "司美格鲁肽注射液-1.34mg/ml 1.5ml",
+            "type": "text"
+          }
+        ]
+      },
+      "产品代码": "FSM",
+      "产品剂型": "制品",
+      "产品名称": "司美格鲁肽注射液",
+      "产品工艺路线": {
+        "link_record_ids": [
+          "recvfyy9HpYjpZ",
+          "recvfyyCTSQVAn",
+          "recvfyyCTSjA93",
+          "recvfyyCTS6u8l",
+          "recvfyyCTSKggp",
+          "recvfyyCTS0smK"
+        ]
+      },
+      "产品状态": "临床阶段",
+      "制剂代码": [
+        {
+          "text": "AA",
+          "type": "text"
+        }
+      ],
+      "单位": "支",
+      "市场": "国内市场",
+      "生产批量": [
+        "30000-80000"
+      ],
+      "生产规格": "1.34mg/ml 1.5ml",
+      "生产车间": "301车间",
+      "适应症": "降糖/体重",
+      "销售单价不含税": {
+        "type": 2,
+        "value": [
+          0
+        ]
+      }
+    },
+    "record_id": "recvfmjZLx7KPo"
+  },
+  {
+    "fields": {
+      "BOM关联": {
+        "link_record_ids": [
+          "recvfwzSlHAqaU",
+          "recvfwzT5zbjE0",
+          "recvfwzT5zv2NP",
+          "recvfwzT5zLAxY",
+          "recvfwzT5z0uCg",
+          "recvfwzT5zco2C",
+          "recvfwzT5z8pDu",
+          "recvfwzT5zsUao",
+          "recvfwzT5zbcjT",
+          "recvfwzT5zOPaj",
+          "recvfwzT5zm3Va",
+          "recvfwzT5zBRKw",
+          "recvfwzT5zwUzQ"
+        ]
+      },
+      "产品": {
+        "type": 1,
+        "value": [
+          {
+            "text": "司美格鲁肽注射液（B）-1.34mg/ml 1.5ml",
+            "type": "text"
+          }
+        ]
+      },
+      "产品代码": "FSM",
+      "产品剂型": "制品",
+      "产品名称": "司美格鲁肽注射液（B）",
+      "产品工艺路线": {
+        "link_record_ids": [
+          "recvfyy9HpYjpZ",
+          "recvfyyCTSQVAn",
+          "recvfyyCTSjA93",
+          "recvfyyCTS6u8l",
+          "recvfyyCTSKggp",
+          "recvfyyCTS0smK"
+        ]
+      },
+      "产品状态": "临床阶段",
+      "制剂代码": [
+        {
+          "text": "AA",
+          "type": "text"
+        }
+      ],
+      "单位": "支",
+      "市场": "国际市场",
+      "生产批量": [
+        "30000"
+      ],
+      "生产规格": "1.34mg/ml 1.5ml",
+      "生产车间": "301车间",
+      "适应症": "降糖",
+      "销售单价不含税": {
+        "type": 2,
+        "value": [
+          0
+        ]
+      }
+    },
+    "record_id": "recvfp1Fa8BLVJ"
+  },
+  {
+    "fields": {
+      "BOM关联": {
+        "link_record_ids": [
+          "recvfwzSlHAqaU",
+          "recvfwzT5zbjE0",
+          "recvfwzT5zv2NP",
+          "recvfwzT5zLAxY",
+          "recvfwzT5z0uCg",
+          "recvfwzT5zco2C",
+          "recvfwzT5z8pDu",
+          "recvfwzT5zsUao",
+          "recvfwzT5zbcjT",
+          "recvfwzT5zOPaj",
+          "recvfwzT5zm3Va",
+          "recvfwzT5zBRKw",
+          "recvfwzT5zwUzQ"
+        ]
+      },
+      "产品": {
+        "type": 1,
+        "value": [
+          {
+            "text": "司美格鲁肽注射液-1.34mg/ml 3ml",
+            "type": "text"
+          }
+        ]
+      },
+      "产品代码": "FSM",
+      "产品剂型": "制品",
+      "产品名称": "司美格鲁肽注射液",
+      "产品工艺路线": {
+        "link_record_ids": [
+          "recvfyy9HpYjpZ",
+          "recvfyyCTSQVAn",
+          "recvfyyCTSjA93",
+          "recvfyyCTS6u8l",
+          "recvfyyCTSKggp",
+          "recvfyyCTS0smK"
+        ]
+      },
+      "产品状态": "临床阶段",
+      "制剂代码": [
+        {
+          "text": "AB",
+          "type": "text"
+        }
+      ],
+      "单位": "支",
+      "市场": "国内市场",
+      "生产批量": [
+        "18000-40000"
+      ],
+      "生产规格": "1.34mg/ml 3ml",
+      "生产车间": "301车间",
+      "适应症": "降糖",
+      "销售单价不含税": {
+        "type": 2,
+        "value": [
+          0
+        ]
+      }
+    },
+    "record_id": "recvfp5r2lQHxu"
+  },
+  {
+    "fields": {
+      "BOM关联": {
+        "link_record_ids": [
+          "recvfwzSlHAqaU",
+          "recvfwzT5zbjE0",
+          "recvfwzT5zv2NP",
+          "recvfwzT5zLAxY",
+          "recvfwzT5z0uCg",
+          "recvfwzT5zco2C",
+          "recvfwzT5z8pDu",
+          "recvfwzT5zsUao",
+          "recvfwzT5zbcjT",
+          "recvfwzT5zOPaj",
+          "recvfwzT5zm3Va",
+          "recvfwzT5zBRKw",
+          "recvfwzT5zwUzQ"
+        ]
+      },
+      "产品": {
+        "type": 1,
+        "value": [
+          {
+            "text": "司美格鲁肽注射液（B）-1.34mg/ml 3ml",
+            "type": "text"
+          }
+        ]
+      },
+      "产品代码": "FSM",
+      "产品剂型": "制品",
+      "产品名称": "司美格鲁肽注射液（B）",
+      "产品工艺路线": {
+        "link_record_ids": [
+          "recvfyy9HpYjpZ",
+          "recvfyyCTSQVAn",
+          "recvfyyCTSjA93",
+          "recvfyyCTS6u8l",
+          "recvfyyCTSKggp",
+          "recvfyyCTS0smK"
+        ]
+      },
+      "产品状态": "临床阶段",
+      "制剂代码": [
+        {
+          "text": "AB",
+          "type": "text"
+        }
+      ],
+      "单位": "支",
+      "市场": "国际市场",
+      "生产批量": [
+        "18000"
+      ],
+      "生产规格": "1.34mg/ml 3ml",
+      "生产车间": "301车间",
+      "适应症": "降糖",
+      "销售单价不含税": {
+        "type": 2,
+        "value": [
+          0
+        ]
+      }
+    },
+    "record_id": "recvfp6miGsRCz"
+  },
+  {
+    "fields": {
+      "BOM关联": {
+        "link_record_ids": [
+          "recvfwzSlHAqaU",
+          "recvfwzT5zbjE0",
+          "recvfwzT5zv2NP",
+          "recvfwzT5zLAxY",
+          "recvfwzT5z0uCg",
+          "recvfwzT5zco2C",
+          "recvfwzT5z8pDu",
+          "recvfwzT5zsUao",
+          "recvfwzT5zbcjT",
+          "recvfwzT5zOPaj",
+          "recvfwzT5zm3Va",
+          "recvfwzT5zBRKw",
+          "recvfwzT5zwUzQ"
+        ]
+      },
+      "产品": {
+        "type": 1,
+        "value": [
+          {
+            "text": "司美格鲁肽注射液-3.2mg/ml 3ml",
+            "type": "text"
+          }
+        ]
+      },
+      "产品代码": "FSM",
+      "产品剂型": "制品",
+      "产品名称": "司美格鲁肽注射液",
+      "产品工艺路线": {
+        "link_record_ids": [
+          "recvfyy9HpYjpZ",
+          "recvfyyCTSQVAn",
+          "recvfyyCTSjA93",
+          "recvfyyCTS6u8l",
+          "recvfyyCTSKggp",
+          "recvfyyCTS0smK"
+        ]
+      },
+      "产品状态": "临床阶段",
+      "制剂代码": [
+        {
+          "text": "AC",
+          "type": "text"
+        }
+      ],
+      "单位": "支",
+      "市场": "国内市场",
+      "生产批量": [
+        "12000-18000"
+      ],
+      "生产规格": "3.2mg/ml 3ml",
+      "生产车间": "301车间",
+      "适应症": "体重管理",
+      "销售单价不含税": {
+        "type": 2,
+        "value": [
+          0
+        ]
+      }
+    },
+    "record_id": "recvfp2OEuuKEJ"
+  },
+  {
+    "fields": {
+      "BOM关联": {
+        "link_record_ids": [
+          "recvfwzSlHAqaU",
+          "recvfwzT5zbjE0",
+          "recvfwzT5zv2NP",
+          "recvfwzT5zLAxY",
+          "recvfwzT5z0uCg",
+          "recvfwzT5zco2C",
+          "recvfwzT5z8pDu",
+          "recvfwzT5zsUao",
+          "recvfwzT5zbcjT",
+          "recvfwzT5zOPaj",
+          "recvfwzT5zm3Va",
+          "recvfwzT5zBRKw",
+          "recvfwzT5zwUzQ"
+        ]
+      },
+      "产品": {
+        "type": 1,
+        "value": [
+          {
+            "text": "司美格鲁肽注射液-0.68mg/ml 1.5ml",
+            "type": "text"
+          }
+        ]
+      },
+      "产品代码": "FSM",
+      "产品剂型": "制品",
+      "产品名称": "司美格鲁肽注射液",
+      "产品工艺路线": {
+        "link_record_ids": [
+          "recvfyy9HpYjpZ",
+          "recvfyyCTSQVAn",
+          "recvfyyCTSjA93",
+          "recvfyyCTS6u8l",
+          "recvfyyCTSKggp",
+          "recvfyyCTS0smK"
+        ]
+      },
+      "产品状态": "临床阶段",
+      "制剂代码": [
+        {
+          "text": "AD",
+          "type": "text"
+        }
+      ],
+      "单位": "支",
+      "市场": "国内市场",
+      "生产批量": [
+        "30000-160000"
+      ],
+      "生产规格": "0.68mg/ml 1.5ml",
+      "生产车间": "301车间",
+      "适应症": "体重管理",
+      "销售单价不含税": {
+        "type": 2,
+        "value": [
+          0
+        ]
+      }
+    },
+    "record_id": "recvfp2SljII3R"
+  },
+  {
+    "fields": {
+      "BOM关联": {
+        "link_record_ids": [
+          "recvfwzSlHAqaU",
+          "recvfwzT5zbjE0",
+          "recvfwzT5zv2NP",
+          "recvfwzT5zLAxY",
+          "recvfwzT5z0uCg",
+          "recvfwzT5zco2C",
+          "recvfwzT5z8pDu",
+          "recvfwzT5zsUao",
+          "recvfwzT5zbcjT",
+          "recvfwzT5zOPaj",
+          "recvfwzT5zm3Va",
+          "recvfwzT5zBRKw",
+          "recvfwzT5zwUzQ"
+        ]
+      },
+      "产品": {
+        "type": 1,
+        "value": [
+          {
+            "text": "司美格鲁肽注射液-2.27mg/ml 3ml",
+            "type": "text"
+          }
+        ]
+      },
+      "产品代码": "FSM",
+      "产品剂型": "制品",
+      "产品名称": "司美格鲁肽注射液",
+      "产品工艺路线": {
+        "link_record_ids": [
+          "recvfyy9HpYjpZ",
+          "recvfyyCTSQVAn",
+          "recvfyyCTSjA93",
+          "recvfyyCTS6u8l",
+          "recvfyyCTSKggp",
+          "recvfyyCTS0smK"
+        ]
+      },
+      "产品状态": "临床阶段",
+      "制剂代码": [
+        {
+          "text": "AE",
+          "type": "text"
+        }
+      ],
+      "单位": "支",
+      "市场": "国内市场",
+      "生产批量": [
+        "14000-26000"
+      ],
+      "生产规格": "2.27mg/ml 3ml",
+      "生产车间": "301车间",
+      "适应症": "体重管理",
+      "销售单价不含税": {
+        "type": 2,
+        "value": [
+          0
+        ]
+      }
+    },
+    "record_id": "recvfp4TnpPy0S"
+  },
+  {
+    "fields": {
+      "BOM关联": {
+        "link_record_ids": [
+          "recvfwwgGxhMH2",
+          "recvfwwgGxMNMR",
+          "recvfwwgGxYwVV",
+          "recvfwwgGxmUL5",
+          "recvfwwgGxReH8",
+          "recvfwwgGxE5dz",
+          "recvfwwgGxtaeX"
+        ]
+      },
+      "产品": {
+        "type": 1,
+        "value": [
+          {
+            "text": "司美格鲁肽-原料药",
+            "type": "text"
+          }
+        ]
+      },
+      "产品代码": "SM",
+      "产品剂型": "API",
+      "产品名称": "司美格鲁肽",
+      "产品图片": [
+        {
+          "file_token": "RSIFbJkYdoc320x5nk1cygyWnko",
+          "name": "img_v3_0210b_5843b998-801e-47dc-879a-15769fc41b1g.jpg",
+          "size": 3526870,
+          "tmp_url": "https://open.feishu.cn/open-apis/drive/v1/medias/batch_get_tmp_download_url?file_tokens=RSIFbJkYdoc320x5nk1cygyWnko",
+          "type": "image/jpeg",
+          "url": "https://open.feishu.cn/open-apis/drive/v1/medias/RSIFbJkYdoc320x5nk1cygyWnko/download"
+        }
+      ],
+      "产品工艺路线": {
+        "link_record_ids": [
+          "recvfylA0j0nml",
+          "recvfymVlU7vPZ",
+          "recvfyy8IHen5r"
+        ]
+      },
+      "产品状态": "临床阶段",
+      "单位": "g",
+      "市场": "国内/国际",
+      "生产批量": [
+        "250±100"
+      ],
+      "生产规格": "原料药",
+      "生产车间": "102车间（纯化）",
+      "适应症": "降糖/体重",
+      "销售单价不含税": {
+        "type": 2,
+        "value": [
+          0
+        ]
+      }
+    },
+    "record_id": "recvfwtv8aM0DN"
+  },
+  {
+    "fields": {
+      "BOM关联": {
+        "link_record_ids": [
+          "recvfwvYPTUxlZ",
+          "recvfwvZyNztQK",
+          "recvfwvZyNBvV9",
+          "recvfwvZyNR5lx",
+          "recvfwvZyNvcTz",
+          "recvfwvZyNGdfc",
+          "recvfwyMZh5Yx7",
+          "recvfwvZyNSn6M",
+          "recvfwvZyNQsJv",
+          "recvfwvZyNtbsl",
+          "recvfwvZyNeSWG",
+          "recvfwvZyNz4bo",
+          "recvfwvZyNjG6t"
+        ]
+      },
+      "产品": {
+        "type": 1,
+        "value": [
+          {
+            "text": "司美格鲁肽-SM8",
+            "type": "text"
+          }
+        ]
+      },
+      "产品代码": "SM",
+      "产品剂型": "API",
+      "产品名称": "司美格鲁肽",
+      "产品图片": [
+        {
+          "file_token": "UFjLbt8vvoamO6x12cBcYDF0nsg",
+          "name": "img_v3_0210b_c4d87c08-98ad-400a-9433-e3c56d8adc3g.jpg",
+          "size": 2292877,
+          "tmp_url": "https://open.feishu.cn/open-apis/drive/v1/medias/batch_get_tmp_download_url?file_tokens=UFjLbt8vvoamO6x12cBcYDF0nsg",
+          "type": "image/jpeg",
+          "url": "https://open.feishu.cn/open-apis/drive/v1/medias/UFjLbt8vvoamO6x12cBcYDF0nsg/download"
+        }
+      ],
+      "产品工艺路线": {
+        "link_record_ids": [
+          "recvfyx2TQzV9Z",
+          "recvfyxvqhpliu",
+          "recvfyxvqh1tCc",
+          "recvfyxvqh29pB",
+          "recvfyxvqhQ3MZ"
+        ]
+      },
+      "产品状态": "临床阶段",
+      "单位": "g",
+      "市场": "国内/国际",
+      "生产批量": [
+        "1600"
+      ],
+      "生产规格": "SM8",
+      "生产车间": "102车间（合成）",
+      "适应症": "降糖/体重",
+      "销售单价不含税": {
+        "type": 2,
+        "value": [
+          0
+        ]
+      }
+    },
+    "record_id": "recvfwtw5xyVoj"
+  },
+  {
+    "fields": {
+      "BOM关联": {
+        "link_record_ids": [
+          "recvfwvK5gsjjG",
+          "recvfwvK5gJtwJ",
+          "recvfwvK5gfRdc",
+          "recvfwvK5gvYbp",
+          "recvfwvK5gunFU",
+          "recvfwvK5gXijk",
+          "recvfwvK5g1zMe"
+        ]
+      },
+      "产品": {
+        "type": 1,
+        "value": [
+          {
+            "text": "司美格鲁肽-SM2",
+            "type": "text"
+          }
+        ]
+      },
+      "产品代码": "SM",
+      "产品剂型": "API",
+      "产品名称": "司美格鲁肽",
+      "产品工艺路线": {
+        "link_record_ids": [
+          "recvfyl83Ogotg",
+          "recvfytREMhnuj",
+          "recvfytREM7Pjo",
+          "recvfytREMZqsB",
+          "recvfytREM4xlM",
+          "recvfytREMVXxw",
+          "recvfyx2TQ2xo8",
+          "recvfyx2TQAofi"
+        ]
+      },
+      "产品状态": "临床阶段",
+      "单位": "g",
+      "市场": "国内/国际",
+      "生产批量": [
+        "1400"
+      ],
+      "生产规格": "SM2",
+      "生产车间": "102车间（提取）",
+      "适应症": "降糖/体重",
+      "销售单价不含税": {
+        "type": 2,
+        "value": [
+          0
+        ]
+      }
+    },
+    "record_id": "recvfwD0XJDdjv"
+  },
+  {
+    "fields": {
+      "BOM关联": {
+        "link_record_ids": [
+          "recvfwZv5lPOMT",
+          "recvfwZvAZ6mXu",
+          "recvfwZvAZTXoU",
+          "recvfx02IwW0NG",
+          "recvfx03tNz4pD",
+          "recvfx03tNPVZU",
+          "recvfx03tN3czX",
+          "recvfwZvAZVPpg",
+          "recvfwZvAZYvy2",
+          "recvfwZvAZKoU3"
+        ]
+      },
+      "产品": {
+        "type": 1,
+        "value": [
+          {
+            "text": "司美格鲁肽注射液（预填充注射笔）-1.34mg/ml 1.5ml",
+            "type": "text"
+          }
+        ]
+      },
+      "产品代码": "FSM",
+      "产品剂型": "包装",
+      "产品名称": "司美格鲁肽注射液（预填充注射笔）",
+      "产品图片": [
+        {
+          "file_token": "BL29bR3lRoNYg4x8UhVcfiGRnGe",
+          "name": "img_v3_0210a_18fad935-d911-474e-a18d-bda40e95232g.jpg",
+          "size": 228473,
+          "tmp_url": "https://open.feishu.cn/open-apis/drive/v1/medias/batch_get_tmp_download_url?file_tokens=BL29bR3lRoNYg4x8UhVcfiGRnGe",
+          "type": "image/jpeg",
+          "url": "https://open.feishu.cn/open-apis/drive/v1/medias/BL29bR3lRoNYg4x8UhVcfiGRnGe/download"
+        }
+      ],
+      "产品工艺路线": {
+        "link_record_ids": [
+          "recvfyya3d0oKF",
+          "recvfyzzY8uxN8"
+        ]
+      },
+      "产品状态": "临床阶段",
+      "制剂代码": [
+        {
+          "text": "AA",
+          "type": "text"
+        }
+      ],
+      "单位": "支",
+      "市场": "国内市场",
+      "生产批量": [
+        "4800-20000"
+      ],
+      "生产规格": "1.34mg/ml 1.5ml",
+      "生产车间": "302车间",
+      "适应症": "降糖/体重",
+      "销售单价不含税": {
+        "type": 2,
+        "value": [
+          0
+        ]
+      }
+    },
+    "record_id": "recvfwGhyWXRQr"
+  },
+  {
+    "fields": {
+      "BOM关联": {
+        "link_record_ids": [
+          "recvfwZvAZVPpg",
+          "recvfwZvAZYvy2",
+          "recvfwZvAZKoU3"
+        ]
+      },
+      "产品": {
+        "type": 1,
+        "value": [
+          {
+            "text": "司美格鲁肽注射液（预填充注射笔）（B）-1.34mg/ml 1.5ml",
+            "type": "text"
+          }
+        ]
+      },
+      "产品代码": "FSM",
+      "产品剂型": "包装",
+      "产品名称": "司美格鲁肽注射液（预填充注射笔）（B）",
+      "产品图片": [
+        {
+          "file_token": "RxRebKZgNo9K9lxjMOAcX1F5nWg",
+          "name": "img_v3_0210a_18fad935-d911-474e-a18d-bda40e95232g.jpg",
+          "size": 228473,
+          "tmp_url": "https://open.feishu.cn/open-apis/drive/v1/medias/batch_get_tmp_download_url?file_tokens=RxRebKZgNo9K9lxjMOAcX1F5nWg",
+          "type": "image/jpeg",
+          "url": "https://open.feishu.cn/open-apis/drive/v1/medias/RxRebKZgNo9K9lxjMOAcX1F5nWg/download"
+        }
+      ],
+      "产品工艺路线": {
+        "link_record_ids": [
+          "recvfyya3d0oKF",
+          "recvfyzzY8uxN8"
+        ]
+      },
+      "产品状态": "临床阶段",
+      "制剂代码": [
+        {
+          "text": "AA",
+          "type": "text"
+        }
+      ],
+      "单位": "支",
+      "市场": "国际市场",
+      "生产批量": [
+        "4800-20000"
+      ],
+      "生产规格": "1.34mg/ml 1.5ml",
+      "生产车间": "302车间",
+      "适应症": "降糖",
+      "销售单价不含税": {
+        "type": 2,
+        "value": [
+          0
+        ]
+      }
+    },
+    "record_id": "recvfwGkdH6vKl"
+  },
+  {
+    "fields": {
+      "BOM关联": {},
+      "产品": {
+        "type": 1,
+        "value": [
+          {
+            "text": "司美格鲁肽注射液（预填充注射笔）-1.34mg/ml 3ml",
+            "type": "text"
+          }
+        ]
+      },
+      "产品代码": "FSM",
+      "产品剂型": "包装",
+      "产品名称": "司美格鲁肽注射液（预填充注射笔）",
+      "产品图片": [
+        {
+          "file_token": "TMhTbQCGkorDYexCNg1cFsddnVd",
+          "name": "img_v3_0210a_5374bf69-aaaf-4bbb-80f8-84623bbf241g.jpg",
+          "size": 222979,
+          "tmp_url": "https://open.feishu.cn/open-apis/drive/v1/medias/batch_get_tmp_download_url?file_tokens=TMhTbQCGkorDYexCNg1cFsddnVd",
+          "type": "image/jpeg",
+          "url": "https://open.feishu.cn/open-apis/drive/v1/medias/TMhTbQCGkorDYexCNg1cFsddnVd/download"
+        }
+      ],
+      "产品工艺路线": {
+        "link_record_ids": [
+          "recvfyya3d0oKF",
+          "recvfyzzY8uxN8"
+        ]
+      },
+      "产品状态": "临床阶段",
+      "制剂代码": [
+        {
+          "text": "AB",
+          "type": "text"
+        }
+      ],
+      "单位": "支",
+      "市场": "国内市场",
+      "生产批量": [
+        "2400"
+      ],
+      "生产规格": "1.34mg/ml 3ml",
+      "生产车间": "302车间",
+      "适应症": "降糖",
+      "销售单价不含税": {
+        "type": 2,
+        "value": [
+          0
+        ]
+      }
+    },
+    "record_id": "recvfwGkdHLgcN"
+  },
+  {
+    "fields": {
+      "BOM关联": {},
+      "产品": {
+        "type": 1,
+        "value": [
+          {
+            "text": "司美格鲁肽注射液（预填充注射笔）（B）-1.34mg/ml 3ml",
+            "type": "text"
+          }
+        ]
+      },
+      "产品代码": "FSM",
+      "产品剂型": "包装",
+      "产品名称": "司美格鲁肽注射液（预填充注射笔）（B）",
+      "产品图片": [
+        {
+          "file_token": "FC8RboSUFoUclsxMXEtcZv94n4c",
+          "name": "img_v3_0210a_5374bf69-aaaf-4bbb-80f8-84623bbf241g.jpg",
+          "size": 222979,
+          "tmp_url": "https://open.feishu.cn/open-apis/drive/v1/medias/batch_get_tmp_download_url?file_tokens=FC8RboSUFoUclsxMXEtcZv94n4c",
+          "type": "image/jpeg",
+          "url": "https://open.feishu.cn/open-apis/drive/v1/medias/FC8RboSUFoUclsxMXEtcZv94n4c/download"
+        }
+      ],
+      "产品工艺路线": {
+        "link_record_ids": [
+          "recvfyya3d0oKF",
+          "recvfyzzY8uxN8"
+        ]
+      },
+      "产品状态": "临床阶段",
+      "制剂代码": [
+        {
+          "text": "AB",
+          "type": "text"
+        }
+      ],
+      "单位": "支",
+      "市场": "国际市场",
+      "生产批量": [
+        "2400"
+      ],
+      "生产规格": "1.34mg/ml 3ml",
+      "生产车间": "302车间",
+      "适应症": "降糖",
+      "销售单价不含税": {
+        "type": 2,
+        "value": [
+          0
+        ]
+      }
+    },
+    "record_id": "recvfwGkdH4mXr"
+  },
+  {
+    "fields": {
+      "BOM关联": {},
+      "产品": {
+        "type": 1,
+        "value": [
+          {
+            "text": "司美格鲁肽注射液（预填充注射笔）-3.2mg/ml 3ml",
+            "type": "text"
+          }
+        ]
+      },
+      "产品代码": "FSM",
+      "产品剂型": "包装",
+      "产品名称": "司美格鲁肽注射液（预填充注射笔）",
+      "产品工艺路线": {
+        "link_record_ids": [
+          "recvfyya3d0oKF",
+          "recvfyzzY8uxN8"
+        ]
+      },
+      "产品状态": "临床阶段",
+      "制剂代码": [
+        {
+          "text": "AC",
+          "type": "text"
+        }
+      ],
+      "单位": "支",
+      "市场": "国内市场",
+      "生产批量": [
+        "2400"
+      ],
+      "生产规格": "3.2mg/ml 3ml",
+      "生产车间": "302车间",
+      "适应症": "体重管理",
+      "销售单价不含税": {
+        "type": 2,
+        "value": [
+          0
+        ]
+      }
+    },
+    "record_id": "recvfwGkdHzLCW"
+  },
+  {
+    "fields": {
+      "BOM关联": {},
+      "产品": {
+        "type": 1,
+        "value": [
+          {
+            "text": "司美格鲁肽注射液（预填充注射笔）-0.68mg/ml 1.5ml",
+            "type": "text"
+          }
+        ]
+      },
+      "产品代码": "FSM",
+      "产品剂型": "包装",
+      "产品名称": "司美格鲁肽注射液（预填充注射笔）",
+      "产品工艺路线": {
+        "link_record_ids": [
+          "recvfyya3d0oKF",
+          "recvfyzzY8uxN8"
+        ]
+      },
+      "产品状态": "临床阶段",
+      "制剂代码": [
+        {
+          "text": "AD",
+          "type": "text"
+        }
+      ],
+      "单位": "支",
+      "市场": "国内市场",
+      "生产规格": "0.68mg/ml 1.5ml",
+      "生产车间": "302车间",
+      "适应症": "体重管理",
+      "销售单价不含税": {
+        "type": 2,
+        "value": [
+          0
+        ]
+      }
+    },
+    "record_id": "recvfwGkdHYlAV"
+  },
+  {
+    "fields": {
+      "BOM关联": {},
+      "产品": {
+        "type": 1,
+        "value": [
+          {
+            "text": "司美格鲁肽注射液（预填充注射笔）-2.27mg/ml 3ml",
+            "type": "text"
+          }
+        ]
+      },
+      "产品代码": "FSM",
+      "产品剂型": "包装",
+      "产品名称": "司美格鲁肽注射液（预填充注射笔）",
+      "产品工艺路线": {
+        "link_record_ids": [
+          "recvfyya3d0oKF",
+          "recvfyzzY8uxN8"
+        ]
+      },
+      "产品状态": "临床阶段",
+      "制剂代码": [
+        {
+          "text": "AE",
+          "type": "text"
+        }
+      ],
+      "单位": "支",
+      "市场": "国内市场",
+      "生产规格": "2.27mg/ml 3ml",
+      "生产车间": "302车间",
+      "适应症": "体重管理",
+      "销售单价不含税": {
+        "type": 2,
+        "value": [
+          0
+        ]
+      }
+    },
+    "record_id": "recvfwGkdHaHOI"
+  },
+  {
+    "fields": {
+      "BOM关联": {},
+      "产品": {
+        "type": 1,
+        "value": [
+          {
+            "text": "司美格鲁肽注射液（笔芯）-1.34mg/ml 3ml",
+            "type": "text"
+          }
+        ]
+      },
+      "产品代码": "FSM",
+      "产品剂型": "包装",
+      "产品名称": "司美格鲁肽注射液（笔芯）",
+      "产品图片": [
+        {
+          "file_token": "Y0gObLusXoX6eMxYQbSc5tEDnLg",
+          "name": "image.png",
+          "size": 265171,
+          "tmp_url": "https://open.feishu.cn/open-apis/drive/v1/medias/batch_get_tmp_download_url?file_tokens=Y0gObLusXoX6eMxYQbSc5tEDnLg",
+          "type": "image/png",
+          "url": "https://open.feishu.cn/open-apis/drive/v1/medias/Y0gObLusXoX6eMxYQbSc5tEDnLg/download"
+        }
+      ],
+      "产品工艺路线": {
+        "link_record_ids": [
+          "recvfyya3d0oKF",
+          "recvfyzzY8uxN8"
+        ]
+      },
+      "产品状态": "临床阶段",
+      "制剂代码": [
+        {
+          "text": "AB",
+          "type": "text"
+        }
+      ],
+      "单位": "支",
+      "市场": "国内市场",
+      "生产批量": [
+        "5000"
+      ],
+      "生产规格": "1.34mg/ml 3ml",
+      "生产车间": "302车间",
+      "适应症": "降糖",
+      "销售单价不含税": {
+        "type": 2,
+        "value": [
+          0
+        ]
+      }
+    },
+    "record_id": "recvfwHuZHJCvp"
+  }
+]

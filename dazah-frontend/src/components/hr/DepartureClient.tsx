@@ -12,19 +12,20 @@ import { DepartureRecord } from '@/types/hr'
 import {
   fetchDepartureRecords,
   syncDepartureFromFeishu,
+  fetchNewDepartureRecords,
 } from '@/lib/api/hr'
 import HrChatbot from './HrChatbot'
 
 interface DepartureClientProps {
   initialRecords: DepartureRecord[]
   initialTotal: number
-  fetchAction?: typeof fetchDepartureRecords
+  factory?: 'new'
 }
 
 export default function DepartureClient({
   initialRecords,
   initialTotal,
-  fetchAction,
+  factory,
 }: DepartureClientProps) {
   const [records, setRecords] = useState<DepartureRecord[]>(initialRecords)
   const [total, setTotal] = useState(initialTotal)
@@ -36,7 +37,7 @@ export default function DepartureClient({
   const [filterDepartment, setFilterDepartment] = useState('')
   const [filterOffboardingType, setFilterOffboardingType] = useState('')
 
-  const doFetch = fetchAction || fetchDepartureRecords
+  const doFetch = factory === 'new' ? fetchNewDepartureRecords : fetchDepartureRecords
 
   const loadData = useCallback(async () => {
     setLoading(true)
@@ -210,7 +211,7 @@ export default function DepartureClient({
     <div className="space-y-4">
       <div className="flex justify-between items-center">
         <h1 className="text-[22px] font-semibold text-[var(--color-charcoal)]">
-          老厂离职台账
+          {factory === 'new' ? '新厂离职台账' : '老厂离职台账'}
         </h1>
         <Button
           type="primary"

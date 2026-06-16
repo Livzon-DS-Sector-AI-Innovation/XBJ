@@ -45,6 +45,7 @@ from app.modules.hr.schemas import (
     TrainingNotifyInput,
     TrainingSignInSheetInput,
 )
+from app.modules.hr.models import Employee
 from app.modules.hr.document_generator import generate_onboarding_training_record
 from app.modules.hr.evaluation_document_generator import generate_training_evaluation
 from app.modules.hr.notification_document_generator import generate_training_notification
@@ -69,6 +70,18 @@ from app.shared.module_registry import MODULES_BY_CODE
 from app.shared.schemas import PageParams
 
 router = create_module_router(MODULES_BY_CODE["hr"])
+
+
+async def _get_new_employee(employee_id: UUID, session: AsyncSession) -> Employee:
+    """Query employees_new clone table and construct an Employee instance."""
+    sql = text(
+        "SELECT * FROM hr.employees_new WHERE id = :id AND is_deleted = false"
+    )
+    result = await session.execute(sql, {"id": str(employee_id)})
+    row = result.mappings().first()
+    if not row:
+        raise HTTPException(status_code=404, detail="未找到该新厂员工")
+    return Employee(**dict(row))
 
 
 def get_employee_service(session: AsyncSession = Depends(get_db)) -> EmployeeService:
@@ -281,12 +294,14 @@ async def feishu_approval_webhook(
 )
 async def export_onboarding_training_record(
     employee_id: UUID,
+    factory: str = Query("old", description="厂别：old=旧厂, new=新厂"),
     service: EmployeeService = Depends(get_employee_service),
+    session: AsyncSession = Depends(get_db),
 ):
     """根据员工数据自动生成并下载入职培训记录 Word 文档。"""
-    employee = await service.get_employee(employee_id)
+    employee = await service.get_employee(employee_id) if factory == "old" else await _get_new_employee(employee_id, session)
     try:
-        buffer: BytesIO = generate_onboarding_training_record(employee)
+        buffer: BytesIO = generate_onboarding_training_record(employee, factory)
     except FileNotFoundError as e:
         raise HTTPException(status_code=400, detail=str(e))
 
@@ -308,12 +323,14 @@ async def export_onboarding_training_record(
 )
 async def export_prejob_training_plan(
     employee_id: UUID,
+    factory: str = Query("old", description="厂别：old=旧厂, new=新厂"),
     service: EmployeeService = Depends(get_employee_service),
+    session: AsyncSession = Depends(get_db),
 ):
-    """根据员工数据自动生成并下载岗前培训计划 Excel 文档。"""
-    employee = await service.get_employee(employee_id)
+    """根据员工数据自动生成并下载岗前培训计划文档。"""
+    employee = await service.get_employee(employee_id) if factory == "old" else await _get_new_employee(employee_id, session)
     try:
-        buffer: BytesIO = generate_prejob_training_plan(employee)
+        buffer: BytesIO = generate_prejob_training_plan(employee, factory)
     except FileNotFoundError as e:
         raise HTTPException(status_code=400, detail=str(e))
 
@@ -321,10 +338,16 @@ async def export_prejob_training_plan(
         buffer.seek(0)
         yield buffer.read()
 
-    filename = f"prejob_training_plan_{employee.employee_number}.xlsx"
+    ext = "xlsx" if factory == "old" else "docx"
+    media_type = (
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        if factory == "old"
+        else "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    )
+    filename = f"prejob_training_plan_{employee.employee_number}.{ext}"
     return StreamingResponse(
         _iterfile(),
-        media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        media_type=media_type,
         headers={"Content-Disposition": f'attachment; filename="{filename}"'},
     )
 
@@ -335,29 +358,40 @@ async def export_prejob_training_plan(
 )
 async def export_onboarding_evaluation_by_employee(
     employee_id: UUID,
+    factory: str = Query("old", description="厂别：old=旧厂, new=新厂"),
     service: EmployeeService = Depends(get_employee_service),
+    session: AsyncSession = Depends(get_db),
 ):
-    """根据员工档案预填基本信息并导出上岗评估表 Excel 文档。"""
-    employee = await service.get_employee(employee_id)
+    """根据员工档案预填基本信息并导出上岗评估表文档。"""
+    employee = await service.get_employee(employee_id) if factory == "old" else await _get_new_employee(employee_id, session)
 
-    payload = OnboardingEvaluationInput(
-        employee_name=employee.name or "",
-        employee_number=employee.employee_number or None,
-        gender=employee.gender or None,
-        department_position=f"{employee.department or ''}/{employee.position or ''}",
-        hire_date=employee.hire_date,
-    )
-    buffer: BytesIO = generate_onboarding_evaluation(payload)
+    try:
+        buffer: BytesIO = generate_onboarding_evaluation(employee, factory)
+    except Exception as e:
+        import traceback
+        detail = traceback.format_exc()
+        raise HTTPException(status_code=500, detail=f"生成文档失败: {str(e)}\n{detail}")
+    except FileNotFoundError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+    with open('d:/LivzonAI/api_success.log', 'w', encoding='utf-8') as f:
+        f.write(f"Buffer type: {type(buffer)}, size: {len(buffer.getvalue()) if buffer else 'None'}")
 
     def _iterfile():
         buffer.seek(0)
         yield buffer.read()
 
     safe_date = str(employee.hire_date).replace("-", "") if employee.hire_date else "nodate"
-    filename = f"onboarding_evaluation_{employee.employee_number}_{safe_date}.xlsx"
+    ext = "xlsx" if factory == "old" else "docx"
+    media_type = (
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        if factory == "old"
+        else "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    )
+    filename = f"onboarding_evaluation_{employee.employee_number}_{safe_date}.{ext}"
     return StreamingResponse(
         _iterfile(),
-        media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        media_type=media_type,
         headers={"Content-Disposition": f'attachment; filename="{filename}"'},
     )
 
@@ -367,17 +401,19 @@ import zipfile
 @router.post("/training-sign-in-sheet", summary="生成培训签到表")
 async def export_training_sign_in_sheet(
     payload: TrainingSignInSheetInput,
+    factory: str = Query("old", description="厂别：old=旧厂, new=新厂"),
 ):
-    """根据填写的培训信息自动生成培训签到表 Excel 文档。
+    """根据填写的培训信息自动生成培训签到表文档。
 
     当应出席受训人员超过 30 人时，自动分页生成多张签到表并打包为 zip。
     """
     safe_date = str(payload.training_date).replace("-", "")
     total = len(payload.employee_names)
+    ext = "xlsx" if factory == "old" else "xls"
 
     if total <= 30:
         try:
-            buffer: BytesIO = generate_training_sign_in_sheet(payload)
+            buffer: BytesIO = generate_training_sign_in_sheet(payload, factory)
         except FileNotFoundError as e:
             raise HTTPException(status_code=400, detail=str(e))
 
@@ -385,10 +421,11 @@ async def export_training_sign_in_sheet(
             buffer.seek(0)
             yield buffer.read()
 
-        filename = f"training_sign_in_sheet_{safe_date}.xlsx"
+        media_type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" if factory == "old" else "application/vnd.ms-excel"
+        filename = f"training_sign_in_sheet_{safe_date}.{ext}"
         return StreamingResponse(
             _iterfile(),
-            media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            media_type=media_type,
             headers={"Content-Disposition": f'attachment; filename="{filename}"'},
         )
 
@@ -398,11 +435,11 @@ async def export_training_sign_in_sheet(
     with zipfile.ZipFile(zip_buffer, "w", zipfile.ZIP_DEFLATED) as zf:
         for page in range(pages):
             try:
-                page_buffer = generate_training_sign_in_sheet(payload, page=page)
+                page_buffer = generate_training_sign_in_sheet(payload, factory, page=page)
             except FileNotFoundError as e:
                 raise HTTPException(status_code=400, detail=str(e))
             page_buffer.seek(0)
-            zf.writestr(f"training_sign_in_sheet_{safe_date}_page{page + 1}.xlsx", page_buffer.read())
+            zf.writestr(f"training_sign_in_sheet_{safe_date}_page{page + 1}.{ext}", page_buffer.read())
     zip_buffer.seek(0)
 
     def _iter_zip():
@@ -476,19 +513,26 @@ async def export_training_notification(
 @router.post("/training-evaluation", summary="生成培训效果评估表")
 async def export_training_evaluation(
     payload: TrainingEvaluationInput,
+    factory: str = Query("old", description="厂别：old=旧厂, new=新厂"),
 ):
-    """根据填写的培训信息自动生成培训效果评估表 Excel 文档。"""
-    buffer: BytesIO = generate_training_evaluation(payload)
+    """根据填写的培训信息自动生成培训效果评估表文档。"""
+    buffer: BytesIO = generate_training_evaluation(payload, factory)
 
     def _iterfile():
         buffer.seek(0)
         yield buffer.read()
 
     safe_date = str(payload.training_date).replace("-", "") if payload.training_date else "nodate"
-    filename = f"training_evaluation_{safe_date}.xlsx"
+    ext = "xlsx" if factory == "old" else "docx"
+    media_type = (
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        if factory == "old"
+        else "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    )
+    filename = f"training_evaluation_{safe_date}.{ext}"
     return StreamingResponse(
         _iterfile(),
-        media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        media_type=media_type,
         headers={"Content-Disposition": f'attachment; filename="{filename}"'},
     )
 
@@ -496,19 +540,26 @@ async def export_training_evaluation(
 @router.post("/onboarding-evaluation", summary="生成员工上岗评估表")
 async def export_onboarding_evaluation(
     payload: OnboardingEvaluationInput,
+    factory: str = Query("old", description="厂别：old=旧厂, new=新厂"),
 ):
-    """根据填写的评估信息自动生成员工上岗评估表 Excel 文档。"""
-    buffer: BytesIO = generate_onboarding_evaluation(payload)
+    """根据填写的评估信息自动生成员工上岗评估表文档。"""
+    buffer: BytesIO = generate_onboarding_evaluation(payload, factory)
 
     def _iterfile():
         buffer.seek(0)
         yield buffer.read()
 
-    safe_date = str(payload.evaluation_date).replace("-", "") if payload.evaluation_date else "nodate"
-    filename = f"onboarding_evaluation_{safe_date}.xlsx"
+    safe_date = str(payload.approval_date).replace("-", "") if payload.approval_date else "nodate"
+    ext = "xlsx" if factory == "old" else "docx"
+    media_type = (
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        if factory == "old"
+        else "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    )
+    filename = f"onboarding_evaluation_{safe_date}.{ext}"
     return StreamingResponse(
         _iterfile(),
-        media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        media_type=media_type,
         headers={"Content-Disposition": f'attachment; filename="{filename}"'},
     )
 
@@ -1531,12 +1582,24 @@ async def list_new_employees(
     page_params: PageParams = Depends(),
     session: AsyncSession = Depends(get_db),
 ):
+    """List employees from employees_new clone table."""
+    # 处理多肽车间按班组拆分的情况
+    dept_filter = department
+    team_filter = None
+    if department and department.startswith("多肽车间-"):
+        dept_filter = "多肽车间"
+        team_filter = department.replace("多肽车间-", "")
+
     where, params = _build_where(
         "hr.employees_new",
-        [("department", department), ("status", status)],
+        [("department", dept_filter), ("status", status)],
         keyword_fields=["name", "employee_number"],
         keyword=keyword,
     )
+    if team_filter:
+        where += " AND hr.employees_new.team = :team"
+        params["team"] = team_filter
+
     data, total = await _query_clone_table(
         session, "hr.employees_new", EmployeeResponse,
         where, params, page_params.page, page_params.page_size,
@@ -1664,8 +1727,35 @@ async def list_new_departments(
         DepartmentResponse.model_validate(SimpleNamespace(**dict(row))).model_dump(mode="json")
         for row in rows
     ]
+
+    # 多肽车间按班组拆分为 多肽车间-xxx
+    expanded: list[dict] = []
+    for dept in data:
+        name = dept["name"]
+        if name == "多肽车间":
+            # 查询多肽车间下所有班组
+            team_sql = text("""
+                SELECT DISTINCT team FROM hr.employees_new
+                WHERE department = '多肽车间' AND is_deleted = false AND team IS NOT NULL AND team != ''
+                ORDER BY team
+            """)
+            team_result = await session.execute(team_sql)
+            team_rows = team_result.mappings().all()
+            if team_rows:
+                for row in team_rows:
+                    team_name = row["team"]
+                    expanded.append({
+                        **dept,
+                        "name": f"多肽车间-{team_name}",
+                        "code": f"多肽车间-{team_name}",
+                    })
+            else:
+                expanded.append(dept)
+        else:
+            expanded.append(dept)
+
     return paginated_response(
-        data=data, page=page_params.page,
+        data=expanded, page=page_params.page,
         page_size=page_params.page_size, total=total,
     )
 

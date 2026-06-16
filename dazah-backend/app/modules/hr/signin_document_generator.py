@@ -4,33 +4,66 @@ from io import BytesIO
 from pathlib import Path
 
 import openpyxl
-from openpyxl.styles import Alignment
+from openpyxl.styles import Alignment, Font
+import xlrd
+from xlutils.copy import copy as xlutils_copy
 
 from app.modules.hr.schemas import TrainingSignInSheetInput
 
 
-def _find_template() -> Path:
-    """Locate the xlsx template, trying several path candidates."""
+def _fmt_date(value) -> str:
+    """将日期格式化为 YYYY.MM.DD."""
+    if not value:
+        return ""
+    if hasattr(value, "strftime"):
+        return value.strftime("%Y.%m.%d")
+    if isinstance(value, str):
+        from datetime import datetime
+        for fmt in ("%Y-%m-%d", "%Y/%m/%d", "%Y.%m.%d"):
+            try:
+                return datetime.strptime(value, fmt).strftime("%Y.%m.%d")
+            except ValueError:
+                continue
+    return str(value)
+
+
+OLD_TEMPLATE_NAME = "7.5培训签到表.xlsx"
+NEW_TEMPLATE_NAME = "R-GN-2002 K 培训签到表.xls"
+
+
+def _find_old_template() -> Path:
+    """Locate the old factory xlsx template."""
     candidates = [
-        Path("员工培训教育管理规程/7.5培训签到表.xlsx"),
-        Path("../员工培训教育管理规程/7.5培训签到表.xlsx"),
+        Path("员工培训教育管理规程") / OLD_TEMPLATE_NAME,
+        Path("../员工培训教育管理规程") / OLD_TEMPLATE_NAME,
         Path(__file__).resolve().parent.parent.parent.parent
         / "员工培训教育管理规程"
-        / "7.5培训签到表.xlsx",
+        / OLD_TEMPLATE_NAME,
     ]
     for p in candidates:
         if p.exists():
             return p
-    raise FileNotFoundError("模板文件未找到: 7.5培训签到表.xlsx")
+    raise FileNotFoundError(f"模板文件未找到: {OLD_TEMPLATE_NAME}")
 
 
-def generate_training_sign_in_sheet(data: TrainingSignInSheetInput, page: int = 0) -> BytesIO:
-    """Fill the training sign-in sheet template with form data.
+def _find_new_template() -> Path:
+    """Locate the new factory xls template."""
+    candidates = [
+        Path("新厂人员培训管理规程") / NEW_TEMPLATE_NAME,
+        Path("../新厂人员培训管理规程") / NEW_TEMPLATE_NAME,
+        Path(__file__).resolve().parent.parent.parent.parent
+        / "新厂人员培训管理规程"
+        / NEW_TEMPLATE_NAME,
+    ]
+    for p in candidates:
+        if p.exists():
+            return p
+    raise FileNotFoundError(f"模板文件未找到: {NEW_TEMPLATE_NAME}")
 
-    Each page holds up to 30 employees.  Returns a BytesIO buffer
-    containing the generated xlsx for the requested page.
-    """
-    template_path = _find_template()
+
+def _generate_old(data: TrainingSignInSheetInput, page: int = 0) -> BytesIO:
+    """Fill the old factory training sign-in sheet xlsx template."""
+    template_path = _find_old_template()
     wb = openpyxl.load_workbook(str(template_path))
     ws = wb.active
 
@@ -110,15 +143,86 @@ def generate_training_sign_in_sheet(data: TrainingSignInSheetInput, page: int = 
             cell = ws[f"A{row}"]
             if cell:
                 cell.value = name
+                cell.font = Font(name="宋体", size=12)
                 cell.alignment = Alignment(horizontal="center", vertical="center")
         else:
             row = 15 + (i - 15)
             cell = ws[f"K{row}"]
             if cell:
                 cell.value = name
+                cell.font = Font(name="宋体", size=12)
                 cell.alignment = Alignment(horizontal="center", vertical="center")
 
     buffer = BytesIO()
     wb.save(buffer)
     buffer.seek(0)
     return buffer
+
+
+def _generate_new(data: TrainingSignInSheetInput, page: int = 0) -> BytesIO:
+    """Fill the new factory training sign-in sheet xls template."""
+    template_path = _find_new_template()
+    rb = xlrd.open_workbook(str(template_path), formatting_info=True)
+    wb = xlutils_copy(rb)
+    ws = wb.get_sheet(0)
+
+    # Row 4: 培训日期
+    if data.training_date:
+        ws.write(4, 1, _fmt_date(data.training_date))
+
+    # Row 5: 培训方式
+    if data.training_method:
+        method_map = {
+            "面授": "☑ 面授",
+            "函授": "☑ 函授",
+            "远程教育": "☑ 远程教育",
+            "自学": "☑ 自学",
+            "其他": "☑其他",
+        }
+        placeholder = method_map.get(data.training_method, data.training_method)
+        ws.write(5, 1, f"培训方式：{placeholder} □ 面授 □ 函授 □ 远程教育 □ 自学 □其他：")
+
+    # Row 6: 受训部门/班组
+    if data.department:
+        ws.write(6, 1, data.department)
+
+    # Row 7: 应受训人数 / 实际受训人数
+    total = len(data.employee_names)
+    ws.write(7, 1, f"应受训人数：{total} 人           实际受训人数合计：      人")
+
+    # Row 8: 培训时间 / 培训题目或内容概要 / 授课人
+    if data.training_time_start and data.training_time_end:
+        ws.write(9, 0, f"{data.training_time_start} ~ {data.training_time_end}")
+    if data.topic:
+        ws.write(9, 1, data.topic)
+    if data.instructor:
+        ws.write(9, 4, data.instructor)
+
+    # Employee names list (max 30 per page)
+    page_size = 30
+    start = page * page_size
+    page_names = data.employee_names[start : start + page_size]
+
+    for i, name in enumerate(page_names):
+        if i < 15:
+            row = 10 + i
+            ws.write(row, 0, name)
+        else:
+            row = 10 + (i - 15)
+            ws.write(row, 3, name)
+
+    buffer = BytesIO()
+    wb.save(buffer)
+    buffer.seek(0)
+    return buffer
+
+
+def generate_training_sign_in_sheet(data: TrainingSignInSheetInput, factory: str = "old", page: int = 0) -> BytesIO:
+    """Fill the training sign-in sheet template with form data.
+
+    Each page holds up to 30 employees. Returns a BytesIO buffer
+    containing the generated document for the requested page.
+    """
+    if factory == "new":
+        return _generate_new(data, page)
+    return _generate_old(data, page)

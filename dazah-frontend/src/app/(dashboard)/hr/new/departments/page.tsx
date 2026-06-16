@@ -14,7 +14,7 @@ export default async function NewDepartmentsPage() {
       <DepartmentClient
         initialDepartments={res.data}
         initialTotal={res.meta?.total || 0}
-        fetchAction={fetchNewDepartments}
+        factory="new"
       />
     </div>
   )

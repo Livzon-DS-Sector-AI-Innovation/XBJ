@@ -14,7 +14,7 @@ export default async function NewOffboardingPage() {
       <DepartureClient
         initialRecords={res.data}
         initialTotal={res.meta?.total || 0}
-        fetchAction={fetchNewOffboardingRecords}
+        factory="new"
       />
     </div>
   )

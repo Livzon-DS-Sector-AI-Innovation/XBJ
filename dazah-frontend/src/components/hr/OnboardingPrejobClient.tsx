@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Button, Card, Select, Space, message } from 'antd'
+import { Radio, Button, Card, Select, Space, message } from 'antd'
 import {
   FileTextOutlined,
   PrinterOutlined,
@@ -10,6 +10,7 @@ import {
 import { Employee } from '@/types/hr'
 import {
   fetchEmployees,
+  fetchNewEmployees,
   fetchOnboardingTrainingRecord,
   fetchPrejobTrainingPlan,
   fetchOnboardingEvaluationByEmployeeId,
@@ -48,10 +49,13 @@ export default function OnboardingPrejobClient() {
   const [downloadingWord, setDownloadingWord] = useState(false)
   const [downloadingExcel, setDownloadingExcel] = useState(false)
   const [downloadingEval, setDownloadingEval] = useState(false)
+  const [factory, setFactory] = useState<'old' | 'new'>('old')
 
   useEffect(() => {
     setLoading(true)
-    fetchEmployees({ page_size: 200 })
+    setSelectedEmployeeId(null)
+    const fetcher = factory === 'old' ? fetchEmployees : fetchNewEmployees
+    fetcher({ page_size: 200 })
       .then((res) => {
         setEmployees(res.data || [])
       })
@@ -61,7 +65,7 @@ export default function OnboardingPrejobClient() {
       .finally(() => {
         setLoading(false)
       })
-  }, [])
+  }, [factory])
 
   const selectedEmployee = employees.find((e) => e.id === selectedEmployeeId)
 
@@ -72,7 +76,7 @@ export default function OnboardingPrejobClient() {
     }
     setDownloadingWord(true)
     try {
-      await fetchOnboardingTrainingRecord(selectedEmployee.id, selectedEmployee.name)
+      await fetchOnboardingTrainingRecord(selectedEmployee.id, selectedEmployee.name, factory)
       message.success('入职培训记录已导出')
     } catch (err: any) {
       message.error(err.message || '导出失败')
@@ -88,7 +92,7 @@ export default function OnboardingPrejobClient() {
     }
     setDownloadingExcel(true)
     try {
-      await fetchPrejobTrainingPlan(selectedEmployee.id, selectedEmployee.name)
+      await fetchPrejobTrainingPlan(selectedEmployee.id, selectedEmployee.name, factory)
       message.success('岗前培训计划已导出')
     } catch (err: any) {
       message.error(err.message || '导出失败')
@@ -106,7 +110,8 @@ export default function OnboardingPrejobClient() {
     try {
       await fetchOnboardingEvaluationByEmployeeId(
         selectedEmployee.id,
-        selectedEmployee.name
+        selectedEmployee.name,
+        factory
       )
       message.success('员工上岗评估表已导出')
     } catch (err: any) {
@@ -128,11 +133,22 @@ export default function OnboardingPrejobClient() {
     ? DEPT_CONTENT_MAP[selectedEmployee.department || ''] || []
     : []
 
+  const isOldFactory = factory === 'old'
+
   return (
     <div className="space-y-6">
       {/* 顶部选择器 */}
       <Card>
         <Space wrap size="middle" align="center">
+          <Radio.Group
+            value={factory}
+            onChange={(e) => setFactory(e.target.value)}
+            options={[
+              { label: '旧厂', value: 'old' },
+              { label: '新厂', value: 'new' },
+            ]}
+            optionType="button"
+          />
           <Select
             showSearch
             placeholder="选择员工"
@@ -146,6 +162,7 @@ export default function OnboardingPrejobClient() {
               (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
             }
             style={{ minWidth: 320 }}
+            loading={loading}
           />
           <Button
             type="primary"
@@ -160,14 +177,14 @@ export default function OnboardingPrejobClient() {
             onClick={handleExportExcel}
             loading={downloadingExcel}
           >
-            导出岗前培训计划(Excel)
+            导出岗前培训计划({isOldFactory ? 'Excel' : 'Word'})
           </Button>
           <Button
             icon={<DownloadOutlined />}
             onClick={handleExportEvaluation}
             loading={downloadingEval}
           >
-            导出员工上岗评估表(Excel)
+            导出员工上岗评估表({isOldFactory ? 'Excel' : 'Word'})
           </Button>
           <Button icon={<PrinterOutlined />} onClick={handlePrint} disabled={!selectedEmployee}>
             打印

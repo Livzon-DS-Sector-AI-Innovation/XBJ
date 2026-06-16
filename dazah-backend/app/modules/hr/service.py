@@ -319,23 +319,91 @@ class EmployeeService:
         )
 
     async def notify_training(self, payload) -> dict:
-        """给受训人员发送飞书单聊消息（直接读取数据库 feishu_open_id）。
+        """给受训人员发送飞书单聊消息。
+
+        老厂员工直接读取 employees 表的 feishu_open_id；
+        新厂员工从 employees_new 表查询，若缺少 feishu_open_id 则根据手机号实时获取。
 
         Args:
             payload: TrainingNotifyInput instance.
         """
         from app.platform.integrations.feishu.im import FeishuIM
+        from sqlalchemy import text
 
         im = FeishuIM()
+        is_new_factory = getattr(payload, "factory", None) == "new"
 
         # 1. 查询所有员工
         emp_list: list[Employee] = []
+        missing_numbers: list[str] = []
         for emp_no in payload.employee_numbers:
-            emp = await self.repo.get_by_employee_number(emp_no)
-            if emp:
-                emp_list.append(emp)
+            if is_new_factory:
+                sql = text(
+                    "SELECT * FROM hr.employees_new "
+                    "WHERE employee_number = :eno AND is_deleted = false"
+                )
+                result = await self.repo.session.execute(sql, {"eno": emp_no})
+                row = result.mappings().first()
+                if row:
+                    emp_list.append(Employee(**dict(row)))
+                else:
+                    missing_numbers.append(emp_no)
+            else:
+                emp = await self.repo.get_by_employee_number(emp_no)
+                if emp:
+                    emp_list.append(emp)
+                else:
+                    missing_numbers.append(emp_no)
 
-        # 2. 组装消息内容
+        # 2. 对缺少 open_id 的员工，按手机号批量获取
+        phones_to_fetch: list[str] = []
+        phone_emp_map: dict[str, Employee] = {}
+        for emp in emp_list:
+            if not emp.feishu_open_id and emp.phone:
+                mobile = emp.phone if emp.phone.startswith("+") else f"+86{emp.phone}"
+                phones_to_fetch.append(mobile)
+                phone_emp_map[mobile] = emp
+                # 同时保留原始号码作为 fallback key
+                if emp.phone not in phone_emp_map:
+                    phone_emp_map[emp.phone] = emp
+
+        if phones_to_fetch:
+            try:
+                open_id_mapping = await im.batch_get_open_ids_by_mobile(phones_to_fetch)
+                for mobile, open_id in open_id_mapping.items():
+                    emp = phone_emp_map.get(mobile)
+                    if emp and open_id:
+                        emp.feishu_open_id = open_id
+                        logger.info(
+                            "Fetched feishu_open_id for %s (%s): %s",
+                            emp.name, emp.employee_number, open_id,
+                        )
+                        # 把获取到的 openid 持久化到数据库
+                        try:
+                            if is_new_factory:
+                                update_sql = text(
+                                    "UPDATE hr.employees_new SET feishu_open_id = :oid WHERE employee_number = :eno"
+                                )
+                            else:
+                                update_sql = text(
+                                    "UPDATE hr.employees SET feishu_open_id = :oid WHERE employee_number = :eno"
+                                )
+                            await self.repo.session.execute(
+                                update_sql,
+                                {"oid": open_id, "eno": emp.employee_number},
+                            )
+                        except Exception as db_err:
+                            logger.warning(
+                                "Failed to persist feishu_open_id for %s: %s",
+                                emp.employee_number,
+                                db_err,
+                            )
+                # 统一 flush，让 get_db 在请求结束时统一 commit
+                await self.repo.session.flush()
+            except Exception as e:
+                logger.warning("Batch get open_id by mobile failed: %s", e)
+
+        # 3. 组装消息内容
         time_str = ""
         if payload.training_time_start and payload.training_time_end:
             time_str = f"{payload.training_time_start} ~ {payload.training_time_end}"
@@ -351,7 +419,7 @@ class EmployeeService:
         content_lines.append("请准时参加，自带笔记本笔，不得无故缺席。")
         content = "\n".join(content_lines)
 
-        # 3. 逐条发送（直接读取数据库 feishu_open_id）
+        # 4. 逐条发送
         sent = 0
         failed = 0
         details: list[dict] = []
@@ -359,12 +427,15 @@ class EmployeeService:
             open_id = emp.feishu_open_id
             if not open_id:
                 failed += 1
+                reason = "数据库中缺少 feishu_open_id 且手机号未关联到飞书"
+                if not emp.phone:
+                    reason = "数据库中缺少 feishu_open_id 且无手机号"
                 details.append(
                     {
                         "employee_number": emp.employee_number,
                         "name": emp.name,
                         "status": "failed",
-                        "reason": "数据库中缺少 feishu_open_id，请先同步",
+                        "reason": reason,
                     }
                 )
                 continue
@@ -391,17 +462,16 @@ class EmployeeService:
                 )
 
         # 未找到的员工
-        found_numbers = {emp.employee_number for emp in emp_list}
-        for emp_no in payload.employee_numbers:
-            if emp_no not in found_numbers:
-                failed += 1
-                details.append(
-                    {
-                        "employee_number": emp_no,
-                        "status": "failed",
-                        "reason": "未找到员工",
-                    }
-                )
+        for emp_no in missing_numbers:
+            failed += 1
+            details.append(
+                {
+                    "employee_number": emp_no,
+                    "name": "",
+                    "status": "failed",
+                    "reason": "未找到该员工",
+                }
+            )
 
         return {"sent": sent, "failed": failed, "details": details}
 

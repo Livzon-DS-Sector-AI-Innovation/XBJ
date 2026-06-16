@@ -137,43 +137,6 @@ export const moduleMenus: ModuleMenu[] = [
           { key: "onboarding", label: "入职台账", path: "/hr/onboarding" },
           { key: "departure", label: "离职台账", path: "/hr/departure" },
           { key: "offboarding", label: "离职管理", path: "/hr/offboarding" },
-          {
-            key: "training",
-            label: "培训管理",
-            path: "/hr/training",
-            children: [
-              { key: "onboarding-training", label: "新员工入职培训", path: "/hr/training/onboarding" },
-              { key: "training-notification", label: "培训通知", path: "/hr/training/notification" },
-              { key: "sign-in-sheet", label: "培训签到表", path: "/hr/training/sign-in" },
-              { key: "ai-exam", label: "AI 出题", path: "/hr/training/ai-exam" },
-              {
-                key: "annual-plan",
-                label: "年度培训计划",
-                path: "/hr/training/annual-plan",
-                children: [
-                  { key: "annual-plan-new", label: "新建年度培训计划", path: "/hr/training/annual-plan/new" },
-                ],
-              },
-              {
-                key: "training-ledger",
-                label: "培训台账",
-                path: "/hr/training/ledger",
-                children: [
-                  { key: "training-ledger-new", label: "新建培训台账", path: "/hr/training/ledger/new" },
-                  {
-                    key: "training-ledger-dept-人事行政部",
-                    label: "人事行政部",
-                    path: "#",
-                    children: [
-                      { key: "training-ledger-li-jianwen", label: "李健文培训台账", path: "/hr/training/ledger?employee_number=110000673" },
-                      { key: "training-ledger-huang-liyun", label: "黄丽耘培训台账", path: "/hr/training/ledger?employee_number=110001372" },
-                      { key: "training-ledger-li-wenzhao", label: "李文兆培训台账", path: "/hr/training/ledger?employee_number=10086" },
-                    ],
-                  },
-                ],
-              },
-            ],
-          },
         ],
       },
       {
@@ -186,6 +149,43 @@ export const moduleMenus: ModuleMenu[] = [
           { key: "new-onboarding", label: "入职台账", path: "/hr/new/onboarding" },
           { key: "new-departure", label: "离职台账", path: "/hr/new/departure" },
           { key: "new-offboarding", label: "离职管理", path: "/hr/new/offboarding" },
+        ],
+      },
+      {
+        key: "new-training",
+        label: "培训管理",
+        path: "/hr/training",
+        children: [
+          { key: "new-onboarding-training", label: "新员工入职培训", path: "/hr/training/onboarding" },
+          { key: "new-training-notification", label: "培训通知", path: "/hr/training/notification" },
+          { key: "new-sign-in-sheet", label: "培训签到表", path: "/hr/training/sign-in" },
+          { key: "new-ai-exam", label: "AI 出题", path: "/hr/training/ai-exam" },
+          {
+            key: "new-annual-plan",
+            label: "年度培训计划",
+            path: "/hr/training/annual-plan",
+            children: [
+              { key: "new-annual-plan-new", label: "新建年度培训计划", path: "/hr/training/annual-plan/new" },
+            ],
+          },
+          {
+            key: "new-training-ledger",
+            label: "培训台账",
+            path: "/hr/training/ledger",
+            children: [
+              { key: "new-training-ledger-new", label: "新建培训台账", path: "/hr/training/ledger/new" },
+              {
+                key: "new-training-ledger-dept-人事行政部",
+                label: "人事行政部",
+                path: "#",
+                children: [
+                  { key: "new-training-ledger-li-jianwen", label: "李健文培训台账", path: "/hr/training/ledger?employee_number=110000673" },
+                  { key: "new-training-ledger-huang-liyun", label: "黄丽耘培训台账", path: "/hr/training/ledger?employee_number=110001372" },
+                  { key: "new-training-ledger-li-wenzhao", label: "李文兆培训台账", path: "/hr/training/ledger?employee_number=10086" },
+                ],
+              },
+            ],
+          },
         ],
       },
     ],

@@ -5,6 +5,7 @@ import { Button, message, Tabs } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
 import { Employee, Department } from '@/types/hr'
 import { fetchEmployeesAction } from '@/actions/hr'
+import { fetchNewEmployees, fetchNewDepartments } from '@/lib/api/hr'
 import { fetchDepartments } from '@/lib/api/hr'
 import { useHrStore } from '@/stores/hr'
 import EmployeeTable from './EmployeeTable'
@@ -16,7 +17,7 @@ import TurnoverAnalysisPanel from './TurnoverAnalysisPanel'
 interface EmployeeProfileClientProps {
   initialEmployees: Employee[]
   initialTotal: number
-  fetchAction?: typeof fetchEmployeesAction
+  factory?: 'new'
 }
 
 function useDebounce<T>(value: T, delay: number): T {
@@ -33,7 +34,7 @@ function useDebounce<T>(value: T, delay: number): T {
 export default function EmployeeProfileClient({
   initialEmployees,
   initialTotal,
-  fetchAction,
+  factory,
 }: EmployeeProfileClientProps) {
   const [employees, setEmployees] = useState<Employee[]>(initialEmployees)
   const [total, setTotal] = useState(initialTotal)
@@ -52,7 +53,7 @@ export default function EmployeeProfileClient({
       ? ''
       : departments.find((d) => d.id === activeTab)?.name || ''
 
-  const doFetch = fetchAction || fetchEmployeesAction
+  const doFetch = factory === 'new' ? fetchNewEmployees : fetchEmployeesAction
 
   const loadData = useCallback(async () => {
     try {
@@ -72,12 +73,13 @@ export default function EmployeeProfileClient({
 
   const loadDepartments = useCallback(async () => {
     try {
-      const res = await fetchDepartments({ page_size: 100 })
+      const doFetchDepartments = factory === 'new' ? fetchNewDepartments : fetchDepartments
+      const res = await doFetchDepartments({ page_size: 100 })
       setDepartments(res.data)
     } catch {
       setDepartments([])
     }
-  }, [])
+  }, [factory])
 
   const handlePageChange = (newPage: number, newPageSize: number) => {
     setPage(newPage)
@@ -128,7 +130,7 @@ export default function EmployeeProfileClient({
     <div className="space-y-4">
       <div className="flex justify-between items-center">
         <h1 className="text-[22px] font-semibold text-[var(--color-charcoal)]">
-          老厂员工档案
+          {factory === 'new' ? '新厂员工档案' : '老厂员工档案'}
         </h1>
         <Button type="primary" icon={<PlusOutlined />} onClick={handleAdd}>
           新增员工

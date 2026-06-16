@@ -278,6 +278,7 @@ class TrainingNotifyInput(BaseModel):
     training_method: str | None = Field(None, max_length=32, description="培训方式")
     issuer_department: str | None = Field(None, max_length=64, description="落款部门")
     issue_date: date | None = Field(None, description="落款日期")
+    factory: str | None = Field(None, max_length=8, description="厂区: old=旧厂, new=新厂")
 
 
 class TrainingEvaluationInput(BaseModel):

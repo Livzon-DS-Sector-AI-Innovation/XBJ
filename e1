@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    import sys; sys.stdout.reconfigure(encoding='utf-8'); import pandas as pd; df = pd.read_excel('dazah-backend/新厂人员培训管理规程/R-GN-2002 K 培训签到表.xls'); print(df.head(10))
+                                                          ^^^^^^^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'pandas'

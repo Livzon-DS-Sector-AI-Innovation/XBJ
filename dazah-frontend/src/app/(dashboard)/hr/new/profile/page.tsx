@@ -14,7 +14,7 @@ export default async function NewEmployeeProfilePage() {
       <EmployeeProfileClient
         initialEmployees={res.data}
         initialTotal={res.meta?.total || 0}
-        fetchAction={fetchNewEmployees}
+        factory="new"
       />
     </div>
   )

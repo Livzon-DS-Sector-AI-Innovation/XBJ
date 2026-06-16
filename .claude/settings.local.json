@@ -7,7 +7,9 @@
       "Bash(taskkill //F //IM node.exe)",
       "Bash(taskkill //F //IM pnpm.exe)",
       "Bash(pnpm add *)",
-      "Bash(pnpm install *)"
+      "Bash(pnpm install *)",
+      "Bash(uv --version)",
+      "Bash(pnpm --version)"
     ]
   }
 }

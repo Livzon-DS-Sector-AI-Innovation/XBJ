@@ -27,7 +27,7 @@ import {
   TrainingApprovalResponse,
 } from '@/types/hr'
 
-const API_BASE = 'http://localhost:8004'
+const API_BASE = process.env.API_BASE_URL || 'http://127.0.0.1:8000'
 
 export async function fetchEmployees(
   params?: {
@@ -395,10 +395,11 @@ export async function fetchTurnoverAnalysis(): Promise<any> {
 
 export async function fetchOnboardingTrainingRecord(
   employeeId: string,
-  employeeName: string
+  employeeName: string,
+  factory: 'old' | 'new' = 'old'
 ): Promise<void> {
   const res = await fetch(
-    `${API_BASE}/api/v1/hr/employees/${employeeId}/onboarding-training-record`,
+    `${API_BASE}/api/v1/hr/employees/${employeeId}/onboarding-training-record?factory=${factory}`,
     { cache: 'no-store' }
   )
   if (!res.ok) throw new Error('生成培训记录失败')
@@ -406,7 +407,9 @@ export async function fetchOnboardingTrainingRecord(
   const url = window.URL.createObjectURL(blob)
   const a = document.createElement('a')
   a.href = url
-  a.download = `7.3新员工入职培训记录_${employeeName}.docx`
+  a.download = factory === 'new'
+    ? `R-GN-2002 B 新员工入职培训记录_${employeeName}.docx`
+    : `7.3新员工入职培训记录_${employeeName}.docx`
   document.body.appendChild(a)
   a.click()
   document.body.removeChild(a)
@@ -415,10 +418,11 @@ export async function fetchOnboardingTrainingRecord(
 
 export async function fetchPrejobTrainingPlan(
   employeeId: string,
-  employeeName: string
+  employeeName: string,
+  factory: 'old' | 'new' = 'old'
 ): Promise<void> {
   const res = await fetch(
-    `${API_BASE}/api/v1/hr/employees/${employeeId}/prejob-training-plan`,
+    `${API_BASE}/api/v1/hr/employees/${employeeId}/prejob-training-plan?factory=${factory}`,
     { cache: 'no-store' }
   )
   if (!res.ok) throw new Error('生成岗前培训计划失败')
@@ -426,7 +430,10 @@ export async function fetchPrejobTrainingPlan(
   const url = window.URL.createObjectURL(blob)
   const a = document.createElement('a')
   a.href = url
-  a.download = `7.4岗前培训计划_${employeeName}.xlsx`
+  const filename = factory === 'old'
+    ? `7.4岗前培训计划_${employeeName}.xlsx`
+    : `R-GN-2002 C 岗前培训计划_${employeeName}.docx`
+  a.download = filename
   document.body.appendChild(a)
   a.click()
   document.body.removeChild(a)
@@ -448,9 +455,10 @@ export interface TrainingSignInSheetData {
 }
 
 export async function generateTrainingSignInSheet(
-  data: TrainingSignInSheetData
+  data: TrainingSignInSheetData,
+  factory: 'old' | 'new' = 'old'
 ): Promise<void> {
-  const res = await fetch(`${API_BASE}/api/v1/hr/training-sign-in-sheet`, {
+  const res = await fetch(`${API_BASE}/api/v1/hr/training-sign-in-sheet?factory=${factory}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
@@ -463,9 +471,15 @@ export async function generateTrainingSignInSheet(
   a.href = url
   const contentType = res.headers.get('content-type') || ''
   const isZip = contentType.includes('zip')
-  a.download = isZip
-    ? `7.5培训签到表_${data.training_date}.zip`
-    : `7.5培训签到表_${data.training_date}.xlsx`
+  if (factory === 'new') {
+    a.download = isZip
+      ? `R-GN-2002 K 培训签到表_${data.training_date}.zip`
+      : `R-GN-2002 K 培训签到表_${data.training_date}.xls`
+  } else {
+    a.download = isZip
+      ? `7.5培训签到表_${data.training_date}.zip`
+      : `7.5培训签到表_${data.training_date}.xlsx`
+  }
   document.body.appendChild(a)
   a.click()
   document.body.removeChild(a)
@@ -520,6 +534,7 @@ export interface TrainingNotifyData {
   training_method?: string
   issuer_department?: string
   issue_date?: string
+  factory?: 'old' | 'new'
 }
 
 export async function sendTrainingNotification(
@@ -566,9 +581,10 @@ export interface TrainingEvaluationData {
 }
 
 export async function generateTrainingEvaluation(
-  data: TrainingEvaluationData
+  data: TrainingEvaluationData,
+  factory: 'old' | 'new' = 'old'
 ): Promise<void> {
-  const res = await fetch(`${API_BASE}/api/v1/hr/training-evaluation`, {
+  const res = await fetch(`${API_BASE}/api/v1/hr/training-evaluation?factory=${factory}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
@@ -580,7 +596,10 @@ export async function generateTrainingEvaluation(
   const a = document.createElement('a')
   a.href = url
   const safeDate = data.training_date || 'nodate'
-  a.download = `7.11培训效果评估表_${safeDate}.xlsx`
+  const filename = factory === 'old'
+    ? `7.11培训效果评估表_${safeDate}.xlsx`
+    : `R-GN-2002 H 培训效果评估表_${safeDate}.docx`
+  a.download = filename
   document.body.appendChild(a)
   a.click()
   document.body.removeChild(a)
@@ -636,10 +655,11 @@ export async function generateOnboardingEvaluation(
 
 export async function fetchOnboardingEvaluationByEmployeeId(
   employeeId: string,
-  employeeName: string
+  employeeName: string,
+  factory: 'old' | 'new' = 'old'
 ): Promise<void> {
   const res = await fetch(
-    `${API_BASE}/api/v1/hr/employees/${employeeId}/onboarding-evaluation`,
+    `${API_BASE}/api/v1/hr/employees/${employeeId}/onboarding-evaluation?factory=${factory}`,
     { cache: 'no-store' }
   )
   if (!res.ok) throw new Error('生成员工上岗评估表失败')
@@ -647,7 +667,10 @@ export async function fetchOnboardingEvaluationByEmployeeId(
   const url = window.URL.createObjectURL(blob)
   const a = document.createElement('a')
   a.href = url
-  a.download = `员工上岗评估表_${employeeName}.xlsx`
+  const filename = factory === 'old'
+    ? `7.12员工上岗评估表_${employeeName}.xlsx`
+    : `R-GN-2002 E 员工上岗评估表_${employeeName}.docx`
+  a.download = filename
   document.body.appendChild(a)
   a.click()
   document.body.removeChild(a)

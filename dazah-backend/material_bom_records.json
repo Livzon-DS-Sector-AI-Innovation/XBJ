@@ -1,0 +1,5285 @@
+[
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfmjUPJMPgs"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {
+        "link_record_ids": [
+          "recvfGHi8N20Cm"
+        ]
+      },
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "发酵"
+      ],
+      "文件名称": [
+        {
+          "text": "酵母蛋白胨质量标准",
+          "type": "text"
+        }
+      ],
+      "物料代号": [
+        {
+          "text": "S030",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "酵母蛋白胨-S030",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "酵母蛋白胨",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "生化级",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "上海阿拉丁生化科技股份有限公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-RM-S030",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfvUJYNOIsV"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfmjUPJMPgs"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {
+        "link_record_ids": [
+          "recvfGHi8NScVf"
+        ]
+      },
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "发酵"
+      ],
+      "文件名称": [
+        {
+          "text": "Yeast Extract(酵母提取物)(生化级)质量标准",
+          "type": "text"
+        }
+      ],
+      "物料代号": [
+        {
+          "text": "S003",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "Yeast extract（酵母提取物）-S003",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "Yeast extract（酵母提取物）",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "生化级",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "OXOID LIMITED",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-RM-S003",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfvUJYNk43a"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfmjUPJMPgs"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {
+        "link_record_ids": [
+          "recvfGKf2tm7ir",
+          "recvfGLwek2p8A"
+        ]
+      },
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {
+        "link_record_ids": [
+          "recvfGRL0qLLfu"
+        ]
+      },
+      "工艺名称": [
+        "发酵"
+      ],
+      "文件名称": [
+        {
+          "text": "磷酸氢二铵(AR级)质量标准",
+          "type": "text"
+        }
+      ],
+      "物料代号": [
+        {
+          "text": "S005",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "磷酸氢二铵-S005",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "磷酸氢二铵",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "AR级",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "西陇科学股份有限公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-RM-S005",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfvUJYNl3Yc"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfmjUPJMPgs"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {
+        "link_record_ids": [
+          "recvfGKfjsPx1r",
+          "recvfGLwHdsg8p"
+        ]
+      },
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "发酵"
+      ],
+      "文件名称": [
+        {
+          "text": "磷酸二氢钾(AR级)质量标准",
+          "type": "text"
+        }
+      ],
+      "物料代号": [
+        {
+          "text": "S006",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "磷酸二氢钾-S006",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "磷酸二氢钾",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "AR级",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "西陇科学股份有限公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-RM-S006",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfvUJYNNOiM"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfmjUPJMPgs"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {
+        "link_record_ids": [
+          "recvfGKeIT9Cwb",
+          "recvfGLvJAhAKN"
+        ]
+      },
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "发酵"
+      ],
+      "文件名称": [
+        {
+          "text": "一水合柠檬酸(柠檬酸)(AR级)质量标准",
+          "type": "text"
+        }
+      ],
+      "物料代号": [
+        {
+          "text": "S007",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": " 一水合柠檬酸(柠檬酸)-S007",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": " 一水合柠檬酸(柠檬酸)",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "AR级",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "西陇科学股份有限公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-RM-S007",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfvUJYNJZNN"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfmjUPJMPgs"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {
+        "link_record_ids": [
+          "recvfGKfyyhp4A",
+          "recvfGLwXOtPvx",
+          "recvfGMBMa3wsa"
+        ]
+      },
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "发酵"
+      ],
+      "文件名称": [
+        {
+          "text": "硫酸镁(AR级)质量标准",
+          "type": "text"
+        }
+      ],
+      "物料代号": [
+        {
+          "text": "S008",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "硫酸镁-S008",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "硫酸镁",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "AR级",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "西陇科学股份有限公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-RM-S008",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfvULJkXV91"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfmjUPJMPgs"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {
+        "link_record_ids": [
+          "recvfGKbozCeYh",
+          "recvfGLjYyLAlQ",
+          "recvfGMBoO3PWs"
+        ]
+      },
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "发酵"
+      ],
+      "文件名称": [
+        {
+          "text": "食用葡萄糖(食品级)质量标准",
+          "type": "text"
+        }
+      ],
+      "物料代号": [
+        {
+          "text": "S009",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "食用葡萄糖-S009",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "食用葡萄糖",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "食品级",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "齐齐哈尔龙江阜丰生物科技有限公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-RM-S009",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfvULJkA8cA"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfmjUPJMPgs"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {
+        "link_record_ids": [
+          "recvfGMCfMNMhP"
+        ]
+      },
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "发酵"
+      ],
+      "文件名称": [
+        {
+          "text": "乳糖(食品级)质量标准",
+          "type": "text"
+        }
+      ],
+      "物料代号": [
+        {
+          "text": "S010",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "乳糖-S010",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "乳糖",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "食品级",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "Leprino Foods Dairy Products Company",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-RM-S010",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfvULJkYApw"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfmjUPJMPgs"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {
+        "link_record_ids": [
+          "recvfGJaKmOCen",
+          "recvfGKoY20smn",
+          "recvfGMC31fNRW"
+        ]
+      },
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "发酵"
+      ],
+      "文件名称": [
+        {
+          "text": "单硫酸卡那霉素(医药级)质量标准",
+          "type": "text"
+        }
+      ],
+      "物料代号": [
+        {
+          "text": "S011",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "单硫酸卡那霉素-S011",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "单硫酸卡那霉素",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "医药级",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "古田福兴医药有限公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-RM-S011",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfvULJkOn1C"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfmjUPJMPgs"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {
+        "link_record_ids": [
+          "recvfGMCzOvUxb"
+        ]
+      },
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "发酵"
+      ],
+      "文件名称": [
+        {
+          "text": "七水合硫酸亚铁(硫酸亚铁) (AR级)质量标准",
+          "type": "text"
+        }
+      ],
+      "物料代号": [
+        {
+          "text": "S012",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "七水合硫酸亚铁（硫酸亚铁）-S012",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "七水合硫酸亚铁（硫酸亚铁）",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "AR级",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "西陇科学股份有限公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-RM-S012",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfvULJkFAJQ"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfmjUPJMPgs"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {
+        "link_record_ids": [
+          "recvfGMCSqrls1"
+        ]
+      },
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "发酵"
+      ],
+      "文件名称": [
+        {
+          "text": "一水合硫酸锰(硫酸锰)(AR级)质量标准",
+          "type": "text"
+        }
+      ],
+      "物料代号": [
+        {
+          "text": "S013",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "一水合硫酸锰（硫酸锰）-S013",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "一水合硫酸锰（硫酸锰）",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "AR级",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "西陇科学股份有限公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-RM-S013",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfvULJkWnai"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfmjUPJMPgs"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {
+        "link_record_ids": [
+          "recvfGMD6pbZzp"
+        ]
+      },
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "发酵"
+      ],
+      "文件名称": [
+        {
+          "text": "七水合硫酸锌(硫酸锌)(AR级)质量标准",
+          "type": "text"
+        }
+      ],
+      "物料代号": [
+        {
+          "text": "S014",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "七水合硫酸锌（硫酸锌）-S014",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "七水合硫酸锌（硫酸锌）",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "AR级",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "西陇科学股份有限公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-RM-S014",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfvULJknpD3"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfmjUPJMPgs"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {
+        "link_record_ids": [
+          "recvfGMDl0LD4i"
+        ]
+      },
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "发酵"
+      ],
+      "文件名称": [
+        {
+          "text": "五水合硫酸铜(Ⅱ)(硫酸铜)(AR级)质量标准",
+          "type": "text"
+        }
+      ],
+      "物料代号": [
+        {
+          "text": "S015",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "五水合硫酸铜(Ⅱ)(硫酸铜) -S015",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "五水合硫酸铜(Ⅱ)(硫酸铜) ",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "AR级",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "西陇科学股份有限公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-RM-S015",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfvULJk1qrx"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfmjUPJMPgs"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {
+        "link_record_ids": [
+          "recvfGN6TLPMSZ"
+        ]
+      },
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "发酵"
+      ],
+      "文件名称": [
+        {
+          "text": "十水合四硼酸钠(四硼酸钠)(GR级)质量标准",
+          "type": "text"
+        }
+      ],
+      "物料代号": [
+        {
+          "text": "S016",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "十水合四硼酸钠(四硼酸钠)-S016",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "十水合四硼酸钠(四硼酸钠)",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "GR级",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "西陇科学股份有限公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-RM-S016",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfvULJknGoE"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfmjUPJMPgs"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {
+        "link_record_ids": [
+          "recvfGN77QT8jg"
+        ]
+      },
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "发酵"
+      ],
+      "文件名称": [
+        {
+          "text": "二水合氯化钙(AR级)质量标准",
+          "type": "text"
+        }
+      ],
+      "物料代号": [
+        {
+          "text": "S017",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "二水合氯化钙-S017",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "二水合氯化钙",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "AR级",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "西陇科学股份有限公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-RM-S017",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfvULJkhs2s"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfmjUPJMPgs"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {
+        "link_record_ids": [
+          "recvfGNa6pb9Ts"
+        ]
+      },
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "发酵"
+      ],
+      "文件名称": [
+        {
+          "text": "四水合钼酸铵(钼酸铵)(AR级)质量标准",
+          "type": "text"
+        }
+      ],
+      "物料代号": [
+        {
+          "text": "S018",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "四水合钼酸铵（钼酸铵）-S018",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "四水合钼酸铵（钼酸铵）",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "AR级",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "西陇科学股份有限公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-RM-S018",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfvULJkz3sO"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfmjUPJMPgs"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {
+        "link_record_ids": [
+          "recvfGHi8Nw8dH",
+          "recvfGHi8NXLVR"
+        ]
+      },
+      "处方（发酵） 副本-所需物料": {
+        "link_record_ids": [
+          "recvfH5TgDyNj3",
+          "recvfH5TEJIPjr",
+          "recvfH7cDpMp6F",
+          "recvfH9pUVOjBl",
+          "recvfH9qyzveTz"
+        ]
+      },
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {
+        "link_record_ids": [
+          "recvfGRTzXSuIM"
+        ]
+      },
+      "工艺名称": [
+        "发酵",
+        "提取",
+        "纯化"
+      ],
+      "文件名称": [
+        {
+          "text": "氯化钠(AR级)质量标准",
+          "type": "text"
+        }
+      ],
+      "物料代号": [
+        {
+          "text": "S023",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "氯化钠-S023",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "氯化钠",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "AR级",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "西陇科学股份有限公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-RM-S023",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfvULJkaH1z"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfmjUPJMPgs"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {
+        "link_record_ids": [
+          "recvfGNePyArIy"
+        ]
+      },
+      "处方（发酵） 副本-所需物料": {
+        "link_record_ids": [
+          "recvfH76oBk2bT",
+          "recvfHbnNfKXLM"
+        ]
+      },
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {
+        "link_record_ids": [
+          "recvfGRSOJ8Y0X"
+        ]
+      },
+      "工艺名称": [
+        "发酵",
+        "提取",
+        "纯化"
+      ],
+      "文件名称": [
+        {
+          "text": "盐酸(AR级)质量标准",
+          "type": "text"
+        }
+      ],
+      "物料代号": [
+        {
+          "text": "L025",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "盐酸-L025",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "盐酸",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "AR级",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "西陇科学股份有限公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-RM-L025",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfvULJkX1P0"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfmjUPJMPgs"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {},
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "发酵",
+        "提取",
+        "纯化"
+      ],
+      "文件名称": [
+        {
+          "text": "纯化水质量标准",
+          "type": "text"
+        }
+      ],
+      "物料代号": [
+        {
+          "text": "L001",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "纯化水-L001",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "纯化水",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "丽珠集团新北江制药股份有限公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-RM-L001",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfvULJkpRVS"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfmjUPJMPgs"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {
+        "link_record_ids": [
+          "recvfGHi8N56Pr",
+          "recvfGKlCskVmv",
+          "recvfGLxe5DSsL"
+        ]
+      },
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "发酵"
+      ],
+      "文件名称": [
+        {
+          "text": "消泡剂(GPE)质量标准",
+          "type": "text"
+        }
+      ],
+      "物料代号": [
+        {
+          "text": "L006",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "消泡剂（GPE）-L006",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "消泡剂（GPE）",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "食品级",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "江苏利宏科技发展有限公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-RM-L006",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfvULJkvRjA"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfmjUPJMPgs"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {
+        "link_record_ids": [
+          "recvfGNM3eDQwu"
+        ]
+      },
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {
+        "link_record_ids": [
+          "recvfGRSaqPFau"
+        ]
+      },
+      "工艺名称": [
+        "发酵",
+        "纯化"
+      ],
+      "文件名称": [
+        {
+          "text": "氨水(AR级)质量标准",
+          "type": "text"
+        }
+      ],
+      "物料代号": [
+        {
+          "text": "L007",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "氨水-L007",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "氨水",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "AR级",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "西陇科学股份有限公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-RM-L007",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfvULJkJp1s"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfmjUPJMPgs"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {
+        "link_record_ids": [
+          "recvfGNLPzN7bL"
+        ]
+      },
+      "处方（发酵） 副本-所需物料": {
+        "link_record_ids": [
+          "recvfGR0reFW3E",
+          "recvfH76B8z2JN",
+          "recvfH8PVhaaqI",
+          "recvfHblfy1P7l"
+        ]
+      },
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {
+        "link_record_ids": [
+          "recvfGRSp5nttH"
+        ]
+      },
+      "工艺名称": [
+        "发酵",
+        "提取",
+        "纯化"
+      ],
+      "文件名称": [
+        {
+          "text": "氢氧化钠(AR级)质量标准",
+          "type": "text"
+        }
+      ],
+      "物料代号": [
+        {
+          "text": "S019",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "氢氧化钠-S019",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "氢氧化钠",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "AR级",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "西陇科学股份有限公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-RM-S019",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfvULJkeOqh"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfwD0XJDdjv"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {},
+      "处方（发酵） 副本-所需物料": {
+        "link_record_ids": [
+          "recvfH9pxfVdYl"
+        ]
+      },
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "提取"
+      ],
+      "文件名称": [
+        {
+          "text": "肠激酶质量标准",
+          "type": "text"
+        }
+      ],
+      "物料代号": [
+        {
+          "text": "L009",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "肠激酶-L009",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "肠激酶",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "丽珠集团新北江制药股份有限公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-RM-L009",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfwvK5gsjjG"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfwD0XJDdjv"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {},
+      "处方（发酵） 副本-所需物料": {
+        "link_record_ids": [
+          "recvfGQZNKgBGz",
+          "recvfH9q9axWD8",
+          "recvfHbftP3FMN"
+        ]
+      },
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "提取"
+      ],
+      "文件名称": [
+        {
+          "text": "二水合磷酸二氢钠(磷酸二氢钠)(AR级)质量标准",
+          "type": "text"
+        }
+      ],
+      "物料代号": [
+        {
+          "text": "S020",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "二水合磷酸二氢钠(磷酸二氢钠)-S020",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "二水合磷酸二氢钠(磷酸二氢钠)",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "AR级",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-RM-S020",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfwvK5gJtwJ"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfwD0XJDdjv"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {},
+      "处方（发酵） 副本-所需物料": {
+        "link_record_ids": [
+          "recvfGQZZMxnah",
+          "recvfH9qlUBD5n",
+          "recvfHbidG4tuW"
+        ]
+      },
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "提取"
+      ],
+      "文件名称": [
+        {
+          "text": "十二水合磷酸氢二钠(磷酸氢二钠)(CP级)质量标准",
+          "type": "text"
+        }
+      ],
+      "物料代号": [
+        {
+          "text": "S021",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "十二水合磷酸氢二钠(磷酸氢二钠)-S021",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "十二水合磷酸氢二钠(磷酸氢二钠)",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "CP级",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-RM-S021",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfwvK5gfRdc"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfwD0XJDdjv"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {},
+      "处方（发酵） 副本-所需物料": {
+        "link_record_ids": [
+          "recvfGR0JjC9Er"
+        ]
+      },
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "提取"
+      ],
+      "文件名称": [
+        {
+          "text": "曲拉通X-100(OP乳化剂)(CP级)质量标准",
+          "type": "text"
+        }
+      ],
+      "物料代号": [
+        {
+          "text": "L010",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "曲拉通 X-100 （OP 乳化剂）-L010",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "曲拉通 X-100 （OP 乳化剂）",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "CP级",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-RM-L010",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfwvK5gvYbp"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfwD0XJDdjv"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "Tris",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {},
+      "处方（发酵） 副本-所需物料": {
+        "link_record_ids": [
+          "recvfH5SYrvXlv",
+          "recvfH5TskqZCK"
+        ]
+      },
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {
+        "link_record_ids": [
+          "recvfGRSDDnZQj"
+        ]
+      },
+      "工艺名称": [
+        "提取",
+        "纯化"
+      ],
+      "文件名称": [
+        {
+          "text": "三(羟甲基)氨基甲烷质量标准",
+          "type": "text"
+        }
+      ],
+      "物料代号": [
+        {
+          "text": "S024",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "三（羟甲基）氨基甲烷-S024",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "三（羟甲基）氨基甲烷",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "AR级",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-RM-S024",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfwvK5gunFU"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfwD0XJDdjv"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {},
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {
+        "link_record_ids": [
+          "recvfGRT0p1cfO"
+        ]
+      },
+      "工艺名称": [
+        "提取",
+        "合成",
+        "纯化"
+      ],
+      "文件名称": [
+        {
+          "text": "药用低密度聚乙烯袋（双层）质量标准",
+          "type": "text"
+        }
+      ],
+      "物料代号": [
+        {
+          "text": "PM016",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "药用低密度聚乙烯袋（双层）-PM016",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "药用低密度聚乙烯袋（双层）",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "药用级",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-PM-0016",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfwvK5gXijk"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfwD0XJDdjv"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {},
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {
+        "link_record_ids": [
+          "recvfGRTarfToS"
+        ]
+      },
+      "工艺名称": [
+        "提取",
+        "合成",
+        "纯化"
+      ],
+      "文件名称": [
+        {
+          "text": "药用复合膜袋质量标准",
+          "type": "text"
+        }
+      ],
+      "物料代号": [
+        {
+          "text": "PM015a",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "药用复合膜袋-PM015a",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "药用复合膜袋",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "药用级",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-PM-0015",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfwvK5g1zMe"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfwtw5xyVoj"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {},
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {
+        "link_record_ids": [
+          "recvfGZ3vVjMGD"
+        ]
+      },
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "合成"
+      ],
+      "文件名称": [
+        {
+          "text": "索玛侧链质量标准",
+          "type": "text"
+        }
+      ],
+      "物料代号": [
+        {
+          "text": "L005",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "索玛侧链-L005",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "索玛侧链",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "成都普康生物科技有限公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-RM-L005",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfwvYPTUxlZ"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfwtw5xyVoj"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {},
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {
+        "link_record_ids": [
+          "recvfH0HPLmhp1"
+        ]
+      },
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "合成"
+      ],
+      "文件名称": [
+        {
+          "text": "索玛四肽质量标准",
+          "type": "text"
+        }
+      ],
+      "物料代号": [
+        {
+          "text": "S001",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "索玛四肽-S001",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "索玛四肽",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "成都普康生物科技有限公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-RM-S001",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfwvZyNztQK"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfwtw5xyVoj"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "DIEA",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {},
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {
+        "link_record_ids": [
+          "recvfH1luqtdMU"
+        ]
+      },
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "合成"
+      ],
+      "文件名称": [
+        {
+          "text": "DIEA(N,N-二异丙基乙胺)(工业级)质量标准",
+          "type": "text"
+        }
+      ],
+      "物料代号": [
+        {
+          "text": "L011",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "N,N-二异丙基乙胺-L011",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "N,N-二异丙基乙胺",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "工业级",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "苏州昊帆生物股份有限公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-RM-L011",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfwvZyNBvV9"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfwtw5xyVoj"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "HOSU",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {},
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {
+        "link_record_ids": [
+          "recvfGZLqACX9G",
+          "recvfH0IGbnFTE"
+        ]
+      },
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "合成"
+      ],
+      "文件名称": [
+        {
+          "text": "HOSU(N-羟基丁二酰亚胺)(工业级)质量标准",
+          "type": "text"
+        }
+      ],
+      "物料代号": [
+        {
+          "text": "S025",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "N-羟基丁二酰亚胺-S025",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "N-羟基丁二酰亚胺",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "工业级",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "苏州昊帆生物股份有限公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-RM-S025",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfwvZyNR5lx"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfwtw5xyVoj"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "DCC",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {},
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {
+        "link_record_ids": [
+          "recvfGZhpfcVkb",
+          "recvfH0Iwairlu"
+        ]
+      },
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "合成"
+      ],
+      "文件名称": [
+        {
+          "text": "DCC(二环己基碳二亚胺)(工业级)质量标准",
+          "type": "text"
+        }
+      ],
+      "物料代号": [
+        {
+          "text": "S026",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "二环己基碳二亚胺-S026",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "二环己基碳二亚胺",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "工业级",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "苏州昊帆生物股份有限公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-RM-S026",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfwvZyNvcTz"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfwtw5xyVoj"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "DCM",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {},
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "合成"
+      ],
+      "文件名称": [
+        {
+          "text": "二氯甲烷(AR级)质量标准",
+          "type": "text"
+        }
+      ],
+      "物料代号": [
+        {
+          "text": "L013",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "二氯甲烷-L013",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "二氯甲烷",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "AR级",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "西陇科学股份有限公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-RM-L013",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfwvZyNGdfc"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfwtw5xyVoj"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "MTBE",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {},
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {
+        "link_record_ids": [
+          "recvfGZMxzo75n",
+          "recvfH1KmPTKFw"
+        ]
+      },
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "合成"
+      ],
+      "文件名称": [
+        {
+          "text": "甲基叔丁基醚(AR级)质量标准",
+          "type": "text"
+        }
+      ],
+      "物料代号": [
+        {
+          "text": "L016",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "甲基叔丁基醚-L016",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "甲基叔丁基醚",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "AR级",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "西陇科学股份有限公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-RM-L016",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfwvZyNSn6M"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfwtw5xyVoj"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "TFA",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {},
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {
+        "link_record_ids": [
+          "recvfGZLPWmRBE",
+          "recvfH1AcCeoYk"
+        ]
+      },
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "合成"
+      ],
+      "文件名称": [
+        {
+          "text": "三氟乙酸(TFA)(AR级)质量标准",
+          "type": "text"
+        }
+      ],
+      "物料代号": [
+        {
+          "text": "L017",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "三氟乙酸-L017",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "三氟乙酸",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "AR级",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "上海阿拉丁生化科技股份有限公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-RM-L017",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfwvZyNQsJv"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfwtw5xyVoj"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "TIS",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {},
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {
+        "link_record_ids": [
+          "recvfGZMhZbMeW",
+          "recvfH1AwlierP"
+        ]
+      },
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "合成"
+      ],
+      "文件名称": [
+        {
+          "text": "三异丙基硅烷(AR级)质量标准",
+          "type": "text"
+        }
+      ],
+      "物料代号": [
+        {
+          "text": "L018",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "三异丙基硅烷-L018",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "三异丙基硅烷",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "AR级",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "上海阿拉丁生化科技股份有限公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-RM-L018",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfwvZyNtbsl"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfwtw5xyVoj"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "THF",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {},
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {
+        "link_record_ids": [
+          "recvfGZLDlyevI",
+          "recvfH0IlWPTSm",
+          "recvfH1kYZBUkA",
+          "recvfH1lgbQX25"
+        ]
+      },
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "合成"
+      ],
+      "文件名称": [
+        {
+          "text": "四氢呋喃(AR级)质量标准",
+          "type": "text"
+        }
+      ],
+      "物料代号": [
+        {
+          "text": "L019",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "四氢呋喃-L019",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "四氢呋喃",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "AR级",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "西陇科学股份有限公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-RM-L019",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfwvZyNeSWG"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfwtw5xyVoj"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "DMF",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {},
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {
+        "link_record_ids": [
+          "recvfH1kAaXCzq"
+        ]
+      },
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "合成"
+      ],
+      "文件名称": [
+        {
+          "text": "N,N-二甲基甲酰胺(AR级)质量标准",
+          "type": "text"
+        }
+      ],
+      "物料代号": [
+        {
+          "text": "L020",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "N,N-二甲基甲酰胺-L020",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "N,N-二甲基甲酰胺",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "AR级",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "西陇科学股份有限公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-RM-L020",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfwvZyNz4bo"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfwtw5xyVoj"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {},
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {
+        "link_record_ids": [
+          "recvfH1zSb8VqH"
+        ]
+      },
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "合成"
+      ],
+      "文件名称": [
+        {
+          "text": "乙酸（冰醋酸）(AR级)质量标准",
+          "type": "text"
+        }
+      ],
+      "物料代号": [
+        {
+          "text": "L015",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "乙酸（冰醋酸）-L015",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "乙酸（冰醋酸）",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "AR级",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "西陇科学股份有限公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-RM-L015",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfwvZyNjG6t"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfwtv8aM0DN"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {},
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {
+        "link_record_ids": [
+          "recvfGRKK7vJjY"
+        ]
+      },
+      "工艺名称": [
+        "纯化"
+      ],
+      "文件名称": [
+        {
+          "text": "乙腈(制备级)质量标准",
+          "type": "text"
+        }
+      ],
+      "物料代号": [
+        {
+          "text": "L021",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "乙腈-L021",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "乙腈",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "制备级",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "上海星可高纯溶剂有限公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-RM-L021",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfwwgGxhMH2"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfwtv8aM0DN"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {},
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "纯化"
+      ],
+      "文件名称": [
+        {
+          "text": "磷酸二氢铵(AR级)质量标准",
+          "type": "text"
+        }
+      ],
+      "物料代号": [
+        {
+          "text": "S004",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "磷酸二氢铵-S004",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "磷酸二氢铵",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "AR级",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "西陇科学股份有限公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-RM-S004",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfwwgGxMNMR"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfwtv8aM0DN"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {},
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {
+        "link_record_ids": [
+          "recvfGRLlaNdYV"
+        ]
+      },
+      "工艺名称": [
+        "纯化"
+      ],
+      "文件名称": [
+        {
+          "text": "甲酸铵质量标准",
+          "type": "text"
+        }
+      ],
+      "物料代号": [
+        {
+          "text": "S028a",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "甲酸铵-S028a",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "甲酸铵",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "AR级",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "上海麦克林生化科技股份有限公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-RM-S028",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfwwgGxYwVV"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfwtv8aM0DN"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {},
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {
+        "link_record_ids": [
+          "recvfHBhagkmsF"
+        ]
+      },
+      "工艺名称": [
+        "纯化"
+      ],
+      "文件名称": [
+        {
+          "text": "磷酸(AR级)质量标准",
+          "type": "text"
+        }
+      ],
+      "物料代号": [
+        {
+          "text": "L023",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "磷酸-L023",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "磷酸",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "AR级",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "西陇科学股份有限公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-RM-L023",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfwwgGxmUL5"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfwtv8aM0DN"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {},
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {
+        "link_record_ids": [
+          "recvfHBzv8Ek5v"
+        ]
+      },
+      "工艺名称": [
+        "纯化"
+      ],
+      "文件名称": [
+        {
+          "text": "异丙醇(制备级)质量标准",
+          "type": "text"
+        }
+      ],
+      "物料代号": [
+        {
+          "text": "L003",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "异丙醇-L003",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "异丙醇",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "制备级",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "上海星可高纯溶剂有限公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-RM-L003",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfwwgGxReH8"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfwtv8aM0DN"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {
+        "link_record_ids": [
+          "recvfGYl9A0q3V"
+        ]
+      },
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {},
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "纯化"
+      ],
+      "文件名称": [
+        {
+          "text": "注射用水质量标准 ",
+          "type": "text"
+        }
+      ],
+      "物料代号": [
+        {
+          "text": "L027",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "注射用水-L027",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "注射用水",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "丽珠集团新北江制药股份有限公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-RM-L027",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfwwgGxE5dz"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfwtv8aM0DN"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {},
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {
+        "link_record_ids": [
+          "recvfGRTlLvwft"
+        ]
+      },
+      "工艺名称": [
+        "纯化"
+      ],
+      "文件名称": [
+        {
+          "text": "Kromasil 100-10-C8质量标准",
+          "type": "text"
+        }
+      ],
+      "物料代号": [
+        {
+          "text": "S022",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "Kromasil 100-10-C8-S022",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "Kromasil 100-10-C8",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "Nouryon puip and pergormance chemicals AB",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-RM-S022",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfwwgGxtaeX"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfwtw5xyVoj"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "DCM",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {},
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {
+        "link_record_ids": [
+          "recvfGZM3uPdu3",
+          "recvfH0I5k6Nme",
+          "recvfH1AM1aA7X"
+        ]
+      },
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "合成"
+      ],
+      "文件名称": [
+        {
+          "text": "二氯甲烷(AR级)质量标准",
+          "type": "text"
+        }
+      ],
+      "物料代号": [
+        {
+          "text": "L013a",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "二氯甲烷-L013a",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "二氯甲烷",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "AR级",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "西陇科学股份有限公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-RM-L013",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfwyMZh5Yx7"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfmjZLx7KPo",
+          "recvfp1Fa8BLVJ",
+          "recvfp5r2lQHxu",
+          "recvfp6miGsRCz",
+          "recvfp2OEuuKEJ",
+          "recvfp2SljII3R",
+          "recvfp4TnpPy0S"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {
+        "link_record_ids": [
+          "recvfGULfM4Z9H"
+        ]
+      },
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {},
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "制剂"
+      ],
+      "物料代号": [
+        {
+          "text": "EX003",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "磷酸氢二钠二水合物-EX003",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "磷酸氢二钠二水合物",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "药用级",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "Kirsch Pharma GmbH",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-EX-0003",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfwzSlHAqaU"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfmjZLx7KPo",
+          "recvfp1Fa8BLVJ",
+          "recvfp5r2lQHxu",
+          "recvfp6miGsRCz",
+          "recvfp2OEuuKEJ",
+          "recvfp2SljII3R",
+          "recvfp4TnpPy0S"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {
+        "link_record_ids": [
+          "recvfGWNBA3lDU"
+        ]
+      },
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {},
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "制剂"
+      ],
+      "物料代号": [
+        {
+          "text": "EX002",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "丙二醇（供注射用）-EX002",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "丙二醇（供注射用）",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "药用级",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "南京威尔药业集团股份有限公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-EX-0002",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfwzT5zbjE0"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfmjZLx7KPo",
+          "recvfp1Fa8BLVJ",
+          "recvfp5r2lQHxu",
+          "recvfp6miGsRCz",
+          "recvfp2OEuuKEJ",
+          "recvfp2SljII3R",
+          "recvfp4TnpPy0S"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {
+        "link_record_ids": [
+          "recvfGWNBA3lDU"
+        ]
+      },
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {},
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "制剂"
+      ],
+      "物料代号": [
+        {
+          "text": "EX002a",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "丙二醇（供注射用）-EX002a",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "丙二醇（供注射用）",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "药用级",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "南京威尔药业集团股份有限公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-EX-0002",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfwzT5zv2NP"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfmjZLx7KPo",
+          "recvfp1Fa8BLVJ",
+          "recvfp5r2lQHxu",
+          "recvfp6miGsRCz",
+          "recvfp2OEuuKEJ",
+          "recvfp2SljII3R",
+          "recvfp4TnpPy0S"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {
+        "link_record_ids": [
+          "recvfGUL42lvri"
+        ]
+      },
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {},
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "制剂"
+      ],
+      "物料代号": [
+        {
+          "text": "EX001",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "苯酚-EX001",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "苯酚",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "药用级",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "英文：Merck KGaA中文：默克股份两合公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-EX-0001",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfwzT5zLAxY"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfmjZLx7KPo",
+          "recvfp1Fa8BLVJ",
+          "recvfp5r2lQHxu",
+          "recvfp6miGsRCz",
+          "recvfp2OEuuKEJ",
+          "recvfp2SljII3R",
+          "recvfp4TnpPy0S"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {
+        "link_record_ids": [
+          "recvfGUKS3nSxu",
+          "recvk8BAZ7H0Lt"
+        ]
+      },
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {},
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "制剂"
+      ],
+      "物料代号": [
+        {
+          "text": "SM",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "司美格鲁肽-SM",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "司美格鲁肽",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "药用级",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "丽珠集团新北江制药股份有限公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-SM-002",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfwzT5z0uCg"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfmjZLx7KPo",
+          "recvfp1Fa8BLVJ",
+          "recvfp5r2lQHxu",
+          "recvfp6miGsRCz",
+          "recvfp2OEuuKEJ",
+          "recvfp2SljII3R",
+          "recvfp4TnpPy0S"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {
+        "link_record_ids": [
+          "recvfGYhELgYnM"
+        ]
+      },
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {},
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "制剂"
+      ],
+      "物料代号": [
+        {
+          "text": "EX005",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "盐酸-EX005",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "盐酸",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "药用级",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "湖南尔康制药股份有限公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-EX-0005",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfwzT5zco2C"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfmjZLx7KPo",
+          "recvfp1Fa8BLVJ",
+          "recvfp5r2lQHxu",
+          "recvfp6miGsRCz",
+          "recvfp2OEuuKEJ",
+          "recvfp2SljII3R",
+          "recvfp4TnpPy0S"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {
+        "link_record_ids": [
+          "recvfGY0qVTGBl"
+        ]
+      },
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {},
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "制剂"
+      ],
+      "物料代号": [
+        {
+          "text": "EX004",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "氢氧化钠-EX004",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "氢氧化钠",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "药用级",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "湖南尔康制药股份有限公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-EX-0004",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfwzT5z8pDu"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfmjZLx7KPo",
+          "recvfp1Fa8BLVJ",
+          "recvfp5r2lQHxu",
+          "recvfp6miGsRCz",
+          "recvfp2OEuuKEJ",
+          "recvfp2SljII3R",
+          "recvfp4TnpPy0S"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {
+        "link_record_ids": [
+          "recvfGYYJwIL8o"
+        ]
+      },
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {},
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "制剂"
+      ],
+      "物料代号": [
+        {
+          "text": "PM081",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "笔式注射器用硼硅玻璃套筒-PM081",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "笔式注射器用硼硅玻璃套筒",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "药包材",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "肖特玻璃科技（苏州）有限公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-PM-0081",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfwzT5zsUao"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfmjZLx7KPo",
+          "recvfp1Fa8BLVJ",
+          "recvfp5r2lQHxu",
+          "recvfp6miGsRCz",
+          "recvfp2OEuuKEJ",
+          "recvfp2SljII3R",
+          "recvfp4TnpPy0S"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {
+        "link_record_ids": [
+          "recvfGYW9Siwrh"
+        ]
+      },
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {},
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "制剂"
+      ],
+      "物料代号": [
+        {
+          "text": " PM080a",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "笔式注射器用溴化丁基橡胶活塞- PM080a",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "笔式注射器用溴化丁基橡胶活塞",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "药包材",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "West Pharmaceutical Services Singapore Pte.Ltd.",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-PM-0080",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfwzT5zbcjT"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfmjZLx7KPo",
+          "recvfp1Fa8BLVJ",
+          "recvfp5r2lQHxu",
+          "recvfp6miGsRCz",
+          "recvfp2OEuuKEJ",
+          "recvfp2SljII3R",
+          "recvfp4TnpPy0S"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {
+        "link_record_ids": [
+          "recvfGYSXwzwtA"
+        ]
+      },
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {},
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "制剂"
+      ],
+      "物料代号": [
+        {
+          "text": "PM079",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "笔式注射器用含垫片铝盖-PM079",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "笔式注射器用含垫片铝盖",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "药包材",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "West Pharmaceutical Services Denmark",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-PM-0079",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfwzT5zOPaj"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfmjZLx7KPo",
+          "recvfp1Fa8BLVJ",
+          "recvfp5r2lQHxu",
+          "recvfp6miGsRCz",
+          "recvfp2OEuuKEJ",
+          "recvfp2SljII3R",
+          "recvfp4TnpPy0S"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {
+        "link_record_ids": [
+          "recvfGYO9YeBU8"
+        ]
+      },
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {},
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "制剂"
+      ],
+      "物料代号": [
+        {
+          "text": "L029",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "35%二甲硅油NF乳液-L029",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "35%二甲硅油NF乳液",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "辅料",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "DDP Specialty Electronic Materials US 9，LLC",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-RM-L029",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfwzT5zm3Va"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfmjZLx7KPo",
+          "recvfp1Fa8BLVJ",
+          "recvfp5r2lQHxu",
+          "recvfp6miGsRCz",
+          "recvfp2OEuuKEJ",
+          "recvfp2SljII3R",
+          "recvfp4TnpPy0S"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {},
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "制剂"
+      ],
+      "物料代号": [
+        {
+          "text": "CM003",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "0.45μm PVDF筒式5英寸滤芯-CM003",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "0.45μm PVDF筒式5英寸滤芯",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "耗材",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "EMD Millipore Corporation",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfwzT5zBRKw"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfmjZLx7KPo",
+          "recvfp1Fa8BLVJ",
+          "recvfp5r2lQHxu",
+          "recvfp6miGsRCz",
+          "recvfp2OEuuKEJ",
+          "recvfp2SljII3R",
+          "recvfp4TnpPy0S"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {},
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {
+        "link_record_ids": []
+      },
+      "工艺名称": [
+        "制剂"
+      ],
+      "物料代号": [
+        {
+          "text": "CM004",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "0.22μm PVDF筒式5英寸滤芯-CM004",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "0.22μm PVDF筒式5英寸滤芯",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "耗材",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "EMD Millipore Corporation",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfwzT5zwUzQ"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfwGhyWXRQr"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {
+        "link_record_ids": [
+          "recvfHAB9Yk9qM"
+        ]
+      },
+      "处方（发酵）": {},
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "包装"
+      ],
+      "物料代号": [
+        {
+          "text": "PM099a",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "Unopen笔式注射器组件-笔帽-PM099a",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "Unopen笔式注射器组件-笔帽",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "次级包材",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "医沛生股份有限公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-PM-0099",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfwZv5lPOMT"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfwGhyWXRQr"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {
+        "link_record_ids": [
+          "recvfI6AKrAult"
+        ]
+      },
+      "处方（发酵）": {},
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "包装"
+      ],
+      "物料代号": [
+        {
+          "text": "PM100a",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "Unopen笔式注射器组件-笔芯架-PM100a",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "Unopen笔式注射器组件-笔芯架",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "次级包材",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "医沛生股份有限公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-PM-0100",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfwZvAZ6mXu"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfwGhyWXRQr"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {
+        "link_record_ids": [
+          "recvfI6DsosjEw"
+        ]
+      },
+      "处方（发酵）": {},
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "包装"
+      ],
+      "物料代号": [
+        {
+          "text": "PM101a",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "Unopen笔式注射器组件-剂量调节旋钮-PM101a",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "Unopen笔式注射器组件-剂量调节旋钮",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "次级包材",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "医沛生股份有限公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-PM-0101",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfwZvAZTXoU"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfwGhyWXRQr",
+          "recvfwGkdH6vKl"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {},
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "包装"
+      ],
+      "物料代号": [
+        {
+          "text": "PM099c",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "储能型笔式注射器-笔帽-PM099c",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "储能型笔式注射器-笔帽",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "次级包材",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "苏州嘉树医疗科技有限公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-PM-0099",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfwZvAZVPpg"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfwGhyWXRQr",
+          "recvfwGkdH6vKl"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {},
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "包装"
+      ],
+      "物料代号": [
+        {
+          "text": "PM100d",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "储能型笔式注射器-笔芯架-PM100d",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "储能型笔式注射器-笔芯架",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "次级包材",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "苏州嘉树医疗科技有限公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-PM-0100",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfwZvAZKoU3"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfwGhyWXRQr",
+          "recvfwGkdH6vKl"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {},
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "包装"
+      ],
+      "物料代号": [
+        {
+          "text": "PM101m",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "储能型笔式注射器-剂量调节旋钮-PM101m",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "储能型笔式注射器-剂量调节旋钮",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "次级包材",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "苏州嘉树医疗科技有限公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-PM-0101",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfwZvAZYvy2"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfwGhyWXRQr"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {
+        "link_record_ids": [
+          "recvfHAAIMHxTW"
+        ]
+      },
+      "处方（发酵）": {},
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "包装"
+      ],
+      "物料代号": [
+        {
+          "text": "PM029e",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "司美格鲁肽注射液笔签（1.34mg/ml,1.5ml）-PM029e",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "司美格鲁肽注射液笔签（1.34mg/ml,1.5ml）",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "标签",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "珠海市豪迈实业有限公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-PM-0029",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfx02IwW0NG"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfwGhyWXRQr"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {},
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "包装"
+      ],
+      "物料代号": [
+        {
+          "text": "PM070",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "司美格鲁肽注射液包装小内盒-PM070",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "司美格鲁肽注射液包装小内盒",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "印刷包材",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "珠海皆通包装纸品有限公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-PM-0070",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfx03tNz4pD"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfwGhyWXRQr"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {},
+      "处方（发酵）": {},
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "包装"
+      ],
+      "物料代号": [
+        {
+          "text": "PM070a",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "司美格鲁肽注射液包装小内盒-PM070a",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "司美格鲁肽注射液包装小内盒",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "印刷包材",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "江门尚雅包装有限公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-PM-0070",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfx03tNPVZU"
+  },
+  {
+    "fields": {
+      "产品信息": {
+        "link_record_ids": [
+          "recvfwGhyWXRQr"
+        ]
+      },
+      "名称简写": [
+        {
+          "text": "N/A",
+          "type": "text"
+        }
+      ],
+      "处方（制剂） -所需物料": {},
+      "处方（包装） -所需物料": {
+        "link_record_ids": [
+          "recvfHAAW3MOiq"
+        ]
+      },
+      "处方（发酵）": {},
+      "处方（发酵） 副本-所需物料": {},
+      "处方（合成） -所需物料": {},
+      "处方（纯化） -所需物料": {},
+      "工艺名称": [
+        "包装"
+      ],
+      "物料代号": [
+        {
+          "text": "PM111",
+          "type": "text"
+        }
+      ],
+      "物料信息": {
+        "type": 1,
+        "value": [
+          {
+            "text": "司美格鲁肽注射液空白注射笔包装盒-PM111",
+            "type": "text"
+          }
+        ]
+      },
+      "物料名称": [
+        {
+          "text": "司美格鲁肽注射液空白注射笔包装盒",
+          "type": "text"
+        }
+      ],
+      "物料级别": [
+        {
+          "text": "印刷包材",
+          "type": "text"
+        }
+      ],
+      "生产商": [
+        {
+          "text": "珠海市豪迈实业有限公司",
+          "type": "text"
+        }
+      ],
+      "质量标准": [
+        {
+          "text": "SPC-PM-0111",
+          "type": "text"
+        }
+      ]
+    },
+    "record_id": "recvfx03tN3czX"
+  }
+]

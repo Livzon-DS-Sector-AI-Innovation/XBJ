@@ -1,0 +1,20 @@
+[
+  {
+    "name": "李健文",
+    "employee_number": "110000673",
+    "department": "人事行政部",
+    "position": "IT工程师",
+    "gender": "男",
+    "factory_entry_date": "2019-04-15",
+    "status": "在职"
+  },
+  {
+    "name": "黄丽耘",
+    "employee_number": "110001372",
+    "department": "人事行政部",
+    "position": "培训专员",
+    "gender": "女",
+    "factory_entry_date": "2024-07-22",
+    "status": "在职"
+  }
+]
