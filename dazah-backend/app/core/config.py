@@ -28,6 +28,9 @@ class Settings(BaseSettings):
     # API
     API_V1_PREFIX: str = "/api/v1"
 
+    # Frontend
+    FRONTEND_URL: str = "http://localhost:3000"
+
     # Audit
     AUDIT_RETENTION_DAYS: int = 7
 
@@ -44,9 +47,12 @@ class Settings(BaseSettings):
     FEISHU_BITABLE_APPROVAL_TABLE_ID: str = ""
     FEISHU_BITABLE_PRODUCT_APP_TOKEN: str = ""
     FEISHU_BITABLE_PRODUCT_TABLE_ID: str = ""
-    FEISHU_BITABLE_MATERIAL_BOM_APP_TOKEN: str = "VYl4bgGllaTlfVsUdcdcYohMng9"
-    FEISHU_BITABLE_MATERIAL_BOM_TABLE_ID: str = "tblzMSKp1iyXwUab"
+    FEISHU_BITABLE_MATERIAL_BOM_APP_TOKEN: str = ""
+    FEISHU_BITABLE_MATERIAL_BOM_TABLE_ID: str = ""
     FEISHU_BITABLE_VEHICLE_REQUEST_TABLE_ID: str = ""
+
+    # Frontend URL (for generating external links in Feishu messages)
+    FRONTEND_URL: str = "http://localhost:3000"
 
     # Training Notification Bitable
     FEISHU_BITABLE_TRAINING_NOTIFICATION_APP_TOKEN: str = ""
