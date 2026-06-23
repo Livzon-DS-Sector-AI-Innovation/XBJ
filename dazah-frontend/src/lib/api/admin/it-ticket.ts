@@ -1,4 +1,4 @@
-const API_BASE = 'http://localhost:8002'
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8000'
 
 export async function fetchITTickets(params?: { keyword?: string; status?: string; ticket_type?: string; page?: number; page_size?: number }) {
   const searchParams = new URLSearchParams()

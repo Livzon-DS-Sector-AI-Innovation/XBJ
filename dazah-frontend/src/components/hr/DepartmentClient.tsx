@@ -5,6 +5,7 @@ import { Button, message, Table, Space, Popconfirm, Input, Modal } from 'antd'
 import { PlusOutlined, SearchOutlined, EditOutlined, DeleteOutlined, TeamOutlined } from '@ant-design/icons'
 import { Department } from '@/types/hr'
 import { fetchDepartmentsAction, deleteDepartment } from '@/actions/hr'
+import { fetchNewDepartments } from '@/lib/api/hr'
 import DepartmentForm from './DepartmentForm'
 import TeamClient from './TeamClient'
 import HrChatbot from './HrChatbot'
@@ -12,11 +13,13 @@ import HrChatbot from './HrChatbot'
 interface DepartmentClientProps {
   initialDepartments: Department[]
   initialTotal: number
+  factory?: 'new'
 }
 
 export default function DepartmentClient({
   initialDepartments,
   initialTotal,
+  factory,
 }: DepartmentClientProps) {
   const [departments, setDepartments] = useState<Department[]>(initialDepartments)
   const [total, setTotal] = useState(initialTotal)
@@ -29,10 +32,12 @@ export default function DepartmentClient({
   const [teamModalOpen, setTeamModalOpen] = useState(false)
   const [selectedDepartment, setSelectedDepartment] = useState<Department | null>(null)
 
+  const doFetch = factory === 'new' ? fetchNewDepartments : fetchDepartmentsAction
+
   const loadData = useCallback(async () => {
     setLoading(true)
     try {
-      const res = await fetchDepartmentsAction({
+      const res = await doFetch({
         keyword: searchKeyword || undefined,
         page,
         page_size: pageSize,
@@ -44,7 +49,7 @@ export default function DepartmentClient({
     } finally {
       setLoading(false)
     }
-  }, [searchKeyword, page, pageSize])
+  }, [searchKeyword, page, pageSize, doFetch])
 
   const handlePageChange = (newPage: number, newPageSize: number) => {
     setPage(newPage)
@@ -154,7 +159,7 @@ export default function DepartmentClient({
     <div className="space-y-4">
       <div className="flex justify-between items-center">
         <h1 className="text-[22px] font-semibold text-[var(--color-charcoal)]">
-          部门管理
+          {factory === 'new' ? '新厂部门管理' : '老厂部门管理'}
         </h1>
         <Button type="primary" icon={<PlusOutlined />} onClick={handleAdd}>
           新增部门

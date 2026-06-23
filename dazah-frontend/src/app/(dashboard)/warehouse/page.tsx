@@ -1,12 +1,28 @@
-export default function WarehousePage() {
+import { fetchModuleInfo } from '@/lib/api/warehouse'
+
+export default async function WarehousePage() {
+  let moduleInfo
+  let error
+  try {
+    moduleInfo = await fetchModuleInfo()
+  } catch (e) {
+    error = e instanceof Error ? e.message : '连接失败'
+  }
+
   return (
     <div>
       <h1 className="text-[22px] font-semibold text-[var(--color-charcoal)] mb-2">
         仓储管理
       </h1>
-      <p className="text-[14px] text-[var(--color-steel)]">
-        仓储管理模块内容待开发
-      </p>
+      {error ? (
+        <p className="text-red-500">后端连接失败: {error}</p>
+      ) : (
+        <div className="bg-white p-4 rounded shadow">
+          <p>模块代码: {moduleInfo?.code}</p>
+          <p>模块名称: {moduleInfo?.name}</p>
+          <p>描述: {moduleInfo?.description}</p>
+        </div>
+      )}
     </div>
   )
 }

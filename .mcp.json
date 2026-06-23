@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "serper-search": {
+      "command": "npx",
+      "args": ["-y", "serper-search-scrape-mcp-server"],
+      "env": {
+        "SERPER_API_KEY": "0903f3038486426d804b975b5d3b21273b7df99b"
+      }
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "@playwright/mcp@latest"]
+    }
+  }
+}

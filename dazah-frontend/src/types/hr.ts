@@ -478,6 +478,227 @@ export interface TurnoverAnalysisResponse {
   }
 }
 
+export interface TrainingNotificationData {
+  department: string
+  training_date: string
+  subject: string
+  training_time_start?: string
+  training_time_end?: string
+  location?: string
+  trainer?: string
+  content?: string
+  trainee_names: string[]
+  remarks?: string
+  issuer_department?: string
+  issue_date?: string
+}
+
+export interface TrainingEvaluationData {
+  subject: string
+  training_date?: string
+  training_time_start?: string
+  training_time_end?: string
+  duration_hours?: number
+  training_method?: string
+  is_exam?: boolean
+  trainer_type?: string
+  trainer?: string
+  department_personnel?: string
+  expected_count?: number
+  actual_count?: number
+  absent_count?: number
+  textbook?: string
+  makeup_training?: boolean
+  assessment_method?: string
+  pass_count?: number
+  fail_count?: number
+  absent_exam_count?: number
+  absent_exam_handling?: string
+  excellent_count?: number
+  qualified_count?: number
+  unqualified_count?: number
+  evaluation_conclusion?: string
+  organizer?: string
+  organizer_date?: string
+  remarks?: string
+}
+
+export interface OnboardingEvaluationData {
+  employee_name: string
+  employee_number?: string
+  gender?: string
+  department_position?: string
+  hire_date?: string
+  training_period?: string
+  regularization_date?: string
+  assessment_contents?: string[]
+  comprehensive_comment?: string
+  is_qualified?: boolean
+  assigned_position?: string
+  assessment_method?: string
+  dept_manager_signature?: string
+  signature_date?: string
+  remarks?: string
+  dept_manager_agree?: boolean
+  hr_manager_agree?: boolean
+  qa_manager_agree?: boolean
+  dept_manager?: string
+  hr_manager?: string
+  qa_manager?: string
+  approval_date?: string
+}
+
+export interface TrainingLedgerRecord {
+  id: string
+  employee_number: string
+  training_date: string
+  training_subject: string
+  training_method?: string
+  duration_hours?: number
+  location?: string
+  trainer?: string
+  assessment_result?: string
+  source_type: string
+  source_id?: string
+  remarks?: string
+  created_at?: string
+  updated_at?: string
+}
+
+export interface TrainingLedgerCreateInput {
+  employee_number: string
+  training_date: string
+  training_subject: string
+  training_method?: string
+  duration_hours?: number
+  location?: string
+  trainer?: string
+  assessment_result?: string
+  source_type?: string
+  source_id?: string
+  remarks?: string
+}
+
+export interface TrainingLedgerUpdateInput {
+  employee_number?: string
+  training_date?: string
+  training_subject?: string
+  training_method?: string
+  duration_hours?: number
+  location?: string
+  trainer?: string
+  assessment_result?: string
+  source_type?: string
+  source_id?: string
+  remarks?: string
+}
+
+export interface TrainingLedgerListResponse {
+  code: number
+  message: string
+  data: TrainingLedgerRecord[]
+  meta?: {
+    page: number
+    page_size: number
+    total: number
+  }
+}
+
+// ─── AI 出题相关类型 ───
+
+export interface ChoiceOption {
+  label: string
+  text: string
+}
+
+export interface ChoiceQuestion {
+  number: number
+  question: string
+  options: ChoiceOption[]
+  answer?: string
+}
+
+export interface TrueFalseQuestion {
+  number: number
+  question: string
+  answer?: string
+}
+
+export interface ExamGenerateResponse {
+  code: number
+  message: string
+  data: {
+    choice_questions: ChoiceQuestion[]
+    true_false_questions: TrueFalseQuestion[]
+  }
+}
+
+export interface ExamExportData {
+  title: string
+  examiner: string
+  exam_date: string
+  assessment_date: string
+  choice_questions: ChoiceQuestion[]
+  true_false_questions: TrueFalseQuestion[]
+}
+
+// ─── AnnualTrainingPlan Types ───
+
+export interface AnnualTrainingPlan {
+  id: string
+  year: number
+  department: string
+  status: string
+  created_at?: string
+  updated_at?: string
+}
+
+export interface AnnualTrainingPlanCreateInput {
+  year: number
+  department: string
+  status?: string
+}
+
+export interface AnnualTrainingPlanUpdateInput {
+  year?: number
+  department?: string
+  status?: string
+}
+
+export interface AnnualTrainingPlanListResponse {
+  code: number
+  message: string
+  data: AnnualTrainingPlan[]
+  meta?: {
+    page: number
+    page_size: number
+    total: number
+  }
+}
+
+export interface AnnualTrainingPlanItem {
+  id: string
+  plan_id: string
+  month?: string
+  trainee_count?: number
+  duration_hours?: number
+  content_and_textbook?: string
+  target_audience?: string
+  position_and_count?: string
+  training_method?: string
+  training_hours?: number
+  confirmer?: string
+  confirm_date?: string
+  remarks?: string
+  tracking_status?: string
+  sort_order: number
+  created_at?: string
+  updated_at?: string
+}
+
+export interface AnnualTrainingPlanItemBatchUpdateInput {
+  items: Omit<AnnualTrainingPlanItem, 'id' | 'plan_id' | 'created_at' | 'updated_at'>[]
+}
 export interface Candidate {
   id: string
   name: string

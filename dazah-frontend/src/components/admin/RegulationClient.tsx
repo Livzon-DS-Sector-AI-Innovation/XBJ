@@ -26,6 +26,7 @@ import { useRegulationChatStore } from '@/stores/regulationChat'
 import type { Regulation } from '@/lib/api/admin/regulation'
 import { extractRegulationText } from '@/lib/api/admin/regulation'
 import RegulationChatbot from './RegulationChatbot'
+import type { ColumnsType } from 'antd/es/table'
 
 const API_BASE = 'http://localhost:8002'
 
@@ -261,7 +262,7 @@ export default function RegulationClient() {
     URL.revokeObjectURL(url)
   }
 
-  const columns = [
+  const columns: ColumnsType<Regulation> = [
     {
       title: '制度名称',
       dataIndex: 'title',

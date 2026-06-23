@@ -2,6 +2,7 @@
 
 import { revalidatePath } from 'next/cache'
 import {
+  Candidate,
   EmployeeCreateInput,
   EmployeeUpdateInput,
   EmployeeListResponse,
@@ -14,10 +15,9 @@ import {
   OffboardingRecordCreateInput,
   OffboardingRecordUpdateInput,
   OffboardingRecordListResponse,
-  Candidate,
 } from '@/types/hr'
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8002'
+const API_BASE = process.env.API_BASE_URL || 'http://127.0.0.1:8000'
 
 export async function fetchEmployeesAction(
   params?: {
@@ -298,7 +298,89 @@ export async function deleteOffboardingRecord(id: string) {
   return res.json()
 }
 
-// ─── Candidate Actions ───
+// ─── AnnualTrainingPlan Actions ───
+
+import {
+  AnnualTrainingPlanCreateInput,
+  AnnualTrainingPlanListResponse,
+  AnnualTrainingPlanUpdateInput,
+  AnnualTrainingPlanItemBatchUpdateInput,
+} from '@/types/hr'
+
+export async function fetchAnnualTrainingPlansAction(
+  params?: {
+    year?: number
+    department?: string
+    page?: number
+    page_size?: number
+  }
+): Promise<AnnualTrainingPlanListResponse> {
+  const searchParams = new URLSearchParams()
+  if (params?.year) searchParams.set('year', String(params.year))
+  if (params?.department) searchParams.set('department', params.department)
+  searchParams.set('page', String(params?.page || 1))
+  searchParams.set('page_size', String(params?.page_size || 100))
+
+  const res = await fetch(`${API_BASE}/api/v1/hr/annual-training-plans?${searchParams.toString()}`, {
+    cache: 'no-store',
+  })
+  if (!res.ok) throw new Error('获取年度培训计划列表失败')
+  return res.json()
+}
+
+export async function createAnnualTrainingPlan(data: AnnualTrainingPlanCreateInput) {
+  const res = await fetch(`${API_BASE}/api/v1/hr/annual-training-plans`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  })
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}))
+    throw new Error(err.message || '创建年度培训计划失败')
+  }
+  revalidatePath('/hr/training/annual-plan')
+  return res.json()
+}
+
+export async function updateAnnualTrainingPlan(id: string, data: AnnualTrainingPlanUpdateInput) {
+  const res = await fetch(`${API_BASE}/api/v1/hr/annual-training-plans/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  })
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}))
+    throw new Error(err.message || '更新年度培训计划失败')
+  }
+  revalidatePath('/hr/training/annual-plan')
+  return res.json()
+}
+
+export async function deleteAnnualTrainingPlan(id: string) {
+  const res = await fetch(`${API_BASE}/api/v1/hr/annual-training-plans/${id}`, {
+    method: 'DELETE',
+  })
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}))
+    throw new Error(err.message || '删除年度培训计划失败')
+  }
+  revalidatePath('/hr/training/annual-plan')
+  return res.json()
+}
+
+export async function batchUpdatePlanItems(id: string, data: AnnualTrainingPlanItemBatchUpdateInput) {
+  const res = await fetch(`${API_BASE}/api/v1/hr/annual-training-plans/${id}/items/batch`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  })
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}))
+    throw new Error(err.message || '更新年度计划明细失败')
+  }
+  revalidatePath('/hr/training/annual-plan')
+  return res.json()
+}
 
 export async function parseResumePreviewAction(formData: FormData): Promise<{
   code: number

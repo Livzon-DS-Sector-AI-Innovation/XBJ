@@ -20,11 +20,8 @@ export const moduleMenus: ModuleMenu[] = [
     icon: "factory",
     path: "/production",
     children: [
-      { key: "batches", label: "批次管理", path: "/production/batches" },
-      { key: "plan", label: "生产计划", path: "/production/plan" },
-      { key: "process", label: "工艺规程", path: "/production/process" },
-      { key: "records", label: "生产记录", path: "/production/records" },
-      { key: "balance", label: "物料平衡", path: "/production/balance" },
+      { key: "products", label: "产品信息", path: "/production/products" },
+      { key: "material-bom", label: "物料清单", path: "/production/material-bom" },
     ],
   },
   {
@@ -102,18 +99,9 @@ export const moduleMenus: ModuleMenu[] = [
     icon: "building",
     path: "/admin",
     children: [
-      { key: "notice", label: "企业规章制度", path: "/admin/notice" },
-      { key: "approval", label: "寄件申请", path: "/admin/approval" },
-      {
-        key: "meeting",
-        label: "物品领用",
-        path: "/admin/meeting",
-        children: [
-          { key: "meeting-ledger", label: "物品台账", path: "/admin/meeting/ledger" },
-          { key: "meeting-requisitions", label: "领用记录", path: "/admin/meeting/requisitions" },
-          { key: "meeting-requests", label: "领用申请", path: "/admin/meeting/requests" },
-        ],
-      },
+      { key: "notice", label: "公告通知", path: "/admin/notice" },
+      { key: "meeting", label: "会议管理", path: "/admin/meeting" },
+      { key: "approval", label: "文件审批", path: "/admin/approval" },
       {
         key: "vehicle",
         label: "车队管理",
@@ -139,14 +127,69 @@ export const moduleMenus: ModuleMenu[] = [
     icon: "users",
     path: "/hr",
     children: [
-      { key: "departments", label: "部门管理", path: "/hr/departments" },
-      { key: "profile", label: "员工档案", path: "/hr/profile" },
-      { key: "roster", label: "员工花名册", path: "/hr/roster" },
-      { key: "onboarding", label: "老厂入职台账", path: "/hr/onboarding" },
-      { key: "departure", label: "老厂离职台账", path: "/hr/departure" },
-      { key: "offboarding", label: "离职管理", path: "/hr/offboarding" },
-      { key: "recruitment", label: "招聘管理", path: "/hr/recruitment" },
-      { key: "training", label: "培训管理", path: "/hr/training" },
+      {
+        key: "old-factory",
+        label: "老厂",
+        path: "/hr/departments",
+        children: [
+          { key: "departments", label: "部门管理", path: "/hr/departments" },
+          { key: "profile", label: "员工档案", path: "/hr/profile" },
+          { key: "roster", label: "员工花名册", path: "/hr/roster" },
+          { key: "onboarding", label: "入职台账", path: "/hr/onboarding" },
+          { key: "departure", label: "离职台账", path: "/hr/departure" },
+          { key: "offboarding", label: "离职管理", path: "/hr/offboarding" },
+          { key: "recruitment", label: "招聘管理", path: "/hr/recruitment" },
+        ],
+      },
+      {
+        key: "new-factory",
+        label: "新厂",
+        path: "#",
+        children: [
+          { key: "new-departments", label: "部门管理", path: "/hr/new/departments" },
+          { key: "new-profile", label: "员工档案", path: "/hr/new/profile" },
+          { key: "new-onboarding", label: "入职台账", path: "/hr/new/onboarding" },
+          { key: "new-departure", label: "离职台账", path: "/hr/new/departure" },
+          { key: "new-offboarding", label: "离职管理", path: "/hr/new/offboarding" },
+        ],
+      },
+      {
+        key: "new-training",
+        label: "培训管理",
+        path: "/hr/training",
+        children: [
+          { key: "new-onboarding-training", label: "新员工入职培训", path: "/hr/training/onboarding" },
+          { key: "new-training-notification", label: "培训通知", path: "/hr/training/notification" },
+          { key: "new-sign-in-sheet", label: "培训签到表", path: "/hr/training/sign-in" },
+          { key: "new-ai-exam", label: "AI 出题", path: "/hr/training/ai-exam" },
+          {
+            key: "new-annual-plan",
+            label: "年度培训计划",
+            path: "/hr/training/annual-plan",
+            children: [
+              { key: "new-annual-plan-new", label: "新建年度培训计划", path: "/hr/training/annual-plan/new" },
+            ],
+          },
+          {
+            key: "new-training-ledger",
+            label: "培训台账",
+            path: "/hr/training/ledger",
+            children: [
+              { key: "new-training-ledger-new", label: "新建培训台账", path: "/hr/training/ledger/new" },
+              {
+                key: "new-training-ledger-dept-人事行政部",
+                label: "人事行政部",
+                path: "#",
+                children: [
+                  { key: "new-training-ledger-li-jianwen", label: "李健文培训台账", path: "/hr/training/ledger?employee_number=110000673" },
+                  { key: "new-training-ledger-huang-liyun", label: "黄丽耘培训台账", path: "/hr/training/ledger?employee_number=110001372" },
+                  { key: "new-training-ledger-li-wenzhao", label: "李文兆培训台账", path: "/hr/training/ledger?employee_number=10086" },
+                ],
+              },
+            ],
+          },
+        ],
+      },
     ],
   },
   {
