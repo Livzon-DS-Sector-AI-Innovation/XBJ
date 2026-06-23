@@ -4,7 +4,7 @@ from datetime import date
 from typing import Any
 from uuid import UUID
 
-from sqlalchemy import asc, delete, desc, func, select
+from sqlalchemy import asc, delete, desc, func, select, text
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
@@ -19,6 +19,7 @@ from app.modules.hr.models import (
     Team,
     TrainingLedger,
     TrainingLedgerPage,
+    TrainingSession,
 )
 
 
@@ -40,6 +41,18 @@ class EmployeeRepository:
             )
         )
         return result.scalar_one_or_none()
+
+    async def get_new_employee_by_number(self, employee_number: str) -> Employee | None:
+        """Search the new factory employees_new table by employee number."""
+        sql = text(
+            "SELECT * FROM hr.employees_new "
+            "WHERE employee_number = :num AND is_deleted = false LIMIT 1"
+        )
+        result = await self.session.execute(sql, {"num": employee_number})
+        row = result.mappings().first()
+        if row:
+            return Employee(**dict(row))
+        return None
 
     async def list_employees(
         self,
@@ -721,6 +734,7 @@ class TrainingLedgerRepository:
         self,
         *,
         employee_number: str | None = None,
+        ledger_type: str | None = None,
         date_from: date | None = None,
         date_to: date | None = None,
         page: int = 1,
@@ -732,6 +746,8 @@ class TrainingLedgerRepository:
 
         if employee_number:
             stmt = stmt.where(TrainingLedger.employee_number == employee_number)
+        if ledger_type:
+            stmt = stmt.where(TrainingLedger.ledger_type == ledger_type)
         if date_from:
             stmt = stmt.where(TrainingLedger.training_date >= date_from)
         if date_to:
@@ -778,6 +794,100 @@ class TrainingLedgerRepository:
         return result.scalar_one_or_none()
 
 
+class TrainingSessionRepository:
+    def __init__(self, session: AsyncSession) -> None:
+        self.session = session
+
+    async def get_by_id(self, session_id: UUID) -> TrainingSession | None:
+        result = await self.session.execute(
+            select(TrainingSession).where(
+                TrainingSession.id == session_id,
+                TrainingSession.is_deleted.is_(False),
+            )
+        )
+        return result.scalar_one_or_none()
+
+    async def list_sessions(
+        self,
+        *,
+        department: str | None = None,
+        keyword: str | None = None,
+        status: str | None = None,
+        date_from: date | None = None,
+        date_to: date | None = None,
+        page: int = 1,
+        page_size: int = 20,
+        sort_by: str = "training_date",
+        sort_order: str = "desc",
+    ) -> tuple[list[TrainingSession], int]:
+        stmt = select(TrainingSession).where(TrainingSession.is_deleted.is_(False))
+
+        if department:
+            stmt = stmt.where(TrainingSession.department == department)
+        if status:
+            stmt = stmt.where(TrainingSession.status == status)
+        if keyword:
+            stmt = stmt.where(
+                TrainingSession.subject.ilike(f"%{keyword}%")
+                | TrainingSession.department.ilike(f"%{keyword}%")
+                | TrainingSession.trainer.ilike(f"%{keyword}%")
+            )
+        if date_from:
+            stmt = stmt.where(TrainingSession.training_date >= date_from)
+        if date_to:
+            stmt = stmt.where(TrainingSession.training_date <= date_to)
+
+        count_stmt = select(func.count()).select_from(stmt.subquery())
+        sort_column = getattr(TrainingSession, sort_by, TrainingSession.training_date)
+        order_func = desc if sort_order == "desc" else asc
+        data_stmt = (
+            stmt.order_by(order_func(sort_column))
+            .offset((page - 1) * page_size)
+            .limit(page_size)
+        )
+
+        total_result = await self.session.execute(count_stmt)
+        total = total_result.scalar() or 0
+
+        data_result = await self.session.execute(data_stmt)
+        return list(data_result.scalars().all()), total
+
+    async def get_by_select_task_token(self, token: str) -> TrainingSession | None:
+        result = await self.session.execute(
+            select(TrainingSession).where(
+                TrainingSession.select_task_token == token,
+                TrainingSession.is_deleted.is_(False),
+            )
+        )
+        return result.scalar_one_or_none()
+
+    async def get_by_select_tasks_json_token(self, token: str) -> TrainingSession | None:
+        """Search for a session where the token exists inside the select_tasks JSON array."""
+        from sqlalchemy import cast, String
+        result = await self.session.execute(
+            select(TrainingSession).where(
+                cast(TrainingSession.select_tasks, String).like(f'%"token": "{token}"%'),
+                TrainingSession.is_deleted.is_(False),
+            )
+        )
+        return result.scalar_one_or_none()
+
+    async def create(self, session_obj: TrainingSession) -> TrainingSession:
+        self.session.add(session_obj)
+        await self.session.flush()
+        await self.session.refresh(session_obj)
+        return session_obj
+
+    async def update(self, session_obj: TrainingSession) -> TrainingSession:
+        await self.session.flush()
+        await self.session.refresh(session_obj)
+        return session_obj
+
+    async def soft_delete(self, session_obj: TrainingSession) -> None:
+        session_obj.is_deleted = True
+        await self.session.flush()
+
+
 class TrainingLedgerPageRepository:
     def __init__(self, session: AsyncSession) -> None:
         self.session = session
@@ -788,23 +898,58 @@ class TrainingLedgerPageRepository:
         )
         return list(result.scalars().all())
 
-    async def get_by_employee_number(self, employee_number: str) -> TrainingLedgerPage | None:
+    async def get_by_employee_number(self, employee_number: str, ledger_type: str = "event") -> TrainingLedgerPage | None:
         result = await self.session.execute(
             select(TrainingLedgerPage).where(
                 TrainingLedgerPage.employee_number == employee_number,
+                TrainingLedgerPage.ledger_type == ledger_type,
                 TrainingLedgerPage.is_deleted.is_(False),
             )
         )
         return result.scalar_one_or_none()
 
-    async def list_pages_with_department(self) -> list[tuple[TrainingLedgerPage, str | None]]:
-        """List all training ledger pages joined with employee department."""
-        result = await self.session.execute(
-            select(TrainingLedgerPage, Employee.department)
-            .outerjoin(Employee, TrainingLedgerPage.employee_number == Employee.employee_number)
-            .where(TrainingLedgerPage.is_deleted.is_(False))
+    async def list_pages_with_department(self) -> list[tuple[TrainingLedgerPage, str | None, str | None]]:
+        """List all training ledger pages joined with employee department and factory.
+
+        Tries old factory (employees) first, then new factory (employees_new).
+        Returns (page, department, factory).
+        """
+        all_pages = await self.list_pages()
+        if not all_pages:
+            return []
+
+        # Look up department from both employee tables
+        old_numbers = [p.employee_number for p in all_pages]
+        new_numbers = [p.employee_number for p in all_pages]
+
+        old_result = await self.session.execute(
+            select(Employee.employee_number, Employee.department).where(
+                Employee.employee_number.in_(old_numbers),
+                Employee.is_deleted.is_(False),
+            )
         )
-        return [(row[0], row[1]) for row in result.all()]
+        old_map = {row[0]: row[1] for row in old_result.all()}
+
+        # Try new factory for remaining
+        remaining = [n for n in new_numbers if n not in old_map]
+        new_map: dict[str, str] = {}
+        if remaining:
+            new_result = await self.session.execute(
+                text("SELECT employee_number, department FROM hr.employees_new WHERE employee_number = ANY(:nums) AND is_deleted = false"),
+                {"nums": remaining},
+            )
+            new_map = {row[0]: row[1] for row in new_result.all()}
+
+        results = []
+        for page in all_pages:
+            num = page.employee_number
+            if num in old_map:
+                results.append((page, old_map[num], "old"))
+            elif num in new_map:
+                results.append((page, new_map[num], "new"))
+            else:
+                results.append((page, None, None))
+        return results
 
     async def create(self, page: TrainingLedgerPage) -> TrainingLedgerPage:
         self.session.add(page)
@@ -920,3 +1065,51 @@ class AnnualTrainingPlanItemRepository:
             delete(AnnualTrainingPlanItem).where(AnnualTrainingPlanItem.plan_id == plan_id)
         )
         await self.session.flush()
+
+
+class TrainingSpecialistRepository:
+    def __init__(self, session: AsyncSession) -> None:
+        self.session = session
+
+    async def list_all(self) -> list:
+        from app.modules.hr.models import TrainingSpecialist
+        result = await self.session.execute(
+            select(TrainingSpecialist).where(TrainingSpecialist.is_deleted.is_(False))
+        )
+        return list(result.scalars().all())
+
+    async def get_by_dept_factory(self, department: str, factory: str):
+        from app.modules.hr.models import TrainingSpecialist
+        result = await self.session.execute(
+            select(TrainingSpecialist).where(
+                TrainingSpecialist.department == department,
+                TrainingSpecialist.factory == factory,
+                TrainingSpecialist.is_deleted.is_(False),
+            )
+        )
+        return result.scalar_one_or_none()
+
+    async def upsert(self, department: str, employee_number: str, employee_name: str, factory: str):
+        from app.modules.hr.models import TrainingSpecialist
+        existing = await self.get_by_dept_factory(department, factory)
+        if existing:
+            existing.employee_number = employee_number
+            existing.employee_name = employee_name
+            await self.session.flush()
+            return existing
+        obj = TrainingSpecialist(
+            department=department,
+            employee_number=employee_number,
+            employee_name=employee_name,
+            factory=factory,
+        )
+        self.session.add(obj)
+        await self.session.flush()
+        return obj
+
+    async def delete(self, specialist_id: UUID) -> None:
+        from app.modules.hr.models import TrainingSpecialist
+        obj = await self.session.get(TrainingSpecialist, specialist_id)
+        if obj:
+            await self.session.delete(obj)
+            await self.session.flush()

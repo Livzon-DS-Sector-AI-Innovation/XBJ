@@ -14,6 +14,11 @@ import {
   OffboardingRecordCreateInput,
   OffboardingRecordUpdateInput,
   OffboardingRecordListResponse,
+  TrainingSessionCreateInput,
+  TrainingSessionUpdateInput,
+  TrainingSessionListResponse,
+  TrainingSessionResponse,
+  SelectTask,
 } from '@/types/hr'
 
 const API_BASE = process.env.API_BASE_URL || 'http://127.0.0.1:8000'
@@ -378,5 +383,273 @@ export async function batchUpdatePlanItems(id: string, data: AnnualTrainingPlanI
     throw new Error(err.message || '更新年度计划明细失败')
   }
   revalidatePath('/hr/training/annual-plan')
+  return res.json()
+}
+
+// ─── TrainingSession Actions ───
+
+export async function fetchTrainingSessionsAction(
+  params?: {
+    department?: string
+    keyword?: string
+    status?: string
+    date_from?: string
+    date_to?: string
+    page?: number
+    page_size?: number
+  }
+): Promise<TrainingSessionListResponse> {
+  const searchParams = new URLSearchParams()
+  if (params?.department) searchParams.set('department', params.department)
+  if (params?.keyword) searchParams.set('keyword', params.keyword)
+  if (params?.status) searchParams.set('status', params.status)
+  if (params?.date_from) searchParams.set('date_from', params.date_from)
+  if (params?.date_to) searchParams.set('date_to', params.date_to)
+  searchParams.set('page', String(params?.page || 1))
+  searchParams.set('page_size', String(params?.page_size || 20))
+
+  const res = await fetch(`${API_BASE}/api/v1/hr/training-sessions?${searchParams.toString()}`, {
+    cache: 'no-store',
+  })
+  if (!res.ok) throw new Error('获取培训记录列表失败')
+  return res.json()
+}
+
+export async function createTrainingSession(data: TrainingSessionCreateInput) {
+  const res = await fetch(`${API_BASE}/api/v1/hr/training-sessions`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  })
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}))
+    throw new Error(err.message || '创建培训记录失败')
+  }
+  revalidatePath('/hr/training/records')
+  return res.json()
+}
+
+export async function updateTrainingSession(id: string, data: TrainingSessionUpdateInput) {
+  const res = await fetch(`${API_BASE}/api/v1/hr/training-sessions/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  })
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}))
+    throw new Error(err.message || '更新培训记录失败')
+  }
+  revalidatePath('/hr/training/records')
+  return res.json()
+}
+
+export async function deleteTrainingSession(id: string) {
+  const res = await fetch(`${API_BASE}/api/v1/hr/training-sessions/${id}`, {
+    method: 'DELETE',
+  })
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}))
+    throw new Error(err.message || '删除培训记录失败')
+  }
+  revalidatePath('/hr/training/records')
+  return res.json()
+}
+
+export async function updateTrainingSessionStatus(id: string, status: string) {
+  const res = await fetch(`${API_BASE}/api/v1/hr/training-sessions/${id}/status`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ status }),
+  })
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}))
+    throw new Error(err.message || '更新状态失败')
+  }
+  revalidatePath('/hr/training/records')
+  return res.json()
+}
+
+// ─── TrainingSession Detail Actions ───
+
+export async function fetchTrainingSessionByIdAction(id: string): Promise<TrainingSessionResponse> {
+  const res = await fetch(`${API_BASE}/api/v1/hr/training-sessions/${id}`, {
+    cache: 'no-store',
+  })
+  if (!res.ok) throw new Error('获取培训记录详情失败')
+  return res.json()
+}
+
+export async function sendTrainingSessionSelectTasksAction(id: string): Promise<{ code: number; message: string; data: SelectTask[] }> {
+  const res = await fetch(`${API_BASE}/api/v1/hr/training-sessions/${id}/send-select-tasks`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+  })
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}))
+    throw new Error(err.message || '发送选择任务失败')
+  }
+  revalidatePath('/hr/training/records')
+  return res.json()
+}
+
+export async function fetchTrainingSessionSelectTasksAction(id: string): Promise<{ code: number; message: string; data: SelectTask[] }> {
+  const res = await fetch(`${API_BASE}/api/v1/hr/training-sessions/${id}/select-tasks`, {
+    cache: 'no-store',
+  })
+  if (!res.ok) throw new Error('获取选择任务状态失败')
+  return res.json()
+}
+
+// ─── Candidate Actions ───
+
+export async function parseResumePreviewAction(formData: FormData) {
+  const res = await fetch(`${API_BASE}/api/v1/hr/candidates/parse-resume`, {
+    method: 'POST',
+    body: formData,
+  })
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}))
+    throw new Error(err.message || '简历解析失败')
+  }
+  return res.json()
+}
+
+export async function createCandidateAction(formData: FormData) {
+  const res = await fetch(`${API_BASE}/api/v1/hr/candidates`, {
+    method: 'POST',
+    body: formData,
+  })
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}))
+    throw new Error(err.message || '创建候选人失败')
+  }
+  revalidatePath('/hr/recruitment')
+  return res.json()
+}
+
+export async function deleteCandidateAction(id: string) {
+  const res = await fetch(`${API_BASE}/api/v1/hr/candidates/${id}`, {
+    method: 'DELETE',
+  })
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}))
+    throw new Error(err.message || '删除候选人失败')
+  }
+  revalidatePath('/hr/recruitment')
+  return res.json()
+}
+
+export async function syncCandidatesFromFeishuAction() {
+  const res = await fetch(`${API_BASE}/api/v1/hr/candidates/sync-from-feishu`, {
+    method: 'POST',
+    cache: 'no-store',
+  })
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}))
+    throw new Error(err.message || '从飞书同步候选人失败')
+  }
+  revalidatePath('/hr/recruitment')
+  return res.json()
+}
+
+export async function syncCandidateToFeishuAction(id: string) {
+  const res = await fetch(`${API_BASE}/api/v1/hr/candidates/${id}/sync-to-feishu`, {
+    method: 'POST',
+    cache: 'no-store',
+  })
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}))
+    throw new Error(err.message || '同步候选人到飞书失败')
+  }
+  revalidatePath('/hr/recruitment')
+  return res.json()
+}
+
+export async function updateCandidateAction(id: string, data: Record<string, unknown>) {
+  const res = await fetch(`${API_BASE}/api/v1/hr/candidates/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  })
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}))
+    throw new Error(err.message || '更新候选人失败')
+  }
+  revalidatePath('/hr/recruitment')
+  return res.json()
+}
+
+export async function updateCandidateRecommendationLevelAction(id: string, level: string) {
+  const res = await fetch(`${API_BASE}/api/v1/hr/candidates/${id}/recommendation-level`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ recommendation_level: level }),
+  })
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}))
+    throw new Error(err.message || '更新推荐等级失败')
+  }
+  revalidatePath('/hr/recruitment')
+  return res.json()
+}
+
+// ─── 考勤管理 Attendance Actions ───────────────────────────────────
+
+import {
+  ImportResult,
+  DepartmentProductionSettings,
+  LeaveBalanceUpdateInput,
+} from '@/types/hr'
+
+/** 初始化年度日历 */
+export async function initCalendarAction(year: number) {
+  const res = await fetch(`${API_BASE}/api/v1/hr/attendance/calendar/init/${year}`, { method: 'POST' })
+  revalidatePath('/hr/attendance')
+  return res.json()
+}
+
+/** 上传考勤Excel并导入 */
+export async function uploadAttendanceAction(formData: FormData): Promise<ImportResult> {
+  const res = await fetch(`${API_BASE}/api/v1/hr/attendance/import`, {
+    method: 'POST',
+    body: formData,
+  })
+  const json = await res.json()
+  if (json.code === 0 || json.code === 200) {
+    revalidatePath('/hr/attendance')
+    return json.data
+  }
+  throw new Error(json.message || '导入失败')
+}
+
+/** 设置部门生产属性 */
+export async function setDepartmentProductionAction(
+  departmentId: string,
+  settings: DepartmentProductionSettings
+) {
+  const res = await fetch(`${API_BASE}/api/v1/hr/departments/${departmentId}/production-settings`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(settings),
+  })
+  revalidatePath('/hr/departments')
+  return res.json()
+}
+
+/** 更新假期余额 */
+export async function updateLeaveBalanceAction(balanceId: string, input: LeaveBalanceUpdateInput) {
+  const res = await fetch(`${API_BASE}/api/v1/hr/attendance/leave-balances/${balanceId}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(input),
+  })
+  revalidatePath('/hr/attendance')
+  return res.json()
+}
+
+/** 刷新职位级别 */
+export async function refreshPositionLevelsAction() {
+  const res = await fetch(`${API_BASE}/api/v1/hr/attendance/refresh-position-levels`, { method: 'POST' })
+  revalidatePath('/hr/employees')
   return res.json()
 }

@@ -1,0 +1,65 @@
+P0: ""
+  alignment=None
+P1: "培训通知"
+  alignment=CENTER (1)
+  font=None size=279400 bold=True
+P2: "     部门将于       年     月    日    举行                 的培训，详细培训安排如下："
+  alignment=LEFT (0)
+  font=None size=177800 bold=None
+P3: "培训时间：              "
+  alignment=LEFT (0)
+  font=Times New Roman size=177800 bold=None
+P4: "培训地点：              "
+  alignment=LEFT (0)
+  font=Times New Roman size=177800 bold=None
+P5: "培训师：                                                                                                                                                                          "
+  alignment=LEFT (0)
+  font=Times New Roman size=177800 bold=None
+P6: "培训内容：                                                                                                                          "
+  alignment=None
+  font=Times New Roman size=177800 bold=None
+P7: "培训人员：                                                                                                  "
+  alignment=LEFT (0)
+  font=Times New Roman size=177800 bold=None
+P8: "备注：  1.请培训人员自带笔记本、笔，做好笔记。 "
+  alignment=LEFT (0)
+  font=Times New Roman size=177800 bold=None
+P9: "2.请部门安排好参训人员的工作时间，做到培训工作两不误。"
+  alignment=LEFT (0)
+  font=Times New Roman size=177800 bold=None
+P10: "        3.不得无故缺席、迟到，到场签到，有特殊情况须提前请假。"
+  alignment=LEFT (0)
+  font=Times New Roman size=177800 bold=None
+P11: "         "
+  alignment=LEFT (0)
+  font=Times New Roman size=177800 bold=None
+P12: "部门：               "
+  alignment=JUSTIFY (3)
+  font=Times New Roman size=177800 bold=None
+P13: "           年    月   日"
+  alignment=RIGHT (2)
+  font=Times New Roman size=177800 bold=None
+P14: ""
+  alignment=None
+P15: ""
+  alignment=None
+P16: ""
+  alignment=None
+P17: ""
+  alignment=None
+P18: ""
+  alignment=None
+P19: ""
+  alignment=None
+P20: ""
+  alignment=None
+P21: ""
+  alignment=None
+P22: ""
+  alignment=None
+P23: ""
+  alignment=None
+
+Sections: 1
+Page: 7560310x10692130
+Margins: top=899795 bottom=720090 left=899795 right=720090

@@ -33,12 +33,14 @@ import {
 
 interface TrainingLedgerClientProps {
   employeeNumber: string
+  ledgerType?: string
 }
 
 const METHOD_OPTIONS = ['面授', '函授', '远程教育', '自学', '其他']
 
 export default function TrainingLedgerClient({
   employeeNumber,
+  ledgerType = 'event',
 }: TrainingLedgerClientProps) {
   const [employee, setEmployee] = useState<Employee | null>(null)
   const [records, setRecords] = useState<TrainingLedgerRecord[]>([])
@@ -61,7 +63,8 @@ export default function TrainingLedgerClient({
         date_to: dateTo || undefined,
         page_size: 100,
       })
-      setRecords(ledgerRes.data || [])
+      const filtered = (ledgerRes.data || []).filter((r: any) => r.ledger_type === ledgerType || !r.ledger_type)
+      setRecords(filtered)
     } catch (err: any) {
       message.error('加载数据失败: ' + (err.message || '未知错误'))
     } finally {
@@ -79,7 +82,9 @@ export default function TrainingLedgerClient({
 
   const handleExport = async () => {
     try {
-      await exportTrainingLedger(employeeNumber)
+      const urlParams = new URLSearchParams(window.location.search)
+      const factory = urlParams.get('factory') || 'old'
+      await exportTrainingLedger({ employee_number: employeeNumber, ledger_type: ledgerType, factory })
       message.success('导出成功')
     } catch (err: any) {
       message.error(err.message || '导出失败')
@@ -98,6 +103,7 @@ export default function TrainingLedgerClient({
       trainer: '',
       assessment_result: '',
       source_type: 'manual',
+      ledger_type: ledgerType,
       remarks: '',
     }
     setRecords([newRecord, ...records])

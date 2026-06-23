@@ -6,6 +6,7 @@ import { fetchEmployeeByNumber } from '@/lib/api/hr'
 interface PageProps {
   searchParams: Promise<{
     employee_number?: string
+    type?: string
   }>
 }
 
@@ -34,6 +35,7 @@ export async function generateMetadata({ searchParams }: PageProps) {
 export default async function TrainingLedgerPage({ searchParams }: PageProps) {
   const params = await searchParams
   const employeeNumber = params.employee_number
+  const ledgerType = params.type || 'event'
 
   let employeeName: string | null = null
   if (employeeNumber) {
@@ -81,7 +83,7 @@ export default async function TrainingLedgerPage({ searchParams }: PageProps) {
           </div>
         }
       >
-        <TrainingLedgerClient employeeNumber={employeeNumber} />
+        <TrainingLedgerClient employeeNumber={employeeNumber} ledgerType={ledgerType} />
       </Suspense>
     </div>
   )

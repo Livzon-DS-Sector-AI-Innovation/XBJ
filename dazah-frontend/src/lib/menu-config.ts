@@ -157,6 +157,8 @@ export const moduleMenus: ModuleMenu[] = [
         path: "/hr/training",
         children: [
           { key: "new-onboarding-training", label: "新员工入职培训", path: "/hr/training/onboarding" },
+          { key: "new-training-records", label: "培训列表", path: "/hr/training/records" },
+          { key: "new-training-specialists", label: "培训专员", path: "/hr/training/specialists" },
           { key: "new-training-notification", label: "培训通知", path: "/hr/training/notification" },
           { key: "new-sign-in-sheet", label: "培训签到表", path: "/hr/training/sign-in" },
           { key: "new-ai-exam", label: "AI 出题", path: "/hr/training/ai-exam" },
@@ -186,6 +188,17 @@ export const moduleMenus: ModuleMenu[] = [
               },
             ],
           },
+        ],
+      },
+      {
+        key: "attendance",
+        label: "考勤管理",
+        path: "/hr/attendance",
+        children: [
+          { key: "attendance-import", label: "导入考勤", path: "/hr/attendance/import" },
+          { key: "attendance-records", label: "考勤记录", path: "/hr/attendance/records" },
+          { key: "attendance-overtime", label: "加班汇总", path: "/hr/attendance/overtime" },
+          { key: "attendance-calendar", label: "工作日历", path: "/hr/attendance/calendar" },
         ],
       },
     ],

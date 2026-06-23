@@ -18,6 +18,7 @@ from app.modules.hr.models import (
     Team,
     TrainingLedger,
     TrainingLedgerPage,
+    TrainingSession,
 )
 from app.modules.hr.repository import (
     AnnualTrainingPlanItemRepository,
@@ -30,6 +31,7 @@ from app.modules.hr.repository import (
     TeamRepository,
     TrainingLedgerRepository,
     TrainingLedgerPageRepository,
+    TrainingSessionRepository,
 )
 from app.modules.hr.schemas import (
     AnnualTrainingPlanCreate,
@@ -51,6 +53,8 @@ from app.modules.hr.schemas import (
     TeamUpdate,
     TrainingLedgerCreate,
     TrainingLedgerUpdate,
+    TrainingSessionCreate,
+    TrainingSessionUpdate,
 )
 from app.platform.integrations.feishu import FeishuBitableSync
 from app.platform.integrations.feishu.employee_datasource import (
@@ -200,6 +204,10 @@ class EmployeeService:
     async def get_employee_by_number(self, employee_number: str) -> Employee:
         employee = await self.repo.get_by_employee_number(employee_number)
         if not employee:
+            # 旧厂未找到，尝试从新厂查询
+            new_emp = await self.repo.get_new_employee_by_number(employee_number)
+            if new_emp:
+                return new_emp
             raise NotFoundException("员工", employee_number)
         return employee
 
@@ -1068,6 +1076,7 @@ class TrainingLedgerService:
         self,
         *,
         employee_number: str | None = None,
+        ledger_type: str | None = None,
         date_from: date | None = None,
         date_to: date | None = None,
         page: int = 1,
@@ -1077,6 +1086,7 @@ class TrainingLedgerService:
     ) -> tuple[list[TrainingLedger], int]:
         return await self.repo.list_records(
             employee_number=employee_number,
+            ledger_type=ledger_type,
             date_from=date_from,
             date_to=date_to,
             page=page,
@@ -1120,15 +1130,93 @@ class TrainingLedgerPageService:
     async def list_pages(self) -> list[TrainingLedgerPage]:
         return await self.repo.list_pages()
 
-    async def list_pages_with_department(self) -> list[tuple[TrainingLedgerPage, str | None]]:
+    async def list_pages_with_department(self) -> list[tuple[TrainingLedgerPage, str | None, str | None]]:
         return await self.repo.list_pages_with_department()
 
     async def create_page(self, data) -> TrainingLedgerPage:
-        existing = await self.repo.get_by_employee_number(data.employee_number)
+        existing = await self.repo.get_by_employee_number(data.employee_number, data.ledger_type)
         if existing:
-            raise DuplicateException("培训台账页面", data.employee_number)
+            raise DuplicateException("培训台账页面", f"{data.employee_number}({data.ledger_type})")
         page = TrainingLedgerPage(**data.model_dump())
         return await self.repo.create(page)
+
+
+class TrainingSessionService:
+    def __init__(self, session: AsyncSession) -> None:
+        self.repo = TrainingSessionRepository(session)
+
+    async def get_session(self, session_id: UUID) -> TrainingSession:
+        session_obj = await self.repo.get_by_id(session_id)
+        if not session_obj:
+            raise NotFoundException("培训记录", str(session_id))
+        return session_obj
+
+    async def create_session(self, data: TrainingSessionCreate) -> TrainingSession:
+        session_obj = TrainingSession(**data.model_dump())
+        return await self.repo.create(session_obj)
+
+    async def update_session(
+        self, session_id: UUID, data: TrainingSessionUpdate
+    ) -> TrainingSession:
+        session_obj = await self.get_session(session_id)
+        update_data = data.model_dump(exclude_unset=True)
+        for field, value in update_data.items():
+            setattr(session_obj, field, value)
+        return await self.repo.update(session_obj)
+
+    async def update_status(self, session_id: UUID, status: str) -> TrainingSession:
+        session_obj = await self.get_session(session_id)
+        session_obj.status = status
+        return await self.repo.update(session_obj)
+
+    async def link_select_task(self, session_id: UUID, token: str) -> TrainingSession:
+        session_obj = await self.get_session(session_id)
+        session_obj.select_task_token = token
+        session_obj.status = "selecting"
+        return await self.repo.update(session_obj)
+
+    async def check_all_select_tasks_completed(self, session_id: UUID) -> bool:
+        session_obj = await self.get_session(session_id)
+        select_tasks = session_obj.select_tasks or []
+        if not select_tasks:
+            return False
+        return all(task.get("status") == "submitted" for task in select_tasks)
+
+    async def delete_session(self, session_id: UUID) -> None:
+        session_obj = await self.get_session(session_id)
+        await self.repo.soft_delete(session_obj)
+
+    async def list_sessions(
+        self,
+        *,
+        department: str | None = None,
+        keyword: str | None = None,
+        status: str | None = None,
+        date_from: date | None = None,
+        date_to: date | None = None,
+        page: int = 1,
+        page_size: int = 20,
+        sort_by: str = "training_date",
+        sort_order: str = "desc",
+    ) -> tuple[list[TrainingSession], int]:
+        return await self.repo.list_sessions(
+            department=department,
+            keyword=keyword,
+            status=status,
+            date_from=date_from,
+            date_to=date_to,
+            page=page,
+            page_size=page_size,
+            sort_by=sort_by,
+            sort_order=sort_order,
+        )
+
+    async def check_all_select_tasks_completed(self, session_id: UUID) -> bool:
+        session_obj = await self.get_session(session_id)
+        select_tasks = session_obj.select_tasks or []
+        if not select_tasks:
+            return False
+        return all(task.get("status") == "submitted" for task in select_tasks)
 
 
 class AnnualTrainingPlanService:

@@ -292,7 +292,7 @@ export default function RegulationClient() {
         const vb = parseInt(b.version || '0', 10)
         return va - vb
       },
-      defaultSortOrder: 'descend',
+      defaultSortOrder: 'descend' as const,
       render: (text: string | null) => (
         <span className="text-lg text-gray-600">{text || '-'}</span>
       ),

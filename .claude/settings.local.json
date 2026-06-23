@@ -1,4 +1,8 @@
 {
+  "env": {
+    "ANTHROPIC_BASE_URL": "https://newapi.livzon.cn",
+    "ANTHROPIC_API_KEY": "OmRaxp5U7vTi1MzHZajaijtBTIlVKEPnmMoVJGSuRTh8d3tW"
+  },
   "permissions": {
     "allow": [
       "Bash(netstat -ano)",

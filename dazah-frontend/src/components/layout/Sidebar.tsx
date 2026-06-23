@@ -58,23 +58,29 @@ function findParentKeys(items: SubMenuItem[], pathname: string): string[] {
   return []
 }
 
-/** Merge dynamic training-ledger pages from API into static menu, grouped by department. */
+/** Merge dynamic training-ledger pages from API into static menu, grouped by department, factory, and type. */
 function mergeDynamicMenus(
   staticChildren: SubMenuItem[],
-  dynamicPages: { employee_number: string; employee_name: string; department?: string }[],
+  dynamicPages: { employee_number: string; employee_name: string; department?: string; factory?: string; ledger_type?: string }[],
   annualPlans: { id: string; department: string }[]
 ): SubMenuItem[] {
   return staticChildren.map((item) => {
-    if (item.key === "training-ledger" && item.children) {
-      // 按部门分组动态页面
-      const deptMap = new Map<string, typeof dynamicPages>()
+    if (item.key === "new-training-ledger" && item.children) {
+      // 按"厂区|部门|类型"分组动态页面
+      const groupMap = new Map<string, typeof dynamicPages>()
       for (const d of dynamicPages) {
+        const factory = d.factory || ""
         const dept = d.department || "未知部门"
-        if (!deptMap.has(dept)) {
-          deptMap.set(dept, [])
+        const ltype = d.ledger_type || "event"
+        const groupKey = `${factory}|${dept}|${ltype}`
+        if (!groupMap.has(groupKey)) {
+          groupMap.set(groupKey, [])
         }
-        deptMap.get(dept)!.push(d)
+        groupMap.get(groupKey)!.push(d)
       }
+
+      const SOP_LABEL = "员工SOP培训台账"
+      const EVENT_LABEL = "员工事件培训台账"
 
       const newChildren: SubMenuItem[] = []
 
@@ -83,38 +89,101 @@ function mergeDynamicMenus(
           // 叶子项（如新建培训台账），直接保留
           newChildren.push(child)
         } else {
-          // 部门子菜单，合并动态页面
+          // 部门子菜单，合并动态页面（按类型分两个子组）
           const dept = child.label
-          const dynamicPagesForDept = deptMap.get(dept) || []
-          deptMap.delete(dept)
-
           const existingPaths = new Set(child.children.map((c) => c.path))
-          const extraPages = dynamicPagesForDept
-            .filter((d) => !existingPaths.has(`/hr/training/ledger?employee_number=${d.employee_number}`))
-            .map((d) => ({
-              key: `training-ledger-${d.employee_number}`,
-              label: `${d.employee_name}培训台账`,
-              path: `/hr/training/ledger?employee_number=${d.employee_number}`,
-            }))
+          // 匹配同部门的所有厂区组
+          const matchedKeys: string[] = []
+          for (const [key] of groupMap) {
+            const parts = key.split("|")
+            const keyDept = parts[1] || ""
+            if (keyDept === dept) {
+              matchedKeys.push(key)
+            }
+          }
 
-          newChildren.push({
-            ...child,
-            children: [...child.children, ...extraPages],
-          })
+          // 收集该部门下所有 SOP 和 Event 页面
+          const sopPages: typeof dynamicPages = []
+          const eventPages: typeof dynamicPages = []
+          for (const mk of matchedKeys) {
+            const pages = groupMap.get(mk) || []
+            groupMap.delete(mk)
+            const parts = mk.split("|")
+            const ltype = parts[2] || "event"
+            if (ltype === "sop") {
+              sopPages.push(...pages)
+            } else {
+              eventPages.push(...pages)
+            }
+          }
+
+          // 保持原有的静态子菜单
+          const updatedChildren = [...child.children]
+
+          // 追加 SOP 页面
+          if (sopPages.length > 0) {
+            const extraSop = sopPages
+              .filter((d) => !existingPaths.has(`/hr/training/ledger?employee_number=${d.employee_number}&type=sop`))
+              .map((d) => ({
+                key: `training-ledger-sop-${d.employee_number}`,
+                label: d.employee_name,
+                path: `/hr/training/ledger?employee_number=${d.employee_number}&type=sop&factory=${d.factory || 'old'}`,
+              }))
+            if (extraSop.length > 0) {
+              updatedChildren.push({
+                key: `training-ledger-sop-dept-${dept}`,
+                label: SOP_LABEL,
+                path: "#",
+                children: extraSop,
+              } as SubMenuItem)
+            }
+          }
+
+          // 追加 Event 页面
+          if (eventPages.length > 0) {
+            const extraEvent = eventPages
+              .filter((d) => !existingPaths.has(`/hr/training/ledger?employee_number=${d.employee_number}&type=event`))
+              .map((d) => ({
+                key: `training-ledger-event-${d.employee_number}`,
+                label: d.employee_name,
+                path: `/hr/training/ledger?employee_number=${d.employee_number}&type=event&factory=${d.factory || 'old'}`,
+              }))
+            if (extraEvent.length > 0) {
+              updatedChildren.push({
+                key: `training-ledger-event-dept-${dept}`,
+                label: EVENT_LABEL,
+                path: "#",
+                children: extraEvent,
+              } as SubMenuItem)
+            }
+          }
+
+          newChildren.push({ ...child, children: updatedChildren })
         }
       }
 
       // 添加剩余的动态部门
-      for (const [dept, pages] of deptMap.entries()) {
+      for (const [groupKey, pages] of groupMap.entries()) {
+        const parts = groupKey.split("|")
+        const factory = parts[0] || ""
+        const dept = parts[1] || ""
+        const ltype = parts[2] || "event"
+        const factoryLabel = factory === "new" ? "【新厂】" : factory === "old" ? "【旧厂】" : ""
+        const typeLabel = ltype === "sop" ? SOP_LABEL : EVENT_LABEL
         newChildren.push({
-          key: `training-ledger-dept-${dept}`,
-          label: dept,
+          key: `training-ledger-dept-${groupKey}`,
+          label: `${factoryLabel}${dept}`,
           path: "#",
-          children: pages.map((p) => ({
-            key: `training-ledger-${p.employee_number}`,
-            label: `${p.employee_name}培训台账`,
-            path: `/hr/training/ledger?employee_number=${p.employee_number}`,
-          })),
+          children: [{
+            key: `training-ledger-type-${groupKey}`,
+            label: typeLabel,
+            path: "#",
+            children: pages.map((p) => ({
+              key: `training-ledger-${p.employee_number}-${ltype}`,
+              label: p.employee_name,
+              path: `/hr/training/ledger?employee_number=${p.employee_number}&type=${ltype}&factory=${factory || 'old'}`,
+            })),
+          }],
         })
       }
 
@@ -153,7 +222,7 @@ export function Sidebar() {
   const currentModule = getModuleByKey(moduleKey)
 
   const [dynamicPages, setDynamicPages] = useState<
-    { employee_number: string; employee_name: string; department?: string }[]
+    { employee_number: string; employee_name: string; department?: string; factory?: string; ledger_type?: string }[]
   >([])
   const [annualPlans, setAnnualPlans] = useState<
     { id: string; department: string }[]

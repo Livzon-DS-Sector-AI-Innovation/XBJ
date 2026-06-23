@@ -18,6 +18,13 @@ const modules = [
     path: '/hr/training/annual-plan',
   },
   {
+    key: 'records',
+    title: '培训列表',
+    desc: '记录和管理历次培训活动，支持新建、编辑和删除',
+    icon: <BookOutlined className="text-2xl text-[var(--color-primary)]" />,
+    path: '/hr/training/records',
+  },
+  {
     key: 'onboarding',
     title: '新员工入职培训',
     desc: '选择员工同时生成入职培训记录(Word)、岗前培训计划(Excel)和员工上岗评估表，支持打印',

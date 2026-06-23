@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { useSearchParams } from 'next/navigation'
 import {
   Button,
   Card,
@@ -34,8 +35,10 @@ import {
   createTrainingLedger,
   createTrainingLedgerPage,
   sendTrainingNotification,
+  sendTrainingSelectTask,
+  fetchTrainingSelectTaskResult,
 } from '@/lib/api/hr'
-import { moduleMenus } from '@/lib/menu-config'
+import { moduleMenus, SubMenuItem } from '@/lib/menu-config'
 
 const TRAINING_METHODS = [
   { value: '面授', label: '面授' },
@@ -85,6 +88,7 @@ export default function TrainingNotificationClient() {
   const [submittingEval, setSubmittingEval] = useState(false)
   const [addingToLedger, setAddingToLedger] = useState(false)
   const [sendingNotify, setSendingNotify] = useState(false)
+  const [sendingSelectTask, setSendingSelectTask] = useState(false)
   const [factory, setFactory] = useState<'old' | 'new'>('old')
 
   useEffect(() => {
@@ -105,6 +109,60 @@ export default function TrainingNotificationClient() {
       employee_names: [],
     })
   }, [factory, form])
+
+  const searchParams = useSearchParams()
+  const tokenFromUrl = searchParams.get('token')
+
+  useEffect(() => {
+    if (!tokenFromUrl) return
+    const load = async () => {
+      try {
+        const res = await fetchTrainingSelectTaskResult(tokenFromUrl)
+        const task = res.data
+        if (!task) return
+
+        // 填充培训信息
+        form.setFieldsValue({
+          department: task.department,
+          training_date: task.training_date ? dayjs(task.training_date) : undefined,
+          subject: task.subject,
+          training_time: task.training_time_start && task.training_time_end
+            ? [dayjs(task.training_time_start, 'HH:mm'), dayjs(task.training_time_end, 'HH:mm')]
+            : undefined,
+          location: task.location,
+          trainer: task.trainer,
+          content: task.content,
+          training_method: task.training_method,
+          issuer_department: task.issuer_department,
+          issue_date: task.issue_date ? dayjs(task.issue_date) : undefined,
+          factory: task.factory || 'old',
+        })
+
+        // 设置厂区
+        if (task.factory) {
+          setFactory(task.factory)
+        }
+
+        // 加载人员并回填
+        if (task.employee_numbers?.length > 0) {
+          // 根据 employee_numbers 查询姓名
+          const names: string[] = task.employee_names || []
+          const numberMap: Record<string, string> = {}
+          task.employee_numbers.forEach((num: string, idx: number) => {
+            numberMap[names[idx] || num] = num
+          })
+          setNameToNumberMap(numberMap)
+          form.setFieldsValue({
+            employee_names: names.length > 0 ? names : task.employee_numbers,
+          })
+          message.success(`已加载选择结果：${task.employee_numbers.length} 人`)
+        }
+      } catch (err: any) {
+        message.error(err.message || '加载选择结果失败')
+      }
+    }
+    load()
+  }, [tokenFromUrl, form])
 
   const loadEmployees = async (depts: string[]) => {
     if (!depts || depts.length === 0) {
@@ -166,7 +224,7 @@ export default function TrainingNotificationClient() {
           ? values.issue_date.format('YYYY-MM-DD')
           : values.training_date.format('YYYY-MM-DD'),
       }
-      await generateTrainingNotification(payload)
+      await generateTrainingNotification(payload, factory)
       message.success('培训通知已生成')
     } catch (err: any) {
       message.error(err.message || '生成失败')
@@ -225,7 +283,7 @@ export default function TrainingNotificationClient() {
         duration_hours: durationHours,
         training_method: values.training_method,
         trainer_type: values.trainer,
-        textbook: `${values.department || ''} / ${(values.trainee_departments || []).join('、')} / ${(values.employee_names || []).length}人`,
+        textbook: (values.trainee_departments || []).join('、'),
         expected_count: (values.employee_names || []).length,
       }
       await generateTrainingEvaluation(payload, factory)
@@ -418,6 +476,46 @@ export default function TrainingNotificationClient() {
         }
       },
     })
+  }
+
+  const handleSendSelectTask = async () => {
+    const values = form.getFieldsValue()
+    try {
+      await form.validateFields(['department', 'training_date', 'subject'])
+    } catch {
+      message.warning('请填写主办部门、培训日期和培训主题')
+      return
+    }
+
+    setSendingSelectTask(true)
+    try {
+      const payload = {
+        department: values.department,
+        training_date: values.training_date.format('YYYY-MM-DD'),
+        subject: values.subject,
+        training_time_start: values.training_time
+          ? dayjs(values.training_time[0]).format('HH:mm')
+          : undefined,
+        training_time_end: values.training_time
+          ? dayjs(values.training_time[1]).format('HH:mm')
+          : undefined,
+        location: values.location,
+        trainer: values.trainer,
+        content: values.content,
+        training_method: values.training_method,
+        issuer_department: values.issuer_department || values.department,
+        issue_date: values.issue_date
+          ? values.issue_date.format('YYYY-MM-DD')
+          : values.training_date.format('YYYY-MM-DD'),
+        factory,
+      }
+      const res = await sendTrainingSelectTask(payload)
+      message.success(res.message || '已发送飞书选择任务给李文兆')
+    } catch (err: any) {
+      message.error(err.message || '发送失败')
+    } finally {
+      setSendingSelectTask(false)
+    }
   }
 
   const formValues = form.getFieldsValue()
@@ -617,6 +715,14 @@ export default function TrainingNotificationClient() {
                 loading={sendingNotify}
               >
                 通知受训人员
+              </Button>
+              <Button
+                type="default"
+                icon={<SendOutlined />}
+                onClick={handleSendSelectTask}
+                loading={sendingSelectTask}
+              >
+                发送飞书选择受训人员
               </Button>
             </Space>
           </Form.Item>

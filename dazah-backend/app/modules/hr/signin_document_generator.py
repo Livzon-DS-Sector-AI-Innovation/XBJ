@@ -5,8 +5,6 @@ from pathlib import Path
 
 import openpyxl
 from openpyxl.styles import Alignment, Font
-import xlrd
-from xlutils.copy import copy as xlutils_copy
 
 from app.modules.hr.schemas import TrainingSignInSheetInput
 
@@ -28,7 +26,7 @@ def _fmt_date(value) -> str:
 
 
 OLD_TEMPLATE_NAME = "7.5培训签到表.xlsx"
-NEW_TEMPLATE_NAME = "R-GN-2002 K 培训签到表.xls"
+NEW_TEMPLATE_NAME = "R-GN-2002 K 培训签到表.xlsx"
 
 
 def _find_old_template() -> Path:
@@ -160,56 +158,57 @@ def _generate_old(data: TrainingSignInSheetInput, page: int = 0) -> BytesIO:
 
 
 def _generate_new(data: TrainingSignInSheetInput, page: int = 0) -> BytesIO:
-    """Fill the new factory training sign-in sheet xls template."""
+    """Fill the new factory training sign-in sheet xlsx template."""
     template_path = _find_new_template()
-    rb = xlrd.open_workbook(str(template_path), formatting_info=True)
-    wb = xlutils_copy(rb)
-    ws = wb.get_sheet(0)
+    wb = openpyxl.load_workbook(str(template_path))
+    ws = wb.active
 
-    # Row 4: 培训日期
+    # Row 5 (A5:E5 merged): 培训日期
     if data.training_date:
-        ws.write(4, 1, _fmt_date(data.training_date))
+        ws["A5"] = f"培训日期：{_fmt_date(data.training_date)}"
 
-    # Row 5: 培训方式
+    # Row 6 (A6:E6 merged): 培训方式 — 勾选对应项
     if data.training_method:
         method_map = {
-            "面授": "☑ 面授",
-            "函授": "☑ 函授",
-            "远程教育": "☑ 远程教育",
-            "自学": "☑ 自学",
-            "其他": "☑其他",
+            "面授": "培训方式：☑ 面授 □ 函授 □ 远程教育 □ 自学 □其他：",
+            "函授": "培训方式：□ 面授 ☑ 函授 □ 远程教育 □ 自学 □其他：",
+            "远程教育": "培训方式：□ 面授 □ 函授 ☑ 远程教育 □ 自学 □其他：",
+            "自学": "培训方式：□ 面授 □ 函授 □ 远程教育 ☑ 自学 □其他：",
+            "其他": "培训方式：□ 面授 □ 函授 □ 远程教育 □ 自学 ☑其他：",
         }
-        placeholder = method_map.get(data.training_method, data.training_method)
-        ws.write(5, 1, f"培训方式：{placeholder} □ 面授 □ 函授 □ 远程教育 □ 自学 □其他：")
+        ws["A6"] = method_map.get(data.training_method, f"培训方式：{data.training_method}")
 
-    # Row 6: 受训部门/班组
+    # Row 7 (A7:E7 merged): 受训部门/班组
     if data.department:
-        ws.write(6, 1, data.department)
+        ws["A7"] = f"受训部门/班组：{data.department}"
 
-    # Row 7: 应受训人数 / 实际受训人数
+    # Row 8 (A8:E8 merged): 应受训人数 / 实际受训人数
     total = len(data.employee_names)
-    ws.write(7, 1, f"应受训人数：{total} 人           实际受训人数合计：      人")
+    ws["A8"] = f"应受训人数：{total} 人           实际受训人数合计：      人"
 
-    # Row 8: 培训时间 / 培训题目或内容概要 / 授课人
+    # Row 10: 培训时间 / 培训题目 / 授课人
+    # A10, A11, A12 — use first row for data
     if data.training_time_start and data.training_time_end:
-        ws.write(9, 0, f"{data.training_time_start} ~ {data.training_time_end}")
+        ws["A10"] = f"{data.training_time_start} ~ {data.training_time_end}"
     if data.topic:
-        ws.write(9, 1, data.topic)
+        ws["B10"] = data.topic
     if data.instructor:
-        ws.write(9, 4, data.instructor)
+        ws["E10"] = data.instructor
 
-    # Employee names list (max 30 per page)
+    # Clear placeholder rows A11, A12
+    ws["A11"] = ""
+    ws["A12"] = ""
+
+    # Employee names (max 30 per page, starting from row 15)
     page_size = 30
     start = page * page_size
     page_names = data.employee_names[start : start + page_size]
 
     for i, name in enumerate(page_names):
         if i < 15:
-            row = 10 + i
-            ws.write(row, 0, name)
+            ws.cell(row=15 + i, column=1).value = name  # A15-A29
         else:
-            row = 10 + (i - 15)
-            ws.write(row, 3, name)
+            ws.cell(row=15 + (i - 15), column=3).value = name  # C15-C29
 
     buffer = BytesIO()
     wb.save(buffer)

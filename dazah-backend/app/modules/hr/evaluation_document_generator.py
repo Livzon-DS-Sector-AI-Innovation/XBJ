@@ -1,5 +1,6 @@
 """培训效果评估表 文档生成器."""
 
+from datetime import date
 from io import BytesIO
 from pathlib import Path
 
@@ -52,6 +53,7 @@ def _set_cell_format(cell, text: str) -> None:
 
 
 NEW_TEMPLATE_NAME = "R-GN-2002 H 培训效果评估表.docx"
+OLD_TEMPLATE_NAME = "7.11培训效果评估表.xlsx"
 
 
 def _find_new_template() -> Path:
@@ -67,6 +69,21 @@ def _find_new_template() -> Path:
         if p.exists():
             return p
     raise FileNotFoundError(f"模板文件未找到: {NEW_TEMPLATE_NAME}")
+
+
+def _find_old_template() -> Path:
+    """Locate the old factory xls template."""
+    candidates = [
+        Path("员工培训教育管理规程") / OLD_TEMPLATE_NAME,
+        Path("../员工培训教育管理规程") / OLD_TEMPLATE_NAME,
+        Path(__file__).resolve().parent.parent.parent.parent
+        / "员工培训教育管理规程"
+        / OLD_TEMPLATE_NAME,
+    ]
+    for p in candidates:
+        if p.exists():
+            return p
+    raise FileNotFoundError(f"模板文件未找到: {OLD_TEMPLATE_NAME}")
 
 
 
@@ -122,211 +139,103 @@ def _left_align():
 
 
 def _generate_old(data: TrainingEvaluationInput) -> BytesIO:
-    """根据填写的培训信息生成培训效果评估表 Excel 文档."""
-    wb = Workbook()
+    """基于旧厂模板 7.11培训效果评估表.xlsx 填入数据，保留原始格式."""
+    from openpyxl import load_workbook
+
+    template_path = _find_old_template()
+    wb = load_workbook(str(template_path))
     ws = wb.active
-    ws.title = "培训效果评估表"
 
-    # 列宽设置
-    ws.column_dimensions["A"].width = 16
-    ws.column_dimensions["B"].width = 20
-    ws.column_dimensions["C"].width = 16
-    ws.column_dimensions["D"].width = 20
-    ws.column_dimensions["E"].width = 16
+    # 培训主题：row 4, col 2 (B4)，合并区域 B4:E4
+    ws.cell(row=4, column=2).value = data.subject or ""
 
-    # 标题行
-    ws.merge_cells("A1:E1")
-    ws["A1"] = "QR.SOP.PM.003/18（格式）  P8/12"
-    ws["A1"].alignment = Alignment(horizontal="left", vertical="center")
-    ws.row_dimensions[1].height = 20
-
-    ws.merge_cells("A2:E2")
-    ws["A2"] = "丽珠集团新北江制药股份有限公司"
-    ws["A2"].font = Font(name="宋体", size=14, bold=True)
-    ws["A2"].alignment = _center_align()
-    ws.row_dimensions[2].height = 28
-
-    ws.merge_cells("A3:E3")
-    ws["A3"] = "培训效果评估表"
-    ws["A3"].font = Font(name="宋体", size=16, bold=True)
-    ws["A3"].alignment = _center_align()
-    ws.row_dimensions[3].height = 32
-
-    # 培训主题
-    ws.merge_cells("A4:E4")
-    ws["A4"] = f"培训主题：{data.subject}"
-    ws["A4"].font = Font(name="宋体", size=12)
-    ws["A4"].alignment = _left_align()
-    ws["A4"].border = _cell_border()
-    ws.row_dimensions[4].height = 24
-
-    # 培训时间 + 学时
+    # 培训时间：row 5, col 2 (B5)，合并区域 B5:C5
     time_str = ""
     if data.training_date:
         time_str = data.training_date.strftime("%Y.%m.%d")
     if data.training_time_start and data.training_time_end:
         time_str += f" {data.training_time_start}~{data.training_time_end}"
-    ws.merge_cells("A5:C5")
-    ws["A5"] = f"培训时间：{time_str}"
-    ws["A5"].font = Font(name="宋体", size=12)
-    ws["A5"].alignment = _left_align()
-    ws["A5"].border = _cell_border()
-    ws["D5"] = f"学时：{data.duration_hours if data.duration_hours is not None else ''}"
-    ws["D5"].font = Font(name="宋体", size=12)
-    ws["D5"].alignment = _left_align()
-    ws["D5"].border = _cell_border()
-    ws["E5"].border = _cell_border()
-    ws.row_dimensions[5].height = 24
+    ws.cell(row=5, column=2).value = time_str
 
-    # 培训方式 + 是否考试
+    # 学时：row 5, col 5 (E5)，D5 模板已有"学时"标签
+    ws.cell(row=5, column=5).value = data.duration_hours
+
+    # 培训方式：row 6, col 2 (B6)，合并区域 B6:C6，模板已有文字
     method_map = {
-        "面授": "☑面授  □函授  □远程教育  □自学  □其他方式",
-        "函授": "□面授  ☑函授  □远程教育  □自学  □其他方式",
-        "远程教育": "□面授  □函授  ☑远程教育  □自学  □其他方式",
-        "自学": "□面授  □函授  □远程教育  ☑自学  □其他方式",
+        "面授": "☑面授  □函授  □远程教育\n□自学  □其他",
+        "函授": "□面授  ☑函授  □远程教育\n□自学  □其他",
+        "远程教育": "□面授  □函授  ☑远程教育\n□自学  □其他",
+        "自学": "□面授  □函授  □远程教育\n☑自学  □其他",
     }
-    method_str = method_map.get(data.training_method, "□面授  □函授  □远程教育  □自学  □其他方式")
-    ws.merge_cells("A6:C6")
-    ws["A6"] = f"培训方式：{method_str}"
-    ws["A6"].font = Font(name="宋体", size=12)
-    ws["A6"].alignment = _left_align()
-    ws["A6"].border = _cell_border()
-    exam_str = "☑考试" if data.is_exam else "□考试"
-    ws["D6"] = exam_str
-    ws["D6"].font = Font(name="宋体", size=12)
-    ws["D6"].alignment = _left_align()
-    ws["D6"].border = _cell_border()
-    ws["E6"].border = _cell_border()
-    ws.row_dimensions[6].height = 28
+    method_str = method_map.get(data.training_method, "□面授  □函授  □远程教育\n□自学  □其他")
+    ws.cell(row=6, column=2).value = method_str
 
-    # 培训人员
-    ws.merge_cells("A7:E7")
-    trainer_type = data.trainer_type or ""
-    ws["A7"] = f"培训人员：□讲师/专家/官员等    {trainer_type}"
-    ws["A7"].font = Font(name="宋体", size=12)
-    ws["A7"].alignment = _left_align()
-    ws["A7"].border = _cell_border()
-    ws.row_dimensions[7].height = 24
+    # 授课人：row 6, col 5 (E6)，D6 模板已有"授课人"标签
+    ws.cell(row=6, column=5).value = data.trainer or ""
 
-    # 应出席/实际出席/缺席人数
-    ws.merge_cells("A8:E8")
+    # 培训人员：C7 填入部门/班组/人员（B7 模板已有标签"部门/班组/人员"）
+    ws.cell(row=7, column=3).value = data.textbook or ""
+
+    # 应到/实到/缺席：row 8, col 2 (B8)，合并区域 B8:E8
     expected = data.expected_count if data.expected_count is not None else "___"
     actual = data.actual_count if data.actual_count is not None else "___"
     absent = data.absent_count if data.absent_count is not None else "___"
-    ws["A8"] = f"应出席 {expected} 人；实际出席 {actual} 人；缺席 {absent} 人。"
-    ws["A8"].font = Font(name="宋体", size=12)
-    ws["A8"].alignment = _left_align()
-    ws["A8"].border = _cell_border()
-    ws.row_dimensions[8].height = 24
+    ws.cell(row=8, column=2).value = f"应到 {expected} 人； 实到 {actual} 人； 缺席 {absent} 人。"
 
-    # 培训教材
-    ws.merge_cells("A9:E9")
-    ws["A9"] = f"培训教材：{data.textbook or ''}"
-    ws["A9"].font = Font(name="宋体", size=12)
-    ws["A9"].alignment = _left_align()
-    ws["A9"].border = _cell_border()
-    ws.row_dimensions[9].height = 24
+    # 培训教材：row 9, col 2 (B9)，合并区域 B9:E9，填培训内容
+    ws.cell(row=9, column=2).value = data.subject or ""
 
-    # 缺席人员处理方式
-    ws.merge_cells("A10:E10")
+    # 缺席人员处理方式：row 10, col 1 (A10)，合并区域 A10:E10
     makeup_str = ""
     if data.makeup_training is True:
-        makeup_str = "是否进行补课培训，☑是 □否，未参加培训人员必须补上培训内容，（包括培训时间、地点、方式等）。"
+        makeup_str = "是否进行补课培训，☑是  □否，未参加培训人员必须补上培训内容，（包括培训时间、地点、方式等）。"
     elif data.makeup_training is False:
-        makeup_str = "是否进行补课培训，□是 ☑否，未参加培训人员必须补上培训内容，（包括培训时间、地点、方式等）。"
+        makeup_str = "是否进行补课培训，□是  ☑否，未参加培训人员必须补上培训内容，（包括培训时间、地点、方式等）。"
     else:
-        makeup_str = "是否进行补课培训，□是 □否，未参加培训人员必须补上培训内容，（包括培训时间、地点、方式等）。"
-    ws["A10"] = f"缺席人员处理方式：\n{makeup_str}"
-    ws["A10"].font = Font(name="宋体", size=12)
-    ws["A10"].alignment = Alignment(horizontal="left", vertical="top", wrap_text=True)
-    ws["A10"].border = _cell_border()
-    ws.row_dimensions[10].height = 48
+        makeup_str = "是否进行补课培训，□是  □否，未参加培训人员必须补上培训内容，（包括培训时间、地点、方式等）。"
+    ws.cell(row=10, column=1).value = f"缺席人员处理方式：\n\n{makeup_str}\n"
 
-    # 考核方式
-    ws.merge_cells("A11:E11")
+    # 考核方式：row 11, col 2 (B11)，合并区域 B11:E11
     am = data.assessment_method or ""
     am_map = {
-        "笔试": "☑ 笔试    □ 口试   □ 实操   □ 写总结",
-        "口试": "□ 笔试    ☑ 口试   □ 实操   □ 写总结",
-        "实操": "□ 笔试    □ 口试   ☑ 实操   □ 写总结",
-        "写总结": "□ 笔试    □ 口试   □ 实操   ☑ 写总结",
+        "笔试": "☑ 笔试    □ 口试   □ 实操   □ 写总结  ",
+        "口试": "□ 笔试    ☑ 口试   □ 实操   □ 写总结  ",
+        "实操": "□ 笔试    □ 口试   ☑ 实操   □ 写总结  ",
+        "写总结": "□ 笔试    □ 口试   □ 实操   ☑ 写总结  ",
     }
-    am_str = am_map.get(am, "□ 笔试    □ 口试   □ 实操   □ 写总结")
-    ws["A11"] = f"考核方式：{am_str}"
-    ws["A11"].font = Font(name="宋体", size=12)
-    ws["A11"].alignment = _left_align()
-    ws["A11"].border = _cell_border()
-    ws.row_dimensions[11].height = 24
+    ws.cell(row=11, column=2).value = am_map.get(am, "□ 笔试    □ 口试   □ 实操   □ 写总结  ")
 
-    # 考核结果
-    ws.merge_cells("A12:E12")
+    # 考核结果：row 12, col 2 (B12)，合并区域 B12:E12
     p_cnt = data.pass_count if data.pass_count is not None else "___"
     f_cnt = data.fail_count if data.fail_count is not None else "___"
     ae_cnt = data.absent_exam_count if data.absent_exam_count is not None else "___"
-    ws["A12"] = f"考核结果：□合格 {p_cnt} 人；□不合格 {f_cnt} 人；缺考 {ae_cnt} 人。"
-    ws["A12"].font = Font(name="宋体", size=12)
-    ws["A12"].alignment = _left_align()
-    ws["A12"].border = _cell_border()
-    ws.row_dimensions[12].height = 24
+    ws.cell(row=12, column=2).value = f"合格 {p_cnt} 人；不合格 {f_cnt} 人；缺考 {ae_cnt} 人。"
 
-    # 缺考人员处理方式和原因
-    ws.merge_cells("A13:E13")
-    ws["A13"] = f"缺考人员处理方式和原因：{data.absent_exam_handling or ''}"
-    ws["A13"].font = Font(name="宋体", size=12)
-    ws["A13"].alignment = _left_align()
-    ws["A13"].border = _cell_border()
-    ws.row_dimensions[13].height = 36
+    # 缺考人员处理方式：row 13, col 1 (A13)，合并区域 A13:E13
+    ws.cell(row=13, column=1).value = f"缺考人员处理方式和原因：{data.absent_exam_handling or ''}"
 
-    # 综合评分
-    ws.merge_cells("A14:E14")
+    # 综合评分：row 14, col 2 (B14)，合并区域 B14:E14
     ex_cnt = data.excellent_count if data.excellent_count is not None else "___"
     q_cnt = data.qualified_count if data.qualified_count is not None else "___"
     uq_cnt = data.unqualified_count if data.unqualified_count is not None else "___"
-    ws["A14"] = f"综合评分：□优秀 {ex_cnt} 人；□合格 {q_cnt} 人；□不合格 {uq_cnt} 人。"
-    ws["A14"].font = Font(name="宋体", size=12)
-    ws["A14"].alignment = _left_align()
-    ws["A14"].border = _cell_border()
-    ws.row_dimensions[14].height = 24
+    ws.cell(row=14, column=2).value = f"优秀 {ex_cnt} 人；合格 {q_cnt} 人；不合格 {uq_cnt} 人。"
 
-    # 空行
-    ws.merge_cells("A15:E15")
-    ws["A15"] = ""
-    ws["A15"].border = _cell_border()
-    ws.row_dimensions[15].height = 24
+    # 缺考/不合格人员处理方式：row 15, col 1 (A15)，合并区域 A15:E15
+    ws.cell(row=15, column=1).value = "缺考/不合格人员处理方式："
 
-    # 培训效果评估及结论
-    ws.merge_cells("A16:E17")
-    conclusion = data.evaluation_conclusion or ""
-    ws["A16"] = f"培训效果评估及结论：\n{conclusion}"
-    ws["A16"].font = Font(name="宋体", size=12)
-    ws["A16"].alignment = Alignment(horizontal="left", vertical="top", wrap_text=True)
-    ws["A16"].border = _cell_border()
-    ws["A17"].border = _cell_border()
-    ws.row_dimensions[16].height = 24
-    ws.row_dimensions[17].height = 48
+    # 培训效果评估及结论：row 16, col 1 (A16)，合并区域 A16:E19
+    ws.cell(row=16, column=1).value = f"培训效果评估及结论：\n{data.evaluation_conclusion or ''}"
 
-    # 培训组织人/日期
-    ws.merge_cells("A18:E18")
-    org_date = ""
+    # 培训组织人/日期：row 20, col 1 (A20)，合并区域 A20:E20
+    org_str = ""
     if data.organizer:
-        org_date += data.organizer
+        org_str = f"                                          {data.organizer}"
     if data.organizer_date:
-        org_date += f" / {data.organizer_date.strftime('%Y.%m.%d')}"
-    ws["A18"] = f"培训组织人/日期：{org_date}"
-    ws["A18"].font = Font(name="宋体", size=12)
-    ws["A18"].alignment = _left_align()
-    ws["A18"].border = _cell_border()
-    ws.row_dimensions[18].height = 24
+        org_str += f" / {data.organizer_date.strftime('%Y.%m.%d')}"
+    ws.cell(row=20, column=1).value = f"培训组织人/日期：{org_str}"
 
-    # 备注
-    ws.merge_cells("A19:E20")
-    ws["A19"] = f"备注：\n{data.remarks or ''}"
-    ws["A19"].font = Font(name="宋体", size=12)
-    ws["A19"].alignment = Alignment(horizontal="left", vertical="top", wrap_text=True)
-    ws["A19"].border = _cell_border()
-    ws["A20"].border = _cell_border()
-    ws.row_dimensions[19].height = 24
-    ws.row_dimensions[20].height = 36
+    # 备注：row 21, col 1 (A21)，合并区域 A21:E21
+    ws.cell(row=21, column=1).value = f"备注：\n{data.remarks or ''}"
 
     buffer = BytesIO()
     wb.save(buffer)
@@ -344,53 +253,68 @@ def _generate_new(data: TrainingEvaluationInput) -> BytesIO:
 
     table = doc.tables[0]
 
-    # Row 0: 培训内容 (merged)
+    # Row 0: 培训内容（全行合并）→ 填入主题
     topic = data.subject or ""
-    if data.textbook:
-        topic += f" / {data.textbook}"
     _set_cell_format(table.rows[0].cells[0], f"培训内容：{topic}")
 
-    # Row 1: 培训日期 | value | 课时 | value
-    date_str = _fmt_date(data.training_date)
-    _set_cell_format(table.rows[1].cells[1], date_str)
-    hours_str = str(data.duration_hours) if data.duration_hours is not None else ""
-    _set_cell_format(table.rows[1].cells[3], hours_str)
+    # Row 1: 培训日期(col1) | 课时(col3)
+    _set_cell_format(table.rows[1].cells[1], _fmt_date(data.training_date))
+    _set_cell_format(table.rows[1].cells[3], str(data.duration_hours) if data.duration_hours is not None else "")
 
-    # Row 2: 培训方式 | value | 授课人 | value
+    # Row 2: 培训方式(col1 checkbox) | 授课人(col3)
     method_str = data.training_method or ""
     _set_cell_format(table.rows[2].cells[1], method_str)
-    trainer_str = data.trainer or ""
-    _set_cell_format(table.rows[2].cells[3], trainer_str)
+    _set_cell_format(table.rows[2].cells[3], data.trainer or "")
 
-    # Row 3: 培训教材 (merged)
-    textbook_str = data.textbook or ""
-    _set_cell_format(table.rows[3].cells[0], f"培训教材：{textbook_str}")
+    # Row 3: 培训教材 → 填入右边的格子里
+    _set_cell_format(table.rows[3].cells[1], data.subject or "")
 
-    # Row 4: 培训对象 (merged)
-    dept_str = data.department_personnel or ""
-    _set_cell_format(table.rows[4].cells[0], f"培训对象：{dept_str}")
+    # Row 4: 培训对象 → 部门/班组/人员
+    _set_cell_format(table.rows[4].cells[1], f"部门/班组/人员：{data.textbook or ''}")
 
-    # Row 5: 应到/实到/缺席 (merged)
+    # Row 5: 培训对象 → 应到/实到/缺席
     expected = data.expected_count if data.expected_count is not None else ""
     actual = data.actual_count if data.actual_count is not None else ""
     absent = data.absent_count if data.absent_count is not None else ""
     _set_cell_format(table.rows[5].cells[1], f"应到：{expected} 人， 实到：{actual} 人， 缺席：{absent} 人。")
 
-    # Row 7: 考核方式 (merged)
+    # Row 6: 缺席人员处理方式（全行合并）
+    makeup_str = ""
+    if data.makeup_training is True:
+        makeup_str = "是否进行再培训 ☑否  □是 （若再培训，请填写以下资料）\n再培训（时间、地点、方式等）："
+    elif data.makeup_training is False:
+        makeup_str = "是否进行再培训 □否  ☑是 （若再培训，请填写以下资料）\n再培训（时间、地点、方式等）："
+    else:
+        makeup_str = "是否进行再培训 □否  □是 （若再培训，请填写以下资料）\n再培训（时间、地点、方式等）："
+    _set_cell_format(table.rows[6].cells[0], f"缺席人员处理方式：\n\n{makeup_str}")
+
+    # Row 7: 考核方式（cols1-3合并）
     am = data.assessment_method or ""
     _set_cell_format(table.rows[7].cells[1], am)
 
-    # Row 8: 考核结果 (merged)
+    # Row 8: 考核结果（cols1-3合并）
     p_cnt = data.pass_count if data.pass_count is not None else ""
     f_cnt = data.fail_count if data.fail_count is not None else ""
     ae_cnt = data.absent_exam_count if data.absent_exam_count is not None else ""
     _set_cell_format(table.rows[8].cells[1], f"合格：{p_cnt} 人；不合格：{f_cnt} 人；缺考：{ae_cnt} 人。")
 
-    # Row 12: 培训效果评估 (merged)
+    # Row 9: 缺考及不合格人员处理方式（全行合并）
+    _set_cell_format(table.rows[9].cells[0], f"缺考及不合格人员处理方式：{data.absent_exam_handling or ''}")
+
+    # Row 10: 补考结果（cols1-3合并）
+    _set_cell_format(table.rows[10].cells[1], f"补考：    人；合格：    人；不合格：    人。")
+
+    # Row 11: 缺考及补考不合格人员处理方式（全行合并）
+    _set_cell_format(table.rows[11].cells[0], "缺考及补考不合格人员处理方式：")
+
+    # Row 12: 培训效果评估及其他（全行合并，多行）
     conclusion = data.evaluation_conclusion or ""
     organizer = data.organizer or ""
     org_date = _fmt_date(data.organizer_date)
-    _set_cell_format(table.rows[12].cells[0], f"培训效果评估及其他：\n{conclusion}\n\n培训考核人/日期：{organizer} / {org_date}")
+    _set_cell_format(table.rows[12].cells[0], f"培训效果评估及其他：\n{conclusion}\n\n\n\n\n\n\n\n\n\n培训考核人/日期：{organizer} / {org_date}")
+
+    # Row 13: 其他（全行合并）
+    _set_cell_format(table.rows[13].cells[0], f"其他：{data.remarks or ''}")
 
     buffer = BytesIO()
     doc.save(buffer)

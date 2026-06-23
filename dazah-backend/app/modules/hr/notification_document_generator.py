@@ -22,19 +22,27 @@ class TrainingNotificationInput(BaseModel):
     issue_date: date | None = None
 
 
-def _find_template() -> Path:
+def _find_template(factory: str = "old") -> Path:
     """Locate the docx template, trying several path candidates."""
-    candidates = [
-        Path("员工培训教育管理规程/SOP-GN-2002 Q 培训通知.docx"),
-        Path("../员工培训教育管理规程/SOP-GN-2002 Q 培训通知.docx"),
-        Path(__file__).resolve().parent.parent.parent.parent
-        / "员工培训教育管理规程"
-        / "SOP-GN-2002 Q 培训通知.docx",
-    ]
-    for p in candidates:
-        if p.exists():
-            return p
-    raise FileNotFoundError("模板文件未找到: SOP-GN-2002 Q 培训通知.docx")
+    base = Path(__file__).resolve().parent.parent.parent.parent
+    if factory == "new":
+        names = ["SOP-GN-2002 Q 培训通知.docx"]
+        dirs = ["新厂人员培训管理规程"]
+    else:
+        names = ["培训通知.docx"]
+        dirs = ["员工培训教育管理规程"]
+
+    for name in names:
+        for dir_name in dirs:
+            candidates = [
+                Path(dir_name) / name,
+                Path("..") / dir_name / name,
+                base / dir_name / name,
+            ]
+            for p in candidates:
+                if p.exists():
+                    return p
+    raise FileNotFoundError(f"模板文件未找到: {names[0]}")
 
 
 def _find_underlined_groups(paragraph) -> list[list[int]]:
@@ -61,7 +69,10 @@ def _remove_empty_space_runs(paragraph) -> None:
 
 
 def _fill_first_underlined_run(paragraph, text: str) -> None:
-    """在下划线区域填入内容：写入第一个下划线 run，删除其余下划线 runs 及多余空格 run."""
+    """在下划线区域填入内容：写入第一个下划线 run，删除其余下划线 runs 及多余空格 run。
+
+    下划线只延长不缩短：若填入文字短于原模板下划线长度，用空格补齐。
+    """
     underlined = [r for r in paragraph.runs if r.font.underline]
     if not underlined:
         if not paragraph.runs:
@@ -73,9 +84,13 @@ def _fill_first_underlined_run(paragraph, text: str) -> None:
         return
 
     first = underlined[0]
-    # 如果原 run 以空格开头，保留一个空格前缀让排版自然
-    prefix = " " if first.text and first.text.startswith(" ") else ""
-    first.text = prefix + (text or "")
+    # 计算原模板下划线最小长度（第一个下划线 run 的字符数，含首部空格）
+    original_len = len(first.text) if first.text else 0
+    content = (text or "")
+    # 文字短于原下划线长度时用空格补齐，保证下划线只延长不缩短
+    if len(content) < original_len:
+        content = content.ljust(original_len)
+    first.text = content
     first.font.underline = True
 
     # 删除其余下划线 runs
@@ -86,9 +101,9 @@ def _fill_first_underlined_run(paragraph, text: str) -> None:
     _remove_empty_space_runs(paragraph)
 
 
-def generate_training_notification(data: TrainingNotificationInput) -> BytesIO:
+def generate_training_notification(data: TrainingNotificationInput, factory: str = "old") -> BytesIO:
     """根据填写的培训信息生成培训通知 Word 文档."""
-    template_path = _find_template()
+    template_path = _find_template(factory)
     doc = Document(str(template_path))
 
     # ── P2: 部门 将于 年 月 日 举行 主题 的培训 ──
